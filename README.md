@@ -1,0 +1,50 @@
+# TechHub - Portal de Tecnologia
+
+Bem-vindo ao **TechHub**, o seu portal completo de tecnologia! 🚀  
+Aqui você encontra as últimas novidades, tutoriais, reviews, dicas de segurança e muito mais. Este projeto foi desenvolvido para oferecer uma experiência moderna, responsiva e interativa para os amantes de tecnologia.
+
+---
+
+## 🌟 Funcionalidades
+
+- **Página Inicial**: Destaque para as principais categorias e um banner interativo.
+- **Categorias**:
+  - Tecnologia
+  - Software
+  - Desenvolvimento
+  - Notícias
+  - Guias e Reviews
+- **Posts**: Conteúdo detalhado sobre temas como:
+  - Boas Práticas no Desenvolvimento
+  - Sistemas Operacionais
+  - Segurança e Privacidade
+- **Newsletter**: Assine para receber atualizações exclusivas.
+- **Swiper.js**: Slider interativo para navegação entre categorias.
+- **Modal**: Exibição de informações adicionais ao clicar nas categorias.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **HTML5**: Estrutura semântica e moderna.
+- **CSS3**: Estilização responsiva e design atraente.
+- **JavaScript**: Funcionalidades dinâmicas e interatividade.
+- **Swiper.js**: Biblioteca para sliders.
+- **GitHub Pages**: Hospedagem do site (se aplicável).
+
+---
+
+## 📂 Estrutura do Projeto
+
+```plaintext
+.
+├── [index.html](http://_vscodecontentref_/0)                # Página inicial
+├── css/
+│   └── style.css             # Estilos principais
+├── js/
+│   └── script.js             # Scripts para interatividade
+├── posts/                    # Diretório de posts
+│   ├── boas-praticas.html    # Post sobre Boas Práticas
+│   ├── sistemas-operacionais.html # Post sobre Sistemas Operacionais
+│   └── seguranca-e-privacidade.html # Post sobre Segurança e Privacidade
+└── assets/                   # Imagens e outros recursos
