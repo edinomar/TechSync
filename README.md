@@ -38,21 +38,21 @@ Aqui você encontra as últimas novidades, tutoriais, reviews, dicas de seguran�
 
 ```plaintext
 site/
-├── index.html                # Página inicial
-├── politica-de-privacidade.html # Política de Privacidade
+├── index.html                
+├── politica-de-privacidade.html 
 ├── css/
-│   └── style.css             # Estilos principais
+│   └── style.css            
 ├── js/
-│   ├── script.js             # Scripts gerais
-│   ├── modal.js              # Scripts para modais (opcional)
-│   └── swiper-config.js      # Configuração do Swiper.js (opcional)
+│   ├── script.js           
+│   ├── modal.js             
+│   └── swiper-config.js     
 ├── images/
-│   ├── posts/                # Imagens específicas para posts
-│   └── layout/               # Imagens do layout geral
+│   ├── posts/               
+│   └── layout/              
 ├── posts/
-│   ├── boas-praticas.html    # Post sobre Boas Práticas
-│   ├── sistemas-operacionais.html # Post sobre Sistemas Operacionais
-│   └── seguranca-e-privacidade.html # Post sobre Segurança e Privacidade
-├── docs/                    # Documentos legais
+│   ├── boas-praticas.html   
+│   ├── sistemas-operacionais.html
+│   └── seguranca-e-privacidade.html 
+├── docs/                  
 │   └── politica-de-privacidade.html
-└── README.md                 # Descrição do projeto
+└── README.md                
