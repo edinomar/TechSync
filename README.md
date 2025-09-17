@@ -37,14 +37,22 @@ Aqui você encontra as últimas novidades, tutoriais, reviews, dicas de seguran�
 ## 📂 Estrutura do Projeto
 
 ```plaintext
-.
-├── [index.html](http://_vscodecontentref_/0)                # Página inicial
+site/
+├── index.html                # Página inicial
+├── politica-de-privacidade.html # Política de Privacidade
 ├── css/
 │   └── style.css             # Estilos principais
 ├── js/
-│   └── script.js             # Scripts para interatividade
-├── posts/                    # Diretório de posts
+│   ├── script.js             # Scripts gerais
+│   ├── modal.js              # Scripts para modais (opcional)
+│   └── swiper-config.js      # Configuração do Swiper.js (opcional)
+├── images/
+│   ├── posts/                # Imagens específicas para posts
+│   └── layout/               # Imagens do layout geral
+├── posts/
 │   ├── boas-praticas.html    # Post sobre Boas Práticas
 │   ├── sistemas-operacionais.html # Post sobre Sistemas Operacionais
 │   └── seguranca-e-privacidade.html # Post sobre Segurança e Privacidade
-└── assets/                   # Imagens e outros recursos
+├── docs/                    # Documentos legais
+│   └── politica-de-privacidade.html
+└── README.md                 # Descrição do projeto
