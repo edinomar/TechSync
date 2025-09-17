@@ -85,7 +85,7 @@ body {
 .hero-banner {
     background: linear-gradient(45deg, #2196F3, #21CBF3);
     color: white;
-    padding: 4rem 0;
+    padding: 0 0 4rem 0;
     text-align: center;
     margin-bottom: 3rem;
 }
@@ -196,7 +196,7 @@ body {
     color: white;
     padding: 3rem 0;
     text-align: center;
-    margin: 4rem 0;
+    margin-top: 0.9rem;
 }
 
 .newsletter-form {
@@ -399,8 +399,6 @@ body {
     animation-delay: 0.5s;
 }
 
-
-
 .category-card {
     background: #fff;
     border-radius: 15px;
@@ -410,7 +408,17 @@ body {
 
 .categories-swiper {
     padding: 10px 0;
+}
 
+.categories-swiper .swiper-pagination {
+    position: static !important;
+}
+
+@media (max-width: 768px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none !important;
+    }
 }
 
 .spacer {
@@ -424,12 +432,12 @@ body {
 }
 
 .align-right {
-    text-align: right; 
-    margin-right: 0; 
+    text-align: right;
+    margin-right: 0;
 }
 
 .footer-container {
     display: flex;
-    justify-content: space-between; 
-    align-items: center; 
+    justify-content: space-between;
+    align-items: center;
 }

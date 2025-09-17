@@ -32,24 +32,34 @@
 
     <!-- Banner Principal -->
     <section class="hero-banner" id="home">
+
         <div class="container">
+            <!-- anuncio-hero-banner -->
+            <script async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+                crossorigin="anonymous"></script>
+            <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
+                data-ad-client="ca-pub-9409384061040545" data-ad-slot="3169850862"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
             <div class="banner-content">
                 <h1 class="banner-title">Bem-vindo ao TechHub</h1>
                 <p class="banner-subtitle">Seu portal completo de tecnologia, com as últimas novidades, reviews,
                     tutoriais e muito mais!</p>
-                <a href="#categories" class="cta-button">Explorar Conteúdo</a>
+                <!--<a href="#categories" class="cta-button">Explorar Conteúdo</a>-->
             </div>
         </div>
     </section>
 
     <!-- Categorias Principais -->
     <div class="swiper categories-swiper">
+
         <div class="swiper-wrapper">
-            <!-- Cada category-card vira um swiper-slide -->
             <div class="swiper-slide category-card" onclick="openModal('tecnologia')">
                 <span class="category-icon">💻</span>
                 <h3 class="category-title">Tecnologia</h3>
-                <p class="category-description">Descubra as últimas novidades em hardware e gadgets</p>
+                <p class="category-description">As últimas novidades em hardware e gadgets</p>
                 <ul class="subcategories">
                     <li>Notebooks e PCs</li>
                     <li>Smartphones</li>
@@ -58,16 +68,30 @@
                 </ul>
             </div>
 
-            <div class="swiper-slide category-card" onclick="openModal('software')">
-                <span class="category-icon">⚡</span>
-                <h3 class="category-title">Software</h3>
-                <p class="category-description">Explore aplicativos, sistemas e ferramentas digitais</p>
-                <ul class="subcategories">
-                    <li>Sistemas Operacionais</li>
-                    <li>Aplicativos</li>
-                    <li>Ferramentas de Desenvolvimento</li>
-                    <li>Segurança e Privacidade</li>
-                </ul>
+            <div class="swiper-slide category-card">
+                <a href="categories/software.html" style="text-decoration:none; color:inherit;">
+                    <span class="category-icon">⚡</span>
+                    <h3 class="category-title">Software</h3>
+                    <p class="category-description">Explore aplicativos, sistemas e ferramentas digitais</p>
+                    <ul class="subcategories">
+                        <li>Sistemas Operacionais</li>
+                        <li>Aplicativos</li>
+                        <li>Ferramentas de Desenvolvimento</li>
+                        <li>Segurança e Privacidade</li>
+                    </ul>
+                </a>
+            </div>
+
+            <!-- anuncio-category-card -->
+            <div class="swiper-slide category-card">
+                <script async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+                    crossorigin="anonymous"></script>
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9409384061040545"
+                    data-ad-slot="1253261822" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
 
             <div class="swiper-slide category-card" onclick="openModal('desenvolvimento')">
@@ -103,6 +127,18 @@
                     <li>Análises Detalhadas</li>
                     <li>Guias de Compra</li>
                     <li>Dicas e Truques</li>
+                </ul>
+            </div>
+
+            <div class="swiper-slide category-card" onclick="openModal('inovacao')">
+                <span class="category-icon">🌐</span>
+                <h3 class="category-title">Inovação & Tendências</h3>
+                <p class="category-description">Descubra as tecnologias emergentes e o futuro do setor</p>
+                <ul class="subcategories">
+                    <li>Inteligência Artificial</li>
+                    <li>Internet das Coisas (IoT)</li>
+                    <li>Realidade Aumentada e Virtual</li>
+                    <li>Startups & Novos Negócios</li>
                 </ul>
             </div>
         </div>

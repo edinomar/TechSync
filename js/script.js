@@ -156,21 +156,26 @@ document.querySelectorAll('.category-card').forEach(card => {
 });
 
 
-const swiper = new Swiper('.categories-swiper', {
-  slidesPerView: 3,      // agora sempre tenta mostrar 3 cards
-  spaceBetween: 20,       // espaço entre os cards
-  loop: false,
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  breakpoints: {
-    1024: { slidesPerView: 3 }, // desktop
-    768:  { slidesPerView: 2 }, // tablets
-    0:    { slidesPerView: 1 }, // mobile
-  },
+document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.categories-swiper', {
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        slidesPerView: 1,
+        spaceBetween: 20,
+        breakpoints: {
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            }
+        }
+    });
 });
