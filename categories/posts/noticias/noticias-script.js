@@ -39,7 +39,7 @@ const newsData = [
         excerpt: "Descubra as principais tendências do mercado de criptomoedas e os avanços da tecnologia blockchain que estão moldando o futuro das finanças digitais.",
         category: "tendencias",
         icon: "💰",
-        img:"/images/blockchain-e-criptomoedas.png",
+        img:"/images/blockchain-e-criptomoedas.jpg",
         date: "2025-10-07",
         readTime: "10 min",
         link:"/categories/posts/noticias/blockchain-e-criptomoedas.html"
