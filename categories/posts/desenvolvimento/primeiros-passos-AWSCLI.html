@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-NFY6RYBJZJ');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+    <title>Primeiros Passos com AWS CLI: Tutorial Completo - TechSync</title>
+    
+    <!-- Autor -->
+    <meta name="author" content="TechSync">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+
+    <!-- Cor do tema -->
+    <meta name="theme-color" content="#667eea">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style-img.css">
+    <link rel="stylesheet" href="/categories/posts/desenvolvimento/css/style-ferramentas-dev.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="description"
+        content="Tutorial completo para instalar, configurar e usar a AWS CLI. Aprenda comandos essenciais para gerenciar recursos da Amazon Web Services.">
+
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+            <a href="/"><i class="fas fa-home"></i> Início</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <a href="/categories/desenvolvimento.html"><i class="fas fa-rocket"></i> Desenvolvimento</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span>Primeiros Passos com AWS CLI</span>
+        </nav>
+    </div>
+
+    <!-- Post Content -->
+    <main class="post-content">
+        <div class="container">
+            <article>
+                <!-- Seção principal -->
+                <section class="article-content" style="margin-top: 1rem;">
+                    <!--Titulo e Banner-->
+                    <section style="margin-top: 1rem;">
+                        <img src="/images/aws-cli-tutorial.png" alt="Primeiros Passos com AWS CLI - Tutorial Completo"
+                            class="featured-image wide-image" loading="lazy">
+                        <h1 class="post-title visually-hidden">🌍 Primeiros Passos com AWS CLI: Tutorial Completo</h1>
+                        <p class="review-meta"><small>Publicado em 20/09/2025 — Tempo de leitura: 10 min</small></p>
+                    </section>
+
+                    <!-- Introdução -->
+                    <section class="review-section">
+                        <h2>🌍 Introdução à AWS CLI</h2>
+                        <p>
+                            A AWS Command Line Interface (CLI) é uma ferramenta unificada que permite gerenciar seus
+                            serviços da Amazon Web Services através de linhas de comando. Com ela, você pode controlar
+                            múltiplos serviços AWS de forma eficiente, automatizar tarefas repetitivas e integrar
+                            operações em scripts personalizados.
+                        </p>
+                        <p>
+                            Este tutorial completo vai guiá-lo desde a instalação até os comandos essenciais para começar
+                            a trabalhar com a AWS CLI. Você aprenderá a configurar suas credenciais, executar comandos
+                            básicos e implementar boas práticas de segurança.
+                        </p>
+                    </section>
+
+                    <!-- Índice -->
+                    <section class="review-section"
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <h2 style="color: white;">📑 Índice do Tutorial</h2>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div>
+                                <strong>1. Instalação</strong>
+                                <ul style="padding-left: 1rem;">
+                                    <li>Windows</li>
+                                    <li>macOS</li>
+                                    <li>Linux</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>2. Configuração</strong>
+                                <ul style="padding-left: 1rem;">
+                                    <li>Credenciais AWS</li>
+                                    <li>Configuração inicial</li>
+                                    <li>Perfis múltiplos</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>3. Comandos Básicos</strong>
+                                <ul style="padding-left: 1rem;">
+                                    <li>S3 Operations</li>
+                                    <li>EC2 Management</li>
+                                    <li>IAM Commands</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>4. Boas Práticas</strong>
+                                <ul style="padding-left: 1rem;">
+                                    <li>Segurança</li>
+                                    <li>Automação</li>
+                                    <li>Troubleshooting</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Pré-requisitos -->
+                    <section class="review-section">
+                        <h2 style="margin-bottom: 0;">📋 Pré-requisitos</h2>
+                        <div class="checklist">
+                            <h3>Antes de começar, certifique-se de ter:</h3>
+                            <ul>
+                                <li>Uma conta ativa na AWS</li>
+                                <li>Acesso ao AWS Management Console</li>
+                                <li>Permissões administrativas no seu sistema operacional</li>
+                                <li>Conhecimentos básicos de linha de comando</li>
+                                <li>Python 3.7 ou superior instalado (recomendado)</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box">
+                            <strong>⚠️ Atenção:</strong> Nunca compartilhe suas credenciais AWS ou as armazene em
+                            repositórios públicos. Sempre use as melhores práticas de segurança.
+                        </div>
+                    </section>
+
+                    <!-- Instalação -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">1</span>Instalação da AWS CLI</h2>
+
+                        <p>A AWS CLI pode ser instalada em diversos sistemas operacionais. Escolha o método apropriado
+                            para sua plataforma:</p>
+
+                        <div class="installation-grid">
+                            <div class="os-card">
+                                <h3> 🪟 Windows</h3>
+                                <p>Baixe o instalador MSI oficial</p>
+                                <div class="command-block">
+                                    <div class="comment"># Baixar e executar o instalador</div>
+                                    <div>https://awscli.amazonaws.com/AWSCLIV2.msi</div>
+                                </div>
+                            </div>
+
+                            <div class="os-card">
+                                <h3>🍎 macOS</h3>
+                                <p>Use Homebrew ou instalador PKG</p>
+                                <div class="command-block">
+                                    <div class="comment"># Via Homebrew</div>
+                                    <div>brew install awscli</div>
+                                    <br>
+                                    <div class="comment"># Ou baixar PKG</div>
+                                    <div>curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"</div>
+                                    <div>sudo installer -pkg AWSCLIV2.pkg -target /</div>
+                                </div>
+                            </div>
+
+                            <div class="os-card">
+                                <h3>🐧 Linux</h3>
+                                <p>Script de instalação universal</p>
+                                <div class="command-block">
+                                    <div class="comment"># Download e instalação</div>
+                                    <div>curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o
+                                        "awscliv2.zip"</div>
+                                    <div>unzip awscliv2.zip</div>
+                                    <div>sudo ./aws/install</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Verificando a Instalação</h3>
+                        <p>Após a instalação, verifique se a AWS CLI está funcionando corretamente:</p>
+
+                        <div class="command-block">
+                            <div class="comment"># Verificar versão instalada</div>
+                            <div>aws --version</div>
+                            <br>
+                            <div class="comment"># Saída esperada:</div>
+                            <div style="color: #2ecc71;">aws-cli/2.13.25 Python/3.11.5 Linux/5.15.0 exe/x86_64.ubuntu.22
+                                prompt/off</div>
+                        </div>
+
+                        <div class="success-box">
+                            <strong>✅ Sucesso!</strong> Se você viu uma saída similar, a AWS CLI foi instalada
+                            corretamente.
+                        </div>
+                    </section>
+
+                    <!-- Configuração -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">2</span>Configuração Inicial</h2>
+
+                        <h3>🔑 Obtendo Credenciais AWS</h3>
+                        <p>Antes de configurar a CLI, você precisa obter suas credenciais de acesso:</p>
+
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                            <h4>Passos no AWS Console:</h4>
+                            <ol style="padding-left: 2rem; line-height: 1.8;">
+                                <li>Acesse o AWS Management Console</li>
+                                <li>Vá para <strong>IAM</strong> → <strong>Users</strong></li>
+                                <li>Selecione seu usuário ou crie um novo</li>
+                                <li>Clique em <strong>Security credentials</strong></li>
+                                <li>Clique em <strong>Create access key</strong></li>
+                                <li>Selecione <strong>Command Line Interface (CLI)</strong></li>
+                                <li>Baixe o arquivo CSV ou anote as credenciais</li>
+                            </ol>
+                        </div>
+
+                        <h3>⚙️ Configurando a AWS CLI</h3>
+                        <p>Use o comando <code>aws configure</code> para configurar suas credenciais:</p>
+
+                        <div class="command-block">
+                            <div class="comment"># Iniciar configuração interativa</div>
+                            <div>aws configure</div>
+                            <br>
+                            <div class="comment"># Você será solicitado a inserir:</div>
+                            <div style="color: #f39c12;">AWS Access Key ID [None]: </div>AKIAIOSFODNN7EXAMPLE
+                            <div style="color: #f39c12;">AWS Secret Access Key [None]: </div>
+                            wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+                            <div style="color: #f39c12;">Default region name [None]: </div>us-east-1
+                            <div style="color: #f39c12;">Default output format [None]: </div>json
+                        </div>
+
+                        <h3 style="margin-top: 2rem;">🎯 Configuração de Múltiplos Perfis</h3>
+                        <p>Para gerenciar múltiplas contas ou ambientes, use perfis nomeados:</p>
+
+                        <div class="command-block">
+                            <div class="comment"># Criar perfil para desenvolvimento</div>
+                            <div>aws configure --profile dev</div>
+                            <br>
+                            <div class="comment"># Criar perfil para produção</div>
+                            <div>aws configure --profile prod</div>
+                            <br>
+                            <div class="comment"># Usar um perfil específico</div>
+                            <div>aws s3 ls --profile dev</div>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>💡 Dica:</strong> Os arquivos de configuração ficam armazenados em
+                            <code>~/.aws/credentials</code> e <code>~/.aws/config</code>. Você pode editá-los
+                            diretamente se necessário.
+                        </div>
+                    </section>
+
+                    <!-- Comandos Básicos -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">3</span>Comandos Essenciais</h2>
+
+                        <h3>📦 Amazon S3 Operations</h3>
+                        <p>O S3 é frequentemente o primeiro serviço usado com a AWS CLI:</p>
+
+                        <div class="command-block">
+                            <div class="comment"># Listar todos os buckets</div>
+                            <div>aws s3 ls</div>
+                            <br>
+                            <div class="comment"># Criar um novo bucket</div>
+                            <div>aws s3 mb s3://meu-bucket-exemplo</div>
+                            <br>
+                            <div class="comment"># Upload de arquivo</div>
+                            <div>aws s3 cp arquivo.txt s3://meu-bucket-exemplo/</div>
+                            <br>
+                            <div class="comment"># Download de arquivo</div>
+                            <div>aws s3 cp s3://meu-bucket-exemplo/arquivo.txt ./</div>
+                            <br>
+                            <div class="comment"># Sincronizar diretório</div>
+                            <div>aws s3 sync ./minha-pasta s3://meu-bucket-exemplo/pasta/</div>
+                            <br>
+                            <div class="comment"># Remover arquivo</div>
+                            <div>aws s3 rm s3://meu-bucket-exemplo/arquivo.txt</div>
+                        </div>
+
+                        <h3 style="margin-top: 2rem;">🖥️ Amazon EC2 Management</h3>
+                        <p>Gerenciar instâncias EC2 através da linha de comando:</p>
+
+                        <div class="command-block">
+                            <div class="comment"># Listar instâncias</div>
+                            <div>aws ec2 describe-instances</div>
+                            <br>
+                            <div class="comment"># Listar apenas IDs das instâncias em execução</div>
+                            <div>aws ec2 describe-instances \</div>
+                            <div>  --query 'Reservations[*].Instances[*].InstanceId' \</div>
+                            <div>  --filters "Name=instance-state-name,Values=running" \</div>
+                            <div>  --output table</div>
+                            <br>
+                            <div class="comment"># Iniciar instância</div>
+                            <div>aws ec2 start-instances --instance-ids i-1234567890abcdef0</div>
+                            <br>
+                            <div class="comment"># Parar instância</div>
+                            <div>aws ec2 stop-instances --instance-ids i-1234567890abcdef0</div>
+                        </div>
+
+                        <h3 style="margin-top: 2rem;">👤 IAM (Identity and Access Management)</h3>
+                        <p>Gerenciar usuários, grupos e políticas:</p>
+
+                        <div class="command-block">
+                            <div class="comment"># Listar usuários</div>
+                            <div>aws iam list-users</div>
+                            <br>
+                            <div class="comment"># Criar usuário</div>
+                            <div>aws iam create-user --user-name novo-usuario</div>
+                            <br>
+                            <div class="comment"># Listar políticas anexadas a um usuário</div>
+                            <div>aws iam list-attached-user-policies --user-name meu-usuario</div>
+                            <br>
+                            <div class="comment"># Verificar informações da conta atual</div>
+                            <div>aws sts get-caller-identity</div>
+                        </div>
+
+                        <h3 style="margin-top: 2rem;">🔍 Comandos de Ajuda e Documentação</h3>
+                        <div class="command-block">
+                            <div class="comment"># Ajuda geral</div>
+                            <div>aws help</div>
+                            <br>
+                            <div class="comment"># Ajuda para um serviço específico</div>
+                            <div>aws s3 help</div>
+                            <br>
+                            <div class="comment"># Ajuda para um comando específico</div>
+                            <div>aws s3 cp help</div>
+                        </div>
+                    </section>
+
+                    <!-- Boas Práticas -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">4</span>Boas Práticas e Segurança</h2>
+
+                        <h3>🔐 Segurança de Credenciais</h3>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                            <div
+                                style="background: #e8f5e8; border: 1px solid #c3e6c3; padding: 1rem; border-radius: 8px;">
+                                <h4 style="color: #2e7d2e; margin-bottom: 0.5rem;">✅ Faça</h4>
+                                <ul
+                                    style="color: #2e7d2e; line-height: 1.6; margin: 0; padding-left: 1.5rem; font-size: 0.9rem;">
+                                    <li>Use perfis nomeados para diferentes ambientes</li>
+                                    <li>Configure MFA para usuários IAM</li>
+                                    <li>Rotacione access keys regularmente</li>
+                                    <li>Use roles IAM quando possível</li>
+                                    <li>Defina políticas com menor privilégio</li>
+                                </ul>
+                            </div>
+
+                            <div
+                                style="background: #ffeaea; border: 1px solid #f5b5b5; padding: 1rem; border-radius: 8px;">
+                                <h4 style="color: #c53030; margin-bottom: 0.5rem;">❌ Evite</h4>
+                                <ul
+                                    style="color: #c53030; line-height: 1.6; margin: 0; padding-left: 1.5rem; font-size: 0.9rem;">
+                                    <li>Compartilhar credenciais em repositórios</li>
+                                    <li>Usar access keys do root account</li>
+                                    <li>Hardcoding de credenciais no código</li>
+                                    <li>Usar políticas muito permissivas</li>
+                                    <li>Ignorar alertas de segurança</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 2rem;">🤖 Automatização e Scripts</h3>
+                        <p>Exemplos de como integrar a AWS CLI em scripts:</p>
+
+                        <div class="command-block">
+                            <div class="comment"># Script bash para backup de S3</div>
+                            <div style="color: #e67e22;">#!/bin/bash</div>
+                            <div>BUCKET_NAME="meu-backup-bucket"</div>
+                            <div>DATE=$(date +%Y-%m-%d)</div>
+                            <div>aws s3 sync ./dados s3://$BUCKET_NAME/backup-$DATE/</div>
+                            <br>
+                            <div class="comment"># Verificar se o comando foi bem-sucedido</div>
+                            <div style="color: #3498db;">if</div> [ $? -eq 0 ]; <div style="color: #3498db;">then</div>
+                            <div>    echo "Backup realizado com sucesso!"</div>
+                            <div style="color: #3498db;">else</div>
+                            <div>    echo "Erro no backup!"</div>
+                            <div style="color: #3498db;">fi</div>
+                        </div>
+
+                        <h3 style="margin-top: 2rem;">🐛 Troubleshooting Comum</h3>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                            <h4>Problemas Frequentes e Soluções:</h4>
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                                <tr style="background: #e9ecef;">
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem; text-align: left;">Problema
+                                    </th>
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem; text-align: left;">Solução
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Credenciais não encontradas
+                                    </td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Execute <code>aws
+                                            configure</code></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Access Denied</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Verifique permissões IAM
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Região incorreta</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Use <code>--region</code>
+                                        ou configure default</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Comando não encontrado</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Reinstale AWS CLI ou
+                                        verifique PATH</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Próximos Passos -->
+                    <section class="review-section">
+                        <h2>🚀 Próximos Passos</h2>
+                        <p>Agora que você domina os fundamentos da AWS CLI, considere explorar:</p>
+
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 1rem 0;">
+                            <div
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 10px;">
+                                <h3 style="color: white; margin-bottom: 1rem;">📚 Aprofundar Conhecimentos</h3>
+                                <ul style="line-height: 1.8; margin: 0; padding-left: 1.5rem; font-size: 0.9rem;">
+                                    <li>AWS CloudFormation CLI</li>
+                                    <li>AWS CDK (Cloud Development Kit)</li>
+                                    <li>Terraform para AWS</li>
+                                    <li>Scripts de automação avançados</li>
+                                </ul>
+                            </div>
+
+                            <div
+                                style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 1.5rem; border-radius: 10px;">
+                                <h3 style="color: white; margin-bottom: 1rem;">🛠️ Ferramentas Complementares</h3>
+                                <ul style="line-height: 1.8; margin: 0; padding-left: 1.5rem; font-size: 0.9rem;">
+                                    <li>AWS Shell (aws-shell)</li>
+                                    <li>AWS CLI v2 sessions</li>
+                                    <li>AWS SDK para sua linguagem</li>
+                                    <li>Integração com CI/CD pipelines</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Recursos Úteis -->
+                    <section class="review-section">
+                        <h2>📚 Recursos Úteis e Documentação</h2>
+
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+                            <div>
+                                <h4>📖 Documentação Oficial</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem;">
+                                    <li><a href="https://docs.aws.amazon.com/cli/" target="_blank">AWS CLI User Guide</a></li>
+                                    <li><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/index.html" target="_blank">Command Reference</a></li>
+                                    <li><a href="https://aws.amazon.com/cli/" target="_blank">AWS CLI Homepage</a></li>
+                                    <li><a href="https://github.com/aws/aws-cli" target="_blank">GitHub Repository</a></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4>🎓 Treinamentos</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem;">
+                                    <li><a href="https://aws.amazon.com/training/" target="_blank">AWS Training</a></li>
+                                    <li><a href="https://www.aws.training/learningobject/curriculum?id=27076" target="_blank">CLI Fundamentals</a></li>
+                                    <li><a href="https://cloudacademy.com/course/introduction-aws-command-line-interface/" target="_blank">Cloud Academy</a></li>
+                                    <li><a href="https://acloudguru.com/course/aws-cli-fundamentals" target="_blank">A Cloud Guru</a></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4>🛠️ Ferramentas</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem;">
+                                    <li><a href="https://github.com/awslabs/aws-shell" target="_blank">AWS Shell</a></li>
+                                    <li><a href="https://github.com/donnemartin/awesome-aws" target="_blank">Awesome AWS</a></li>
+                                    <li><a href="https://github.com/wallix/awless" target="_blank">Awless CLI</a></li>
+                                    <li><a href="https://stedolan.github.io/jq/" target="_blank">jq (JSON processor)</a></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4>👥 Comunidade</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem;">
+                                    <li><a href="https://repost.aws/" target="_blank">AWS re:Post</a></li>
+                                    <li><a href="https://stackoverflow.com/questions/tagged/aws-cli" target="_blank">Stack Overflow</a></li>
+                                    <li><a href="https://www.reddit.com/r/aws/" target="_blank">Reddit r/aws</a></li>
+                                    <li><a href="https://aws.amazon.com/blogs/developer/category/developer-tools/aws-cli/" target="_blank">AWS CLI Blog</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Comandos de Referência Rápida -->
+                    <section class="review-section" >
+                        <h2 style="margin-bottom: 0;">⚡ Referência Rápida de Comandos</h2>
+                        
+                        <div style="background: #f8f9fa; border-radius: 8px;">
+                            <h3>Comandos Essenciais para o Dia a Dia</h3>
+                            
+                            <div class="command-block">
+                                <div class="comment"># Configuração e informações</div>
+                                <div>aws configure list                    # Ver configuração atual</div>
+                                <div>aws sts get-caller-identity          # Verificar identidade</div>
+                                <div>aws configure list-profiles          # Listar perfis</div>
+                                <br>
+                                <div class="comment"># S3 - Comandos mais usados</div>
+                                <div>aws s3 ls                            # Listar buckets</div>
+                                <div>aws s3 ls s3://bucket-name/          # Listar conteúdo do bucket</div>
+                                <div>aws s3 cp file.txt s3://bucket/      # Upload arquivo</div>
+                                <div>aws s3 sync ./folder s3://bucket/    # Sincronizar pasta</div>
+                                <br>
+                                <div class="comment"># EC2 - Gerenciamento de instâncias</div>
+                                <div>aws ec2 describe-instances           # Listar todas as instâncias</div>
+                                <div>aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,State.Name]' --output table</div>
+                                <br>
+                                <div class="comment"># CloudFormation</div>
+                                <div>aws cloudformation list-stacks       # Listar stacks</div>
+                                <div>aws cloudformation describe-stacks   # Detalhes dos stacks</div>
+                                <br>
+                                <div class="comment"># Logs e monitoramento</div>
+                                <div>aws logs describe-log-groups         # Listar grupos de log</div>
+                                <div>aws cloudwatch list-metrics          # Listar métricas</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Conclusão -->
+                    <section class="review-section">
+                        <h2>🎯 Conclusão</h2>
+                        <p>
+                            A AWS CLI é uma ferramenta poderosa que pode transformar significativamente sua produtividade
+                            ao trabalhar com serviços da Amazon Web Services. Este tutorial cobriu desde a instalação básica
+                            até comandos avançados e melhores práticas de segurança.
+                        </p>
+                        <p>
+                            Lembre-se de que a prática é fundamental para dominar a AWS CLI. Comece com comandos simples,
+                            explore a documentação oficial e gradualmente incorpore automação em seus fluxos de trabalho.
+                            A comunidade AWS é muito ativa e sempre disposta a ajudar com dúvidas específicas.
+                        </p>
+                        
+                        <div class="success-box">
+                            <strong>✅ Parabéns!</strong> Você agora tem uma base sólida para começar a usar a AWS CLI
+                            efetivamente. Continue praticando e explorando novos serviços conforme suas necessidades.
+                        </div>
+
+                        <div style="background: #e8f4fd; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                            <strong>💡 Próxima Etapa:</strong> Experimente criar scripts simples combinando comandos
+                            da AWS CLI com bash ou PowerShell para automatizar tarefas repetitivas em seus projetos.
+                        </div>
+                    </section>
+
+                    <!-- Artigos relacionados -->
+                    <section style="margin-bottom: 1rem;">
+                        <h2 style="text-align: center; font-size: 2rem;">Artigos Relacionados</h2>
+                        <div class="categories-grid"
+                            style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem;">
+                            <div class="category-card"
+                                style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
+                                <span class="category-icon">☁️</span>
+                                <h3 class="category-title" style="color: white;">Google Cloud para Iniciantes</h3>
+                                <p style="color: rgba(255,255,255,0.9); margin-bottom: 1rem;">Guia prático para instalar e usar o gcloud SDK.</p>
+                                <a href="#" style="color: white; text-decoration: underline;">Ler artigo →</a>
+                            </div>
+
+                            <div class="category-card"
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                                <a href="/categories/posts/desenvolvimento/devOps-deploy.html" style="color: white; text-decoration: none;">
+                                <span class="category-icon">🚀</span>
+                                <h3 class="category-title" style="color: white;">DevOps e Deploy</h3>
+                                <p style="color: rgba(255,255,255,0.9); margin-bottom: 1rem;">Guia Completo das Ferramentas Essenciais.</p>
+                                Ler artigo →</a>
+                            </div>
+
+                            <div class="category-card"
+                                style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                                <a href="/categories/posts/desenvolvimento/ferramentas-cloud.html" style="color: white; text-decoration: none;">
+                                <span class="category-icon">☁️</span>
+                                <h3 class="category-title" style="color: white;">Ferramentas Cloud</h3>
+                                <p style="color: rgba(255,255,255,0.9); margin-bottom: 1rem;">Comparativo entre AWS, Azure,  Google Cloud SDK e Heroku.</p>
+                                Ler artigo →</a>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <script src="/js/pageComponents.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+     crossorigin="anonymous"></script>
+
+     <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = "www.themoneytizer.com";
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+</body>
+
+</html>

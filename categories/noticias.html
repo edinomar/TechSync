@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NFY6RYBJZJ');
+  </script>
+
+  <!-- Metadados básicos -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+
+  <!-- Título e descrição -->
+  <title>Notícias de Tecnologia - Lançamentos, Tendências e Inovações | TechSync</title>
+  <meta name="description" content="Fique por dentro das últimas notícias de tecnologia: lançamentos, tendências, startups e inovações que estão transformando o mercado. Atualizações diárias no portal TechSync.">
+
+  <!-- Palavras-chave -->
+  <meta name="keywords" content="notícias de tecnologia, lançamentos tech, startups, tendências, inovações, eventos de tecnologia, aquisições, mercado tecnológico, TechSync">
+
+  <!-- Autor -->
+  <meta name="author" content="techsync">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.techsync.net.br/categories/noticias.html">
+  <meta property="og:title" content="Notícias de Tecnologia - Lançamentos, Tendências e Inovações | TechSync">
+  <meta property="og:description" content="As principais notícias do mundo tech: startups, lançamentos e tendências. Atualizações e análises no portal TechSync.">
+  <meta property="og:image" content="https://www.techsync.net.br/images/capa-techsync.jpg">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Notícias de Tecnologia - Lançamentos, Tendências e Inovações | TechSync">
+  <meta name="twitter:description" content="Fique por dentro das últimas novidades do mundo tech: startups, eventos e inovações.">
+  <meta name="twitter:image" content="https://www.techsync.net.br/images/capa-techsync.jpg">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Notícias de Tecnologia",
+    "description": "As principais notícias do mundo tech: startups, lançamentos, eventos e tendências. Atualizações e análises no portal TechSync.",
+    "url": "https://www.techsync.net.br/categories/noticias.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "TechSync",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.techsync.net.br/images/logo.png"
+      }
+    }
+  }
+  </script>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style-grid.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Cor do tema -->
+  <meta name="theme-color" content="#667eea">
+</head>
+
+
+<body>
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+            <a href="/"><i class="fas fa-home"></i> Início</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span>Notícias de Tecnologia</span>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="news-hero">
+        <div class="container">
+            <h1>Notícias de Tecnologia</h1>
+            <p>Fique por dentro das últimas novidades do mundo tech</p>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <section class="news-filter-bar">
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-categories">
+                    <button class="filter-btn active" data-category="all">Todas</button>
+                    <button class="filter-btn" data-category="lancamentos" id="lancamentos">Lançamentos</button>
+                    <button class="filter-btn" data-category="tendencias"  id="tendencias">Tendências</button>
+                    <button class="filter-btn" data-category="eventos" id="eventos">Eventos</button>
+                    <button class="filter-btn" data-category="aquisicoes" id="aquisicoes">Aquisições</button>
+                    <button class="filter-btn" data-category="startups" id="startups">Startups</button>
+                </div>
+                <div class="sort-dropdown">
+                    <select class="sort-select" id="sortSelect">
+                        <option value="recent">Mais Recentes</option>
+                        <option value="popular">Mais Populares</option>
+                        <option value="alphabetical">Ordem Alfabética</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- News Grid -->
+        <section class="news-grid" id="newsGrid">
+            <!-- News Cards serão inseridos aqui via JavaScript -->
+        </section>
+
+        <!-- Loading State -->
+        <div id="loadingState" style="display: none;">
+            <div class="news-grid">
+                <div class="news-card skeleton" style="height: 400px;"></div>
+                <div class="news-card skeleton" style="height: 400px;"></div>
+                <div class="news-card skeleton" style="height: 400px;"></div>
+                <div class="news-card skeleton" style="height: 400px;"></div>
+                <div class="news-card skeleton" style="height: 400px;"></div>
+                <div class="news-card skeleton" style="height: 400px;"></div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <div class="empty-state-icon">📰</div>
+            <h3>Nenhuma notícia encontrada</h3>
+            <p>Tente ajustar os filtros ou volte mais tarde para ver as novidades.</p>
+        </div>
+
+        <!-- Pagination -->
+        <nav class="pagination" id="pagination">
+            <button class="pagination-btn" id="prevBtn" onclick="changePage(-1)">« Anterior</button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">...</button>
+            <button class="pagination-btn">10</button>
+            <button class="pagination-btn" id="nextBtn" onclick="changePage(1)">Próxima »</button>
+        </nav>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+    
+    <script src="/js/pageComponents.js"></script>
+    <script src="/categories/posts/noticias/noticias-script.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+     crossorigin="anonymous"></script>
+
+     <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = "www.themoneytizer.com";
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+</body>
+
+</html>

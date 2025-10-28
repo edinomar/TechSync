@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSync - Busca Integrada</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+   <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* Estilos do Header Original */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .left-section {
+            flex: 1;
+        }
+
+        .main-nav {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Estilos da Busca Adaptados */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-box {
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 25px;
+            width: 250px;
+            outline: none;
+            font-size: 14px;
+            transition: width 0.3s, box-shadow 0.3s;
+        }
+
+        .search-box:focus {
+            width: 350px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .search-btn {
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            color: #667eea;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            color: #667eea;
+        }
+
+        /* Container de Resultados */
+        .search-results-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+        }
+
+        .search-results-overlay.active {
+            display: block;
+        }
+
+        .search-results-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .close-search {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .close-search:hover {
+            background: #f0f0f0;
+        }
+
+        .results-info {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .result-item {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .result-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .result-title {
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .result-url {
+            font-size: 12px;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .result-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .result-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #999;
+            font-size: 18px;
+            padding: 50px 20px;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        /* Quick Nav e Mobile Menu - Simplificados para o exemplo */
+        .quick-nav, .mobile-menu {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .search-box {
+                width: 150px;
+            }
+
+            .search-box:focus {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-laptop-code"></i>
+                TechSync
+            </a>
+
+            <div class="left-section">
+                <ul class="main-nav nav-menu">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            Início
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-th-large"></i>
+                            Categorias
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/categories/tools/tools-index.html" class="nav-link">
+                            <i class="fas fa-tools"></i> 
+                            Ferramentas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-envelope"></i>
+                            Contato
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Buscar no TechSync..." id="searchInput">
+                <button class="search-btn" onclick="openSearchResults()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Overlay de Resultados da Busca -->
+    <div class="search-results-overlay" id="searchResultsOverlay">
+        <div class="search-results-container">
+            <button class="close-search" onclick="closeSearchResults()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="resultsInfo" class="results-info"></div>
+            <div id="resultsList" class="results-list"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo da Página -->
+    <div style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+        <h1 style="color: #667eea; margin-bottom: 20px;">Bem-vindo ao TechSync</h1>
+        <p style="color: #666; line-height: 1.8;">
+            Use a barra de pesquisa acima para encontrar conteúdo sobre tecnologia, 
+            desenvolvimento, ferramentas e muito mais!
+        </p>
+    </div>
+
+
+</body>
+</html>

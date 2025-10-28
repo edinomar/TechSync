@@ -1,0 +1,96 @@
+.command-block {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.command-block .comment {
+    color: #e74c3c;
+}
+
+.command-block .command {
+    color: #f39c12;
+}
+
+.info-box {
+    background: #f8f9fa;
+    border-left: 4px solid #2196F3;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.warning-box {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+}
+
+.success-box {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+}
+
+.step-counter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.installation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.os-card {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.checklist {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.checklist ul {
+    list-style: none;
+    padding: 0;
+}
+
+.checklist li {
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+    background: white;
+    border-radius: 5px;
+    font-size: 0.95rem;
+}
+
+.checklist li::before {
+    content: "✅";
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+}

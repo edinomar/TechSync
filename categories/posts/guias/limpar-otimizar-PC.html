@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-NFY6RYBJZJ');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+    <title>Como limpar e otimizar seu PC para máxima performance</title>
+    
+    <!-- Autor -->
+    <meta name="author" content="TechSync">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+
+    <!-- Cor do tema -->
+    <meta name="theme-color" content="#667eea">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style-img.css">
+    <style>
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .steps-container {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+                .metric-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .step {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid transparent;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            color: #333;
+            display: flex;
+            font-weight: 600;
+        }
+
+        .step-description {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+
+        .warning-icon {
+            color: #856404;
+            font-size: 1.2rem;
+            margin-top: 0.1rem;
+        }
+
+        .tip-box {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .tip-icon {
+            color: #0c5460;
+            font-size: 1.2rem;
+            margin-top: 0.1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border: 1px solid #667eea;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .tool-card:hover {
+
+            transform: translateY(-3px);
+
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .performance-metrics {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 0.75rem 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 1rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+            <a href="/"><i class="fas fa-home"></i> Início</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <a href="/categories/tecnologia.html"><i class="fas fa-laptop"></i> Tecnologia</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <a href="/categories/posts/tecnologia/tecnologia-notebooks-index.html"><i
+                    class="fas fa-desktop"></i>Notebooks e PCs</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span>Como limpar e otimizar seu PC</span>
+        </nav>
+    </div>
+    <!-- Artigo -->
+    <article class="container" style="margin-top: 1rem;">
+        <header class="article-hero">
+            <div class="hero-copy">
+                <h1 class="post-title">💾 Como limpar e otimizar seu PC para máxima performance</h1>
+                <p style="font-size:1.1rem; opacity:0.9; margin-left:10px;">Guia completo com técnicas profissionais
+                    para manter
+                    seu computador funcionando como novo.</p>
+                <p class="review-meta"><small>Publicado em 10/09/2025 — Tempo de leitura: 15 min</small></p>
+            </div>
+        </header>
+        <div class="article-content">
+
+            <img src="/images/limpar-otimizar-PC.png" alt="Como limpar e otimizar seu PC para máxima performance"
+                class="featured-image wide-image " loading="lazy">
+            <!-- Introdução -->
+            <section class="section">
+                <div style="font-size: 1.1rem; line-height: 1.8; margin-top: 2rem;">
+                    <p><strong>Com o tempo, é natural que computadores percam performance</strong> devido ao acúmulo de
+                        poeira nos componentes, fragmentação de arquivos, programas desnecessários executando em segundo
+                        plano e registros corrompidos do sistema. A boa notícia é que, com manutenção preventiva
+                        adequada e técnicas de otimização comprovadas, você pode recuperar até 70% da performance
+                        original do seu PC sem precisar investir em hardware novo.</p>
+                </div>
+
+                <div class="performance-metrics">
+                    <h3 class="metrics-title" style="margin-bottom: 1rem;">Resultados esperados após a otimização</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">40-60%</div>
+                            <div class="metric-label">Redução no tempo de inicialização</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">30-50%</div>
+                            <div class="metric-label">Melhoria na responsividade</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">10-15°C</div>
+                            <div class="metric-label">Redução na temperatura</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">15-25%</div>
+                            <div class="metric-label">Economia de espaço em disco</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Limpeza Física -->
+            <section class="section">
+                <h2>
+                    1. Limpeza Física Profissional
+                </h2>
+
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle warning-icon"></i>
+                    <div>
+                        <strong>Importante:</strong> Antes de iniciar, desligue completamente o computador e aguarde 15
+                        minutos para os componentes esfriarem. Remova o cabo de força da tomada para evitar choques
+                        elétricos.
+                    </div>
+                </div>
+
+                <div class="steps-container">
+                    <div class="step">
+                        <h3 class="step-title">
+                            <p class="step-number">1</p>Preparação e Segurança
+                        </h3>
+                        <div class="step-description">
+                            <p>Trabalhe em ambiente seco e bem iluminado. Use pulseira antiestática se disponível. Tenha
+                                à mão: ar comprimido, pincéis antiestáticos, panos de microfibra e álcool isopropílico
+                                99%.</p>
+                        </div>
+
+                        <h3 class="step-title">
+                            <p class="step-number">2</p>Remoção da Poeira dos Componentes
+                        </h3>
+                        <div class="step-description">
+                            <p>Use ar comprimido em rajadas curtas (3-5 segundos) mantendo 15cm de distância. Foque em:
+                            </p>
+                            <ul style="padding-left: 1.5rem;">
+                                <li>Ventoinhas do processador, placa de vídeo e gabinete</li>
+                                <li>Dissipadores de calor e radiadores</li>
+                                <li>Slots de memória RAM e expansão</li>
+                                <li>Fonte de alimentação (apenas pelas aberturas)</li>
+                            </ul>
+                        </div>
+
+                        <h3 class="step-title">
+                            <p class="step-number">3</p>Limpeza de Contatos
+                        </h3>
+                        <div class="step-description">
+                            <p>Remova e reinstale módulos de RAM e placa de vídeo. Limpe os contatos dourados com
+                                borracha escolar macia ou álcool isopropílico. Isso melhora a condutividade e
+                                estabilidade.</p>
+                        </div>
+
+
+                        <h3 class="step-title ">
+                            <p class="step-number">4</p> Organização de Cabos
+                        </h3>
+                        <div class="step-description">
+                            <p>Reorganize os cabos internos usando abraçadeiras plásticas. Mantenha cabos longe das
+                                ventoinhas e crie canais de ar livres. Isso pode reduzir a temperatura interna em até
+                                5-8°C.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <i class="fas fa-lightbulb tip-icon"></i>
+                    <div>
+                        <strong>Dica Profissional:</strong> Nunca use aspirador de pó comum nos componentes. A
+                        eletricidade estática gerada pode danificar permanentemente placas e chips. Prefira sempre ar
+                        comprimido ou aspiradores antiestáticos específicos.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Limpeza de Software -->
+            <section class="section">
+                <h2 style="margin-bottom: 1rem;">
+                    2. Limpeza Profunda de Software
+                </h2>
+
+                <div class="steps-container">
+                    <div class="step">
+
+                        <h3 class="step-title">
+                            <div class="step-number">1</div>Limpeza de Arquivos Temporários
+                        </h3>
+                        <div class="step-description">
+                            <p>Execute as seguintes limpezas em sequência:</p>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li><strong>Limpeza de Disco:</strong> Windows + R → cleanmgr → selecione todos os itens
+                                </li>
+                                <li><strong>Arquivos temporários:</strong> %temp% → deletar todos os arquivos possíveis
+                                </li>
+                                <li><strong>Cache de navegadores:</strong> limpar dados de todos os navegadores</li>
+                                <li><strong>Logs do sistema:</strong> Event Viewer → limpar logs antigos</li>
+                            </ul>
+                        </div>
+
+                        <h3 class="step-title">
+                            <div class="step-number">2</div>Desinstalação Inteligente
+                        </h3>
+                        <div class="step-description">
+                            <p>Vá em <strong>Configurações > Aplicativos</strong> e ordene por "Tamanho" e "Data de
+                                instalação". Remova:</p>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li>Programas não usados há mais de 6 meses</li>
+                                <li>Software de demonstração (trial/bloatware)</li>
+                                <li>Múltiplas versões do mesmo programa</li>
+                                <li>Extensões e plugins desnecessários</li>
+                            </ul>
+                        </div>
+
+                        <h3 class="step-title">
+                            <div class="step-number">3</div>Limpeza do Registro do Windows
+                        </h3>
+                        <div class="step-description">
+                            <p>Use ferramentas confiáveis como CCleaner ou Wise Registry Cleaner para remover entradas
+                                órfãs, chaves inválidas e restos de programas desinstalados. <strong>Sempre faça backup
+                                    do registro antes!</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-broom"></i></div>
+                        <div class="tool-name">CCleaner</div>
+                        <div class="tool-description">Limpeza completa de arquivos temporários e registro</div>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-trash-alt"></i></div>
+                        <div class="tool-name">Revo Uninstaller</div>
+                        <div class="tool-description">Desinstalação completa com remoção de restos</div>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-cogs"></i></div>
+                        <div class="tool-name">Wise Care 365</div>
+                        <div class="tool-description">Suite completa de otimização e manutenção</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Otimizações Avançadas -->
+            <section class="section">
+                <h2 style="margin-bottom: 1rem;">
+                    3. Otimizações Avançadas de Performance
+                </h2>
+
+                <div class="steps-container">
+                    <div class="step">
+
+                        <h3 class="step-title">
+                            <div class="step-number">1</div>Gerenciamento de Inicialização
+                        </h3>
+                        <div class="step-description">
+                            <p>Abra o <strong>Gerenciador de Tarefas (Ctrl+Shift+Esc)</strong> → aba "Inicializar".
+                                Desabilite programas com "Alto" impacto na inicialização que não são essenciais:</p>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li>Spotify, Discord, Skype (inicie manualmente quando necessário)</li>
+                                <li>Adobe Updater, Java Update Scheduler</li>
+                                <li>Software de fabricantes (HP, Dell, Lenovo) não críticos</li>
+                                <li>Programas de sincronização de nuvem desnecessários</li>
+                            </ul>
+                        </div>
+
+
+                        <h3 class="step-title">
+                            <div class="step-number">2</div>Configurações de Energia
+                        </h3>
+                        <div class="step-description">
+                            <p>Acesse <strong>Painel de Controle > Opções de Energia</strong>:</p>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li>Selecione "Alto desempenho" ou "Equilibrado"</li>
+                                <li>Configure "Nunca" para desligar discos rígidos</li>
+                                <li>Desabilite hibernação se usar SSD: <code>powercfg -h off</code></li>
+                                <li>Configure sleep mode para 30+ minutos</li>
+                            </ul>
+                        </div>
+
+
+                        <h3 class="step-title">
+                            <div class="step-number">3</div>Otimização de Memória Virtual
+                        </h3>
+                        <div class="step-description">
+                            <p>Configurar arquivo de paginação adequadamente:</p>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li><strong>8GB RAM ou menos:</strong> Arquivo de paginação = 1.5x a RAM</li>
+                                <li><strong>16GB RAM ou mais:</strong> Arquivo fixo de 2-4GB</li>
+                                <li><strong>Com SSD:</strong> Mova arquivo de paginação para SSD mais rápido</li>
+                                <li>Use tamanho inicial = tamanho máximo (evita fragmentação)</li>
+                            </ul>
+                        </div>
+
+
+                        <h3 class="step-title">
+                            <div class="step-number">4</div>Otimização de Armazenamento
+                        </h3>
+                        <div class="step-description">
+                            <p><strong>Para HDDs:</strong> Execute desfragmentação mensal<br>
+                                <strong>Para SSDs:</strong> Use "Otimizar Unidades" no Windows (comando TRIM)<br>
+                                <strong>Ambos:</strong> Mantenha 15-20% de espaço livre para performance ideal
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Manutenção Preventiva -->
+            <section class="section">
+                <h2 style="margin-bottom: 1rem;">
+                    4. Cronograma de Manutenção Preventiva
+                </h2>
+
+                <div class="steps-container">
+                    <div class="step">
+                        <h3 class="step-title">Manutenção Semanal (5 minutos)</h3>
+                        <div class="step-description">
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li>Verificar e limpar lixeira</li>
+                                <li>Executar limpeza rápida de arquivos temporários</li>
+                                <li>Verificar atualizações críticas do Windows</li>
+                                <li>Scan rápido do antivírus</li>
+                            </ul>
+                        </div>
+
+                        <h3 class="step-title">Manutenção Mensal (30 minutos)</h3>
+                        <div class="step-description">
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li>Limpeza física externa (teclado, mouse, monitor)</li>
+                                <li>Verificação completa de vírus e malware</li>
+                                <li>Atualização de drivers importantes</li>
+                                <li>Limpeza do registro com backup</li>
+                                <li>Verificação de erros no disco (chkdsk)</li>
+                            </ul>
+                        </div>
+
+                        <h3 class="step-title">Manutenção Trimestral (2 horas)</h3>
+                        <div class="step-description">
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li>Limpeza física interna completa</li>
+                                <li>Verificação e limpeza de contatos</li>
+                                <li>Auditoria completa de programas instalados</li>
+                                <li>Backup completo de dados importantes</li>
+                                <li>Teste de stress de componentes</li>
+                                <li>Reorganização de arquivos e pastas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dicas Profissionais -->
+            <section class="section">
+                <h2>
+                    5. Dicas Profissionais e Erros Comuns
+                </h2>
+
+                <div class="warning-box">
+                    <i class="fas fa-times-circle warning-icon"></i>
+                    <div>
+                        <strong>Evite estes erros comuns:</strong>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                            <li>Usar "otimizadores automáticos" duvidosos que prometem milagres</li>
+                            <li>Limpar registro sem fazer backup primeiro</li>
+                            <li>Desabilitar serviços do Windows sem conhecimento técnico</li>
+                            <li>Usar aspiradores comuns para limpeza interna</li>
+                            <li>Ignorar atualizações de segurança por medo de instabilidade</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <i class="fas fa-medal tip-icon"></i>
+                    <div>
+                        <strong>Dicas de Especialista:</strong>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                            <li>Monitore temperaturas com HWiNFO64 ou Core Temp regularmente</li>
+                            <li>Use CrystalDiskInfo para monitorar saúde dos discos</li>
+                            <li>Configure restore points automáticos antes de grandes mudanças</li>
+                            <li>Considere upgrade para SSD se ainda usa HDD - melhoria mais significativa possível</li>
+                            <li>Mantenha drivers de chipset e BIOS atualizados</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusão -->
+            <section class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-check-circle" style="color: #51be36e1;"></i>
+                    Conclusão
+                </h2>
+                <div class="section-intro">
+                    <p>A manutenção regular e sistemática do seu PC não é apenas sobre performance - é sobre
+                        <strong>longevidade, estabilidade e economia</strong>. Seguindo este guia rigorosamente, você
+                        pode estender a vida útil do seu equipamento em 2-3 anos e manter performance próxima ao novo
+                        por muito mais tempo.
+                    </p>
+
+                    <p style="margin-top: 1rem;">Lembre-se: um computador bem mantido não apenas funciona melhor, mas
+                        também consome menos energia, gera menos calor e ruído, proporcionando uma experiência de uso
+                        superior em todos os aspectos.</p>
+                </div>
+
+                <div class="performance-metrics">
+                    <h3 class="metrics-title" style="margin-bottom: 1rem;">Quando considerar upgrade de hardware</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value" style="font-size: 1.5rem;">RAM < 8GB</div>
+                                    <div class="metric-label">Considere upgrade para 16GB</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" style="font-size: 1.5rem;">Ainda usa HDD</div>
+                                <div class="metric-label">Migre para SSD imediatamente</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" style="font-size: 1.5rem;">CPU > 6 anos</div>
+                                <div class="metric-label">Avalie custo-benefício de upgrade</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" style="font-size: 1.5rem;">Temp > 80°C</div>
+                                <div class="metric-label">Revise sistema de refrigeração</div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="/js/pageComponents.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+     crossorigin="anonymous"></script>
+
+     <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = "www.themoneytizer.com";
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+</body>
+
+</html>

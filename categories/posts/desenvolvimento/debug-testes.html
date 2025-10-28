@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-NFY6RYBJZJ');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug e Testes: Guia Completo de Ferramentas de Depuração - TechSync</title>
+
+    <!-- Autor -->
+    <meta name="author" content="TechSync">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+
+    <!-- Cor do tema -->
+    <meta name="theme-color" content="#667eea">
+
+    <!-- Fontes e Estilos -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style-img.css">
+    <link rel="stylesheet" href="/categories/posts/desenvolvimento/css/style-ferramentas-dev.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="description"
+        content="Guia completo sobre ferramentas de debug e testes. Aprenda Chrome DevTools, Postman, Jest e Selenium com exemplos práticos e configurações recomendadas.">
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+            <a href="/"><i class="fas fa-home"></i> Início</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <a href="/categories/desenvolvimento.html"><i class="fas fa-rocket"></i> Desenvolvimento</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span>Debug e Testes</span>
+        </nav>
+    </div>
+
+    <!-- Post Content -->
+    <main class="post-content">
+        <div class="container">
+            <article>
+                <!-- Seção principal -->
+                <section class="article-content" style="margin-top: 1rem;">
+                    <!-- Título e Banner -->
+                    <section style="margin-top: 1rem;">
+                        <img src="/images/debug-teste.png" alt="Debug e Testes - Ferramentas Essenciais"
+                            class="featured-image wide-image" loading="lazy">
+                        <h1 class="post-title visually-hidden">Debug e Testes: Guia Completo de Ferramentas</h1>
+                        <p class="review-meta"><small>Publicado em 02/10/2025 – Tempo de leitura: 18 min</small></p>
+                    </section>
+
+                    <!-- Introdução -->
+                    <section class="review-section">
+                        <h2>Introdução às Ferramentas de Debug e Testes</h2>
+                        <p>
+                            A qualidade do software depende diretamente da capacidade de identificar e corrigir bugs 
+                            rapidamente, além de garantir que o código funcione conforme esperado. Ferramentas de 
+                            depuração e testes são essenciais para desenvolvedores modernos, permitindo encontrar 
+                            problemas antes que cheguem aos usuários finais.
+                        </p>
+                        <p>
+                            Neste guia completo, você vai conhecer as principais ferramentas do mercado: Chrome DevTools 
+                            para depuração de aplicações web, Postman para testes de APIs, Jest para testes unitários 
+                            em JavaScript, e Selenium para automação de testes end-to-end. Aprenderá quando usar cada 
+                            uma, como configurá-las e as melhores práticas da indústria.
+                        </p>
+                    </section>
+
+                    <!-- Índice -->
+                    <section class="review-section"
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <h2 style="color: white;">Índice do Guia</h2>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div>
+                                <strong>1. Chrome DevTools</strong>
+                                <ul style="padding-left: 1rem;">
+                                    <li>Inspector e Console</li>
+                                    <li>Network e Performance</li>
+                                    <li>Debugging JavaScript</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>2. Postman</strong>
+                                <ul style="padding-left: 1rem;">
+                                    <li>Testes de API REST</li>
+                                    <li>Collections e ambientes</li>
+                                    <li>Automação de testes</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>3. Jest</strong>
+                                <ul style="padding-left: 1rem;">
+                                    <li>Testes unitários</li>
+                                    <li>Mocks e spies</li>
+                                    <li>Coverage reports</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>4. Selenium</strong>
+                                <ul style="padding-left: 1rem;">
+                                    <li>Automação de testes</li>
+                                    <li>WebDriver API</li>
+                                    <li>Testes cross-browser</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Pré-requisitos -->
+                    <section class="review-section">
+                        <h2 style="margin-bottom: 0px;">O que Você Precisa Saber</h2>
+                        <div class="checklist">
+                            <h3>Conhecimentos prévios recomendados:</h3>
+                            <ul>
+                                <li>JavaScript básico a intermediário</li>
+                                <li>HTML e CSS fundamentais</li>
+                                <li>Conceitos de HTTP e APIs REST</li>
+                                <li>Linha de comando e terminal</li>
+                                <li>Node.js e npm</li>
+                                <li>Noções de desenvolvimento web</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>Dica:</strong> Cada ferramenta serve um propósito específico no ciclo de desenvolvimento. 
+                            DevTools é para debug em tempo real, Postman para testes de API, Jest para testes unitários 
+                            automatizados, e Selenium para testes de interface end-to-end.
+                        </div>
+                    </section>
+
+                    <!-- Chrome DevTools -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">1</span>Chrome DevTools</h2>
+
+                        <p>O Chrome DevTools é um conjunto completo de ferramentas de desenvolvimento e depuração integrado 
+                        ao navegador Chrome. É indispensável para qualquer desenvolvedor web moderno.</p>
+
+                        <h3>Painéis Principais</h3>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                                <div style="background: #e8f4fd; border: 1px solid #b3d7f2; padding: 1rem; border-radius: 8px;">
+                                    <h4>Painéis de Inspeção</h4>
+                                    <ul style="line-height: 1.6; font-size: 0.9rem;">
+                                        <li><strong>Elements:</strong> Inspeciona e edita HTML/CSS</li>
+                                        <li><strong>Console:</strong> Executa JavaScript e visualiza logs</li>
+                                        <li><strong>Sources:</strong> Debug de código JavaScript</li>
+                                        <li><strong>Network:</strong> Monitora requisições HTTP</li>
+                                        <li><strong>Performance:</strong> Analisa performance da aplicação</li>
+                                    </ul>
+                                </div>
+                                <div style="background: #e8f5e8; border: 1px solid #c3e6c3; padding: 1rem; border-radius: 8px;">
+                                    <h4>Recursos Avançados</h4>
+                                    <ul style="line-height: 1.6; font-size: 0.9rem;">
+                                        <li>Breakpoints condicionais</li>
+                                        <li>Watch expressions</li>
+                                        <li>Lighthouse para auditorias</li>
+                                        <li>Device emulation</li>
+                                        <li>Network throttling</li>
+                                        <li>Memory profiling</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Atalhos Essenciais</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                            <tr style="background: #e9ecef;">
+                                <th style="border: 1px solid #dee2e6; padding: 0.75rem; text-align: left;">Atalho</th>
+                                <th style="border: 1px solid #dee2e6; padding: 0.75rem; text-align: left;">Função</th>
+                                <th style="border: 1px solid #dee2e6; padding: 0.75rem; text-align: left;">Descrição</th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>F12 / Ctrl+Shift+I</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Abrir DevTools</td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Abre as ferramentas de desenvolvedor</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Ctrl+Shift+C</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Inspect Element</td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Ativa modo de inspeção de elementos</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Ctrl+P</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Quick Open</td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Busca rápida de arquivos</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Ctrl+Shift+P</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Command Menu</td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Acessa todos os comandos disponíveis</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>F8</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Resume/Pause</td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Continua ou pausa execução no debugger</td>
+                            </tr>
+                        </table>
+
+                        <h3 style="margin-top: 2rem;">Debugging JavaScript</h3>
+                        <div class="command-block">
+                            <span class="comment">// Adicionar breakpoint programático</span><br>
+                            function calcularTotal(itens) {<br>
+                            &nbsp;&nbsp;debugger; <span class="comment">// Execução pausa aqui</span><br>
+                            &nbsp;&nbsp;return itens.reduce((total, item) => total + item.preco, 0);<br>
+                            }<br>
+                            <br>
+                            <span class="comment">// Console logging avançado</span><br>
+                            console.log('Valor simples:', valor);<br>
+                            console.table(arrayDeObjetos);<br>
+                            console.group('Grupo de logs');<br>
+                            console.warn('Aviso importante');<br>
+                            console.error('Erro encontrado');<br>
+                            console.groupEnd();<br>
+                            <br>
+                            <span class="comment">// Medir performance</span><br>
+                            console.time('operacao');<br>
+                            // código a ser medido<br>
+                            console.timeEnd('operacao');
+                        </div>
+
+                       <h3 style="margin-top: 2rem;">Network Panel - Análise de Requisições</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                            <div style="background: #e8f4fd; padding: 1rem; border-radius: 8px;">
+                                <h4>Informações Disponíveis</h4>
+                                <ul style="font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.5rem;">
+                                    <li>Status HTTP</li>
+                                    <li>Tempo de resposta</li>
+                                    <li>Tamanho dos recursos</li>
+                                    <li>Headers da requisição</li>
+                                    <li>Payload de dados</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: #f0f8e8; padding: 1rem; border-radius: 8px;">
+                                <h4>Filtros Úteis</h4>
+                                <ul style="font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.5rem;">
+                                    <li>XHR/Fetch</li>
+                                    <li>JS e CSS</li>
+                                    <li>Imagens</li>
+                                    <li>Fontes</li>
+                                    <li>WebSockets</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: #fff3e0; padding: 1rem; border-radius: 8px;">
+                                <h4>Recursos Performance</h4>
+                                <ul style="font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.5rem;">
+                                    <li>Waterfall timing</li>
+                                    <li>Cache analysis</li>
+                                    <li>Throttling simulation</li>
+                                    <li>HAR export</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="success-box">
+                            <strong>Melhor para:</strong> Debug em tempo real de aplicações web, análise de performance, 
+                            inspeção de requisições HTTP, otimização de CSS/HTML, identificação de memory leaks.
+                        </div>
+                    </section>
+
+                    <!-- Postman -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">2</span>Postman</h2>
+
+                        <p>Postman é a ferramenta líder para desenvolvimento, teste e documentação de APIs. Oferece uma 
+                        interface intuitiva para testar endpoints REST, GraphQL, SOAP e WebSocket.</p>
+
+                        <h3>Recursos Principais</h3>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                                <div>
+                                    <h4>Funcionalidades Core</h4>
+                                    <ul style="line-height: 1.6; font-size: 0.9rem;">
+                                        <li>Envio de requisições HTTP (GET, POST, PUT, DELETE, etc.)</li>
+                                        <li>Gerenciamento de headers e autenticação</li>
+                                        <li>Collections para organizar endpoints</li>
+                                        <li>Ambientes (dev, staging, production)</li>
+                                        <li>Testes automatizados com scripts</li>
+                                        <li>Mock servers</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4>Vantagens</h4>
+                                    <ul style="line-height: 1.6; font-size: 0.9rem;">
+                                        <li>Interface visual amigável</li>
+                                        <li>Compartilhamento de collections</li>
+                                        <li>Documentação automática</li>
+                                        <li>Integração CI/CD via Newman</li>
+                                        <li>Suporte a variáveis e scripts</li>
+                                        <li>Histórico de requisições</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Instalação</h3>
+                        <div class="command-block">
+                            <div class="comment"># Download do site oficial</div>
+                            <div>https://www.postman.com/downloads/</div>
+                            <br>
+                            <div class="comment"># Ou via Homebrew (macOS)</div>
+                            <div class="command">brew install --cask postman</div>
+                            <br>
+                            <div class="comment"># Ou via Snap (Linux)</div>
+                            <div class="command">sudo snap install postman</div>
+                        </div>
+
+                        <h3>Exemplo de Teste Automatizado</h3>
+                        <div class="command-block">
+                            <span class="comment">// Script de teste no Postman (aba Tests)</span><br>
+                            <br>
+                            <span class="comment">// Verificar status code</span><br>
+                            pm.test("Status code é 200", function () {<br>
+                            &nbsp;&nbsp;pm.response.to.have.status(200);<br>
+                            });<br>
+                            <br>
+                            <span class="comment">// Verificar tempo de resposta</span><br>
+                            pm.test("Responde em menos de 200ms", function () {<br>
+                            &nbsp;&nbsp;pm.expect(pm.response.responseTime).to.be.below(200);<br>
+                            });<br>
+                            <br>
+                            <span class="comment">// Validar estrutura JSON</span><br>
+                            pm.test("Resposta contém dados do usuário", function () {<br>
+                            &nbsp;&nbsp;var jsonData = pm.response.json();<br>
+                            &nbsp;&nbsp;pm.expect(jsonData).to.have.property('id');<br>
+                            &nbsp;&nbsp;pm.expect(jsonData).to.have.property('nome');<br>
+                            &nbsp;&nbsp;pm.expect(jsonData.email).to.include('@');<br>
+                            });<br>
+                            <br>
+                            <span class="comment">// Salvar variável de ambiente</span><br>
+                            var token = pm.response.json().token;<br>
+                            pm.environment.set("auth_token", token);
+                        </div>
+
+                        <h3>Collections e Ambientes</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                            <div style="background: #e8f4fd; padding: 1rem; border-radius: 8px;">
+                                <h4>Organizando Collections</h4>
+                                <ul style="font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.5rem;">
+                                    <li>Agrupe por recurso ou funcionalidade</li>
+                                    <li>Use pastas para organizar endpoints</li>
+                                    <li>Adicione descrições detalhadas</li>
+                                    <li>Inclua exemplos de requisições</li>
+                                    <li>Configure pre-request scripts</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: #f0f8e8; padding: 1rem; border-radius: 8px;">
+                                <h4>Usando Ambientes</h4>
+                                <ul style="font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.5rem;">
+                                    <li>Crie ambiente para cada servidor</li>
+                                    <li>Use variáveis para URLs base</li>
+                                    <li>Armazene tokens de autenticação</li>
+                                    <li>Compartilhe ambientes com a equipe</li>
+                                    <li>Versione suas configurações</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3>Newman - CLI do Postman</h3>
+                        <div class="command-block">
+                            <div class="comment"># Instalar Newman</div>
+                            <div class="command">npm install -g newman</div>
+                            <br>
+                            <div class="comment"># Executar collection</div>
+                            <div class="command">newman run minha-collection.json</div>
+                            <br>
+                            <div class="comment"># Com ambiente específico</div>
+                            <div class="command">newman run collection.json -e ambiente-prod.json</div>
+                            <br>
+                            <div class="comment"># Gerar relatório HTML</div>
+                            <div class="command">newman run collection.json -r html --reporter-html-export relatorio.html</div>
+                        </div>
+
+                        <div class="success-box">
+                            <strong>Melhor para:</strong> Testes de APIs REST, desenvolvimento de integrações, 
+                            documentação de endpoints, automação de testes de API, validação de contratos.
+                        </div>
+                    </section>
+
+                    <!-- Jest -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">3</span>Jest</h2>
+
+                        <p>Jest é um framework de testes JavaScript completo, desenvolvido pelo Facebook. É a escolha 
+                        padrão para testes em projetos React, mas funciona perfeitamente com qualquer projeto JavaScript.</p>
+
+                        <h3>Características Principais</h3>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                                <div style="background: #e8f4fd; border: 1px solid #b3d7f2; padding: 1rem; border-radius: 8px;">
+                                    <h4>Recursos do Jest</h4>
+                                    <ul style="line-height: 1.6; font-size: 0.9rem;">
+                                        <li><strong>Zero config:</strong> Funciona out-of-the-box</li>
+                                        <li><strong>Snapshots:</strong> Testa componentes UI</li>
+                                        <li><strong>Mocking:</strong> Sistema integrado de mocks</li>
+                                        <li><strong>Coverage:</strong> Relatórios de cobertura</li>
+                                        <li><strong>Watch mode:</strong> Execução contínua</li>
+                                    </ul>
+                                </div>
+                                <div style="background: #e8f5e8; border: 1px solid #c3e6c3; padding: 1rem; border-radius: 8px;">
+                                    <h4>Vantagens</h4>
+                                    <ul style="line-height: 1.6; font-size: 0.9rem;">
+                                        <li>Execução paralela de testes</li>
+                                        <li>Mensagens de erro claras</li>
+                                        <li>Integração com Babel e TypeScript</li>
+                                        <li>Suporte a async/await nativo</li>
+                                        <li>Comunidade grande e ativa</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Instalação e Configuração</h3>
+                        <div class="command-block">
+                            <div class="comment"># Instalar Jest</div>
+                            <div class="command">npm install --save-dev jest</div>
+                            <br>
+                            <div class="comment"># Adicionar script no package.json</div>
+                            <div>{</div>
+                            <div>  "scripts": {</div>
+                            <div>    "test": "jest",</div>
+                            <div>    "test:watch": "jest --watch",</div>
+                            <div>    "test:coverage": "jest --coverage"</div>
+                            <div>  }</div>
+                            <div>}</div>
+                            <br>
+                            <div class="comment"># Executar testes</div>
+                            <div class="command">npm test</div>
+                        </div>
+
+                        <h3>Exemplos de Testes</h3>
+                        <div class="command-block">
+                            <span class="comment">// math.test.js - Testes básicos</span><br>
+                            const { somar, subtrair } = require('./math');<br>
+                            <br>
+                            describe('Operações matemáticas', () => {<br>
+                            &nbsp;&nbsp;test('soma 1 + 2 deve ser igual a 3', () => {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;expect(somar(1, 2)).toBe(3);<br>
+                            &nbsp;&nbsp;});<br>
+                            <br>
+                            &nbsp;&nbsp;test('subtração 5 - 3 deve ser igual a 2', () => {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;expect(subtrair(5, 3)).toBe(2);<br>
+                            &nbsp;&nbsp;});<br>
+                            });<br>
+                            <br>
+                            <span class="comment">// Testes assíncronos</span><br>
+                            test('buscar dados da API', async () => {<br>
+                            &nbsp;&nbsp;const dados = await buscarDadosAPI();<br>
+                            &nbsp;&nbsp;expect(dados).toHaveProperty('id');<br>
+                            &nbsp;&nbsp;expect(dados.nome).toBeDefined();<br>
+                            });<br>
+                            <br>
+                            <span class="comment">// Testando arrays e objetos</span><br>
+                            test('lista contém item específico', () => {<br>
+                            &nbsp;&nbsp;const lista = ['maçã', 'banana', 'laranja'];<br>
+                            &nbsp;&nbsp;expect(lista).toContain('banana');<br>
+                            &nbsp;&nbsp;expect(lista).toHaveLength(3);<br>
+                            });
+                        </div>
+
+                        <h3>Mocks e Spies</h3>
+                        <div class="command-block">
+                            <span class="comment">// Mock de função</span><br>
+                            const mockCallback = jest.fn(x => x + 1);<br>
+                            [1, 2, 3].forEach(mockCallback);<br>
+                            <br>
+                            expect(mockCallback).toHaveBeenCalledTimes(3);<br>
+                            expect(mockCallback).toHaveBeenCalledWith(1);<br>
+                            <br>
+                            <span class="comment">// Mock de módulo</span><br>
+                            jest.mock('./api');<br>
+                            const api = require('./api');<br>
+                            api.buscarUsuario.mockResolvedValue({ id: 1, nome: 'João' });<br>
+                            <br>
+                            <span class="comment">// Spy em método de objeto</span><br>
+                            const objeto = {<br>
+                            &nbsp;&nbsp;metodo: () => 'original'<br>
+                            };<br>
+                            const spy = jest.spyOn(objeto, 'metodo');<br>
+                            spy.mockReturnValue('mockado');<br>
+                            <br>
+                            expect(objeto.metodo()).toBe('mockado');<br>
+                            expect(spy).toHaveBeenCalled();
+                        </div>
+
+                        <h3>Snapshot Testing</h3>
+                        <div class="command-block">
+                            <span class="comment">// Component.test.js</span><br>
+                            import React from 'react';<br>
+                            import renderer from 'react-test-renderer';<br>
+                            import MeuComponente from './MeuComponente';<br>
+                            <br>
+                            test('renderiza corretamente', () => {<br>
+                            &nbsp;&nbsp;const tree = renderer<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;.create(&lt;MeuComponente nome="João" /&gt;)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;.toJSON();<br>
+                            &nbsp;&nbsp;expect(tree).toMatchSnapshot();<br>
+                            });
+                        </div>
+
+                        <div class="success-box">
+                            <strong>Melhor para:</strong> Testes unitários JavaScript/TypeScript, testes de componentes React, 
+                            TDD (Test-Driven Development), integração contínua, projetos Node.js.
+                        </div>
+                    </section>
+
+                    <!-- Selenium -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">4</span>Selenium</h2>
+
+                        <p>Selenium é o framework líder para automação de testes de interface web. Permite controlar 
+                        navegadores de forma programática, simulando interações reais de usuários.</p>
+
+                        <h3>Componentes do Ecossistema</h3>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                                <div style="background: #e8f4fd; border: 1px solid #b3d7f2; padding: 1rem; border-radius: 8px;">
+                                    <h4>Componentes Principais</h4>
+                                    <ul style="line-height: 1.6; font-size: 0.9rem;">
+                                        <li><strong>WebDriver:</strong> API para controlar navegadores</li>
+                                        <li><strong>Selenium Grid:</strong> Execução paralela de testes</li>
+                                        <li><strong>Selenium IDE:</strong> Gravação de testes</li>
+                                        <li><strong>WebDriver Manager:</strong> Gerencia drivers</li>
+                                    </ul>
+                                </div>
+                                <div style="background: #e8f5e8; border: 1px solid #c3e6c3; padding: 1rem; border-radius: 8px;">
+                                    <h4>Navegadores Suportados</h4>
+                                    <ul style="line-height: 1.6; font-size: 0.9rem;">
+                                        <li>Chrome (ChromeDriver)</li>
+                                        <li>Firefox (GeckoDriver)</li>
+                                        <li>Safari (SafariDriver)</li>
+                                        <li>Edge (EdgeDriver)</li>
+                                        <li>Opera</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Instalação - Python</h3>
+                        <div class="command-block">
+                            <div class="comment"># Instalar Selenium</div>
+                            <div class="command">pip install selenium</div>
+                            <br>
+                            <div class="comment"># Instalar WebDriver Manager</div>
+                            <div class="command">pip install webdriver-manager</div>
+                            <br>
+                            <div class="comment"># Instalar ChromeDriver manualmente</div>
+                            <div class="command">brew install chromedriver  # macOS</div>
+                        </div>
+
+                        <h3>Instalação - JavaScript (Node.js)</h3>
+                        <div class="command-block">
+                            <div class="comment"># Instalar Selenium WebDriver</div>
+                            <div class="command">npm install selenium-webdriver</div>
+                            <br>
+                            <div class="comment"># Instalar ChromeDriver</div>
+                            <div class="command">npm install chromedriver</div>
+                        </div>
+
+                        <h3>Exemplo Básico - Python</h3>
+                        <div class="command-block">
+                            <span class="comment"># test_exemplo.py</span><br>
+                            from selenium import webdriver<br>
+                            from selenium.webdriver.common.by import By<br>
+                            from selenium.webdriver.common.keys import Keys<br>
+                            from selenium.webdriver.support.ui import WebDriverWait<br>
+                            from selenium.webdriver.support import expected_conditions as EC<br>
+                            <br>
+                            <span class="comment"># Inicializar driver</span><br>
+                            driver = webdriver.Chrome()<br>
+                            <br>
+                            try:<br>
+                            &nbsp;&nbsp;<span class="comment"># Navegar para página</span><br>
+                            &nbsp;&nbsp;driver.get("https://exemplo.com")<br>
+                            <br>
+                            &nbsp;&nbsp;<span class="comment"># Encontrar elemento</span><br>
+                            &nbsp;&nbsp;campo_busca = driver.find_element(By.NAME, "q")<br>
+                            <br>
+                            &nbsp;&nbsp;<span class="comment"># Interagir com elemento</span><br>
+                            &nbsp;&nbsp;campo_busca.send_keys("Selenium Python")<br>
+                            &nbsp;&nbsp;campo_busca.send_keys(Keys.RETURN)<br>
+                            <br>
+                            &nbsp;&nbsp;<span class="comment"># Esperar elemento aparecer</span><br>
+                            &nbsp;&nbsp;WebDriverWait(driver, 10).until(<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;EC.presence_of_element_located((By.ID, "resultado"))<br>
+                            &nbsp;&nbsp;)<br>
+                            <br>
+                            &nbsp;&nbsp;<span class="comment"># Assert</span><br>
+                            &nbsp;&nbsp;assert "Selenium" in driver.title<br>
+                            <br>
+                            finally:<br>
+                            &nbsp;&nbsp;driver.quit()
+                        </div>
+
+                        <h3>Exemplo JavaScript</h3>
+                        <div class="command-block">
+                            <span class="comment">// test.js</span><br>
+                            const { Builder, By, Key, until } = require('selenium-webdriver');<br>
+                            <br>
+                            async function exemploTeste() {<br>
+                            &nbsp;&nbsp;let driver = await new Builder().forBrowser('chrome').build();<br>
+                            <br>
+                            &nbsp;&nbsp;try {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Navegar</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;await driver.get('https://exemplo.com');<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Encontrar e interagir</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Esperar</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;await driver.wait(until.titleContains('webdriver'), 1000);<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Verificar</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const titulo = await driver.getTitle();<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;console.log('Título:', titulo);<br>
+                            &nbsp;&nbsp;} finally {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;await driver.quit();<br>
+                            &nbsp;&nbsp;}<br>
+                            }<br>
+                            <br>
+                            exemploTeste();
+                        </div>
+
+                        <h3>Localizadores de Elementos</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                            <tr style="background: #e9ecef;">
+                                <th style="border: 1px solid #dee2e6; padding: 0.75rem; text-align: left;">Localizador</th>
+                                <th style="border: 1px solid #dee2e6; padding: 0.75rem; text-align: left;">Descrição</th>
+                                <th style="border: 1px solid #dee2e6; padding: 0.75rem; text-align: left;">Exemplo Python</th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>ID</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Por atributo ID</td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">By.ID, "meu-id"</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>NAME</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Por atributo name</td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">By.NAME, "username"</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>CLASS_NAME</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Por classe CSS</td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">By.CLASS_NAME, "btn"</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>CSS_SELECTOR</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Seletor CSS</td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">By.CSS_SELECTOR, ".classe"</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>XPATH</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Expressão XPath</td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">By.XPATH, "//div[@id='x']"</td>
+                            </tr>
+                        </table>
+
+                        <h3 style="margin-top: 2rem;">Waits - Esperas Inteligentes</h3>
+                        <div class="command-block">
+                            <span class="comment"># Implicit Wait - Espera global</span><br>
+                            driver.implicitly_wait(10)  # segundos<br>
+                            <br>
+                            <span class="comment"># Explicit Wait - Espera específica</span><br>
+                            from selenium.webdriver.support.ui import WebDriverWait<br>
+                            from selenium.webdriver.support import expected_conditions as EC<br>
+                            <br>
+                            elemento = WebDriverWait(driver, 10).until(<br>
+                            &nbsp;&nbsp;EC.presence_of_element_located((By.ID, "meu-elemento"))<br>
+                            )<br>
+                            <br>
+                            <span class="comment"># Condições comuns</span><br>
+                            EC.title_contains("texto")<br>
+                            EC.element_to_be_clickable((By.ID, "botao"))<br>
+                            EC.visibility_of_element_located((By.CSS_SELECTOR, ".classe"))<br>
+                            EC.text_to_be_present_in_element((By.ID, "msg"), "Sucesso")
+                        </div>
+
+                        <div class="success-box">
+                            <strong>Melhor para:</strong> Testes end-to-end, automação de tarefas web, testes de regressão, 
+                            testes cross-browser, web scraping com interação complexa.
+                        </div>
+                    </section>
+
+                    <!-- Comparativo -->
+                    <section class="review-section">
+                        <h2>Comparativo das Ferramentas</h2>
+                        
+                        <h3>Tabela Comparativa</h3>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem; min-width: 600px;">
+                                <tr style="background: #667eea; color: white;">
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Critério</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem;">DevTools</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Postman</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Jest</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Selenium</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Tipo</strong></td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Debug Tool</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">API Testing</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Unit Testing</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">E2E Testing</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Curva Aprendizado</strong></td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Baixa</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Baixa</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Média</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Média-Alta</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Automação</strong></td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Limitada</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Alta (Newman)</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Total</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Total</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>CI/CD</strong></td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Não</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Sim</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Sim</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Sim</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Velocidade</strong></td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Instantânea</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Rápida</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Muito Rápida</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Lenta</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Custo</strong></td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Gratuito</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Freemium</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Gratuito</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Gratuito</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <h3 style="margin-top: 2rem;">Recomendações por Cenário</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+                            <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 1.5rem; border-radius: 10px;">
+                                <h4 style="color: white; margin-bottom: 1rem;">Debug Frontend</h4>
+                                <p style="font-size: 0.9rem; line-height: 1.6; margin: 0;">
+                                    <strong>Use DevTools</strong><br>
+                                    Perfeito para debug em tempo real, análise de CSS e performance
+                                </p>
+                            </div>
+
+                            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 10px;">
+                                <h4 style="color: white; margin-bottom: 1rem;">API Testing</h4>
+                                <p style="font-size: 0.9rem; line-height: 1.6; margin: 0;">
+                                    <strong>Use Postman</strong><br>
+                                    Ideal para testar endpoints, validar contratos e documentar APIs
+                                </p>
+                            </div>
+
+                            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 1.5rem; border-radius: 10px;">
+                                <h4 style="color: white; margin-bottom: 1rem;">Testes Unitários</h4>
+                                <p style="font-size: 0.9rem; line-height: 1.6; margin: 0;">
+                                    <strong>Use Jest</strong><br>
+                                    Melhor para TDD, cobertura de código e testes rápidos
+                                </p>
+                            </div>
+
+                            <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 1.5rem; border-radius: 10px;">
+                                <h4 style="color: white; margin-bottom: 1rem;">Testes E2E</h4>
+                                <p style="font-size: 0.9rem; line-height: 1.6; margin: 0;">
+                                    <strong>Use Selenium</strong><br>
+                                    Essencial para validar fluxos completos e interações de usuário
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Melhores Práticas -->
+                    <section class="review-section">
+                        <h2>Melhores Práticas e Dicas</h2>
+
+                        <h3>Estratégia de Testes</h3>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                            <h4>Pirâmide de Testes</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                <div style="background: #e8f5e8; border: 1px solid #c3e6c3; padding: 1rem; border-radius: 8px;">
+                                    <h5>Base: Testes Unitários (70%)</h5>
+                                    <ul style="font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.5rem;">
+                                        <li>Rápidos e baratos</li>
+                                        <li>Alta cobertura</li>
+                                        <li>Fácil manutenção</li>
+                                        <li>Use Jest ou similar</li>
+                                    </ul>
+                                </div>
+
+                                <div style="background: #fff3e0; border: 1px solid #ffd699; padding: 1rem; border-radius: 8px;">
+                                    <h5>Meio: Testes de Integração (20%)</h5>
+                                    <ul style="font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.5rem;">
+                                        <li>Testam interações entre componentes</li>
+                                        <li>Validam APIs</li>
+                                        <li>Use Postman + Newman</li>
+                                    </ul>
+                                </div>
+
+                                <div style="background: #fce4ec; border: 1px solid #f8bbd0; padding: 1rem; border-radius: 8px;">
+                                    <h5>Topo: Testes E2E (10%)</h5>
+                                    <ul style="font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.5rem;">
+                                        <li>Mais lentos e complexos</li>
+                                        <li>Testam fluxos críticos</li>
+                                        <li>Use Selenium</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Boas Práticas Gerais</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                            <div style="background: #e8f4fd; border: 1px solid #b3d7f2; padding: 1rem; border-radius: 8px;">
+                                <h4>Escrita de Testes</h4>
+                                <ul style="line-height: 1.6; font-size: 0.9rem; margin: 0; padding-left: 1.5rem;">
+                                    <li>Testes devem ser independentes</li>
+                                    <li>Use nomes descritivos</li>
+                                    <li>Siga padrão AAA (Arrange, Act, Assert)</li>
+                                    <li>Evite testes frágeis</li>
+                                    <li>Mantenha testes simples</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: #f0f8e8; border: 1px solid #c3e6c3; padding: 1rem; border-radius: 8px;">
+                                <h4>Organização</h4>
+                                <ul style="line-height: 1.6; font-size: 0.9rem; margin: 0; padding-left: 1.5rem;">
+                                    <li>Estruture testes por funcionalidade</li>
+                                    <li>Use helpers e fixtures</li>
+                                    <li>Mantenha dados de teste separados</li>
+                                    <li>Documente casos complexos</li>
+                                    <li>Versionize configurações</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: #fff3e0; border: 1px solid #ffd699; padding: 1rem; border-radius: 8px;">
+                                <h4>CI/CD</h4>
+                                <ul style="line-height: 1.6; font-size: 0.9rem; margin: 0; padding-left: 1.5rem;">
+                                    <li>Execute testes em cada commit</li>
+                                    <li>Configure relatórios automáticos</li>
+                                    <li>Use paralelização quando possível</li>
+                                    <li>Defina threshold de cobertura</li>
+                                    <li>Monitore tempo de execução</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3>Exemplo de package.json com Scripts</h3>
+                        <div class="command-block">
+                            <div class="comment">// package.json</div>
+                            <div>{</div>
+                            <div>  "scripts": {</div>
+                            <div>    <span class="comment">// Jest</span></div>
+                            <div>    "test": "jest",</div>
+                            <div>    "test:watch": "jest --watch",</div>
+                            <div>    "test:coverage": "jest --coverage",</div>
+                            <div>    "test:ci": "jest --ci --coverage --maxWorkers=2",</div>
+                            <div>    <span class="comment">// Postman via Newman</span></div>
+                            <div>    "test:api": "newman run collection.json -e ambiente.json",</div>
+                            <div>    <span class="comment">// Selenium</span></div>
+                            <div>    "test:e2e": "node selenium-tests/run-all.js",</div>
+                            <div>    <span class="comment">// Todos os testes</span></div>
+                            <div>    "test:all": "npm run test && npm run test:api && npm run test:e2e"</div>
+                            <div>  }</div>
+                            <div>}</div>
+                        </div>
+
+                        <div class="warning-box">
+                            <strong>Atenção:</strong> Testes não substituem code review e análise de segurança. 
+                            Use-os como parte de uma estratégia completa de qualidade de software.
+                        </div>
+                    </section>
+
+                    <!-- Resolução de Problemas -->
+                    <section class="review-section">
+                        <h2>Resolução de Problemas Comuns</h2>
+
+                        <h3>Chrome DevTools</h3>
+                        <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+                            <h4 style="margin-top: 0;">Problema: DevTools não abre ou trava</h4>
+                            <p style="margin-bottom: 0.5rem;"><strong>Solução:</strong></p>
+                            <ul style="margin: 0; padding-left: 1.5rem;">
+                                <li>Limpe cache e cookies do navegador</li>
+                                <li>Desative extensões que podem causar conflito</li>
+                                <li>Atualize o Chrome para última versão</li>
+                                <li>Reinicie o navegador em modo anônimo para testar</li>
+                                <li>Verifique se há conflitos com outras ferramentas de desenvolvedor</li>
+                            </ul>
+                        </div>
+
+                        <h3>Postman</h3>
+                        <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+                            <h4 style="margin-top: 0;">Problema: Requisições retornam erro de CORS</h4>
+                            <p style="margin-bottom: 0.5rem;"><strong>Solução:</strong></p>
+                            <ul style="margin: 0; padding-left: 1.5rem;">
+                                <li>CORS é uma restrição do navegador, não afeta Postman Desktop</li>
+                                <li>Use Postman Desktop em vez da versão web</li>
+                                <li>Desative "Interceptor" se estiver habilitado</li>
+                                <li>Configure o servidor para aceitar requisições do Postman</li>
+                                <li>Adicione headers CORS necessários manualmente</li>
+                            </ul>
+                        </div>
+
+                        <h3>Jest</h3>
+                        <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+                            <h4 style="margin-top: 0;">Problema: Testes passam localmente mas falham no CI</h4>
+                            <p style="margin-bottom: 0.5rem;"><strong>Solução:</strong></p>
+                            <ul style="margin: 0; padding-left: 1.5rem;">
+                                <li>Verifique diferenças de timezone entre ambientes</li>
+                                <li>Garanta que todas as dependências estão instaladas no CI</li>
+                                <li>Use --maxWorkers=2 para evitar problemas de concorrência</li>
+                                <li>Adicione --forceExit se houver processos pendentes</li>
+                                <li>Configure variáveis de ambiente corretamente</li>
+                            </ul>
+                        </div>
+
+                        <h3>Selenium</h3>
+                        <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+                            <h4 style="margin-top: 0;">Problema: ElementNotInteractableException</h4>
+                            <p style="margin-bottom: 0.5rem;"><strong>Solução:</strong></p>
+                            <ul style="margin: 0; padding-left: 1.5rem;">
+                                <li>Use explicit waits antes de interagir com elementos</li>
+                                <li>Verifique se o elemento está visível na tela</li>
+                                <li>Scroll até o elemento antes de clicar</li>
+                                <li>Aguarde animações CSS terminarem</li>
+                                <li>Use JavaScript executor como alternativa: driver.execute_script("arguments[0].click()", elemento)</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- Ferramentas Complementares -->
+                    <section class="review-section">
+                        <h2>Ferramentas Complementares</h2>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+                            <div style="background: #e8f4fd; border: 1px solid #b3d7f2; padding: 1.5rem; border-radius: 8px;">
+                                <h4>Alternatives ao Jest</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem; margin: 0; padding-left: 1.5rem;">
+                                    <li><strong>Mocha:</strong> Framework flexível e minimalista</li>
+                                    <li><strong>Jasmine:</strong> BDD framework independente</li>
+                                    <li><strong>AVA:</strong> Runner de testes concorrente</li>
+                                    <li><strong>Vitest:</strong> Alternativa moderna e rápida</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: #f0f8e8; border: 1px solid #c3e6c3; padding: 1.5rem; border-radius: 8px;">
+                                <h4>Alternatives ao Selenium</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem; margin: 0; padding-left: 1.5rem;">
+                                    <li><strong>Cypress:</strong> Testes E2E modernos e rápidos</li>
+                                    <li><strong>Playwright:</strong> Automação cross-browser da Microsoft</li>
+                                    <li><strong>Puppeteer:</strong> Controle headless do Chrome</li>
+                                    <li><strong>TestCafe:</strong> Sem WebDriver, mais estável</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: #fff3e0; border: 1px solid #ffd699; padding: 1.5rem; border-radius: 8px;">
+                                <h4>Ferramentas de Cobertura</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem; margin: 0; padding-left: 1.5rem;">
+                                    <li><strong>Istanbul/NYC:</strong> Cobertura de código</li>
+                                    <li><strong>Codecov:</strong> Plataforma de análise</li>
+                                    <li><strong>Coveralls:</strong> Tracking de cobertura</li>
+                                    <li><strong>SonarQube:</strong> Análise de qualidade completa</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: #fce4ec; border: 1px solid #f8bbd0; padding: 1.5rem; border-radius: 8px;">
+                                <h4>Debugging Avançado</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem; margin: 0; padding-left: 1.5rem;">
+                                    <li><strong>React DevTools:</strong> Debug componentes React</li>
+                                    <li><strong>Vue DevTools:</strong> Inspetor para Vue.js</li>
+                                    <li><strong>Redux DevTools:</strong> Debug state management</li>
+                                    <li><strong>Charles Proxy:</strong> Proxy HTTP para análise</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Recursos Úteis -->
+                    <section class="review-section">
+                        <h2>Recursos e Links Úteis</h2>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+                            <div>
+                                <h4>Chrome DevTools</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem;">
+                                    <li><a href="https://developer.chrome.com/docs/devtools/" target="_blank">Documentação Oficial</a></li>
+                                    <li><a href="https://developers.google.com/web/tools/chrome-devtools" target="_blank">Google Developers</a></li>
+                                    <li><a href="https://umaar.com/dev-tips/" target="_blank">DevTools Tips</a></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4>Postman</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem;">
+                                    <li><a href="https://learning.postman.com/" target="_blank">Learning Center</a></li>
+                                    <li><a href="https://www.postman.com/api-platform/api-testing/" target="_blank">API Testing Guide</a></li>
+                                    <li><a href="https://community.postman.com/" target="_blank">Community Forum</a></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4>Jest</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem;">
+                                    <li><a href="https://jestjs.io/" target="_blank">Site Oficial</a></li>
+                                    <li><a href="https://jestjs.io/docs/getting-started" target="_blank">Getting Started</a></li>
+                                    <li><a href="https://github.com/facebook/jest" target="_blank">GitHub Repository</a></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4>Selenium</h4>
+                                <ul style="line-height: 1.8; font-size: 0.9rem;">
+                                    <li><a href="https://www.selenium.dev/" target="_blank">Site Oficial</a></li>
+                                    <li><a href="https://www.selenium.dev/documentation/" target="_blank">Documentação</a></li>
+                                    <li><a href="https://github.com/SeleniumHQ/selenium" target="_blank">GitHub</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3>Cursos e Tutoriais Recomendados</h3>
+                        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                <div>
+                                    <h4>Plataformas de Ensino</h4>
+                                    <ul style="font-size: 0.9rem; line-height: 1.6;">
+                                        <li><a href="https://www.udemy.com/" target="_blank">Udemy</a> - Cursos práticos</li>
+                                        <li><a href="https://www.pluralsight.com/" target="_blank">Pluralsight</a> - Conteúdo profissional</li>
+                                        <li><a href="https://testautomationu.applitools.com/" target="_blank">Test Automation University</a> - Gratuito</li>
+                                        <li><a href="https://www.ministryoftesting.com/" target="_blank">Ministry of Testing</a></li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4>Recursos Gratuitos</h4>
+                                    <ul style="font-size: 0.9rem; line-height: 1.6;">
+                                        <li><a href="https://www.youtube.com/" target="_blank">YouTube</a> - Tutoriais variados</li>
+                                        <li><a href="https://www.freecodecamp.org/" target="_blank">freeCodeCamp</a></li>
+                                        <li><a href="https://testing-library.com/" target="_blank">Testing Library</a></li>
+                                        <li><a href="https://martinfowler.com/testing/" target="_blank">Martin Fowler - Testing</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Integração com CI/CD -->
+                    <section class="review-section">
+                        <h2>Integração com CI/CD</h2>
+
+                        <h3>Exemplo GitHub Actions</h3>
+                        <div class="command-block">
+                            <span class="comment"># .github/workflows/test.yml</span><br>
+                            name: Tests<br>
+                            <br>
+                            on: [push, pull_request]<br>
+                            <br>
+                            jobs:<br>
+                            &nbsp;&nbsp;test:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;runs-on: ubuntu-latest<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;steps:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;- uses: actions/checkout@v2<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;- name: Setup Node.js<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uses: actions/setup-node@v2<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node-version: '18'<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;- name: Install dependencies<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: npm ci<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;- name: Run unit tests<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: npm run test:ci<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;- name: Run API tests<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: npm run test:api<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;- name: Upload coverage<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uses: codecov/codecov-action@v2
+                        </div>
+
+                        <h3>Exemplo GitLab CI</h3>
+                        <div class="command-block">
+                            <span class="comment"># .gitlab-ci.yml</span><br>
+                            image: node:18<br>
+                            <br>
+                            stages:<br>
+                            &nbsp;&nbsp;- test<br>
+                            <br>
+                            unit-tests:<br>
+                            &nbsp;&nbsp;stage: test<br>
+                            &nbsp;&nbsp;script:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;- npm ci<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;- npm run test:coverage<br>
+                            &nbsp;&nbsp;coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/<br>
+                            &nbsp;&nbsp;artifacts:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;reports:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coverage_report:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coverage_format: cobertura<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path: coverage/cobertura-coverage.xml<br>
+                            <br>
+                            e2e-tests:<br>
+                            &nbsp;&nbsp;stage: test<br>
+                            &nbsp;&nbsp;image: selenium/standalone-chrome<br>
+                            &nbsp;&nbsp;script:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;- npm ci<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;- npm run test:e2e
+                        </div>
+                    </section>
+
+                    <!-- Conclusão -->
+                    <section class="review-section">
+                        <h2>Conclusão</h2>
+                        <p>
+                            Ferramentas de debug e testes são fundamentais para garantir a qualidade e confiabilidade 
+                            do software moderno. Cada ferramenta tem seu papel específico no ciclo de desenvolvimento, 
+                            e usá-las em conjunto cria uma estratégia robusta de qualidade.
+                        </p>
+                        
+                        <div style="background: #e8f4fd; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                            <h3>Resumo das Recomendações</h3>
+                            <ul style="line-height: 1.8; margin: 0;">
+                                <li><strong>Chrome DevTools:</strong> Sua primeira linha de defesa para debug em tempo real. Essencial para todo desenvolvedor web, oferece insights instantâneos sobre HTML, CSS, JavaScript e performance</li>
+                                <li><strong>Postman:</strong> A ferramenta definitiva para desenvolvimento e teste de APIs. Simplifica validação de endpoints, documentação e automação de testes de integração</li>
+                                <li><strong>Jest:</strong> O padrão da indústria para testes unitários JavaScript. Rápido, confiável e com excelente experiência de desenvolvedor, perfeito para TDD</li>
+                                <li><strong>Selenium:</strong> Quando você precisa garantir que fluxos críticos funcionam de ponta a ponta. Indispensável para testes de regressão e validação cross-browser</li>
+                            </ul>
+                        </div>
+
+                        <p>
+                            O investimento em testes e debug não é opcional no desenvolvimento profissional. Código bem 
+                            testado é mais fácil de manter, refatorar e escalar. Além disso, detectar bugs cedo no ciclo 
+                            de desenvolvimento é exponencialmente mais barato do que corrigir problemas em produção.
+                        </p>
+
+                        <p>
+                            Comece com testes unitários usando Jest, adicione testes de API com Postman, e complemente 
+                            com testes E2E usando Selenium para fluxos críticos. Use Chrome DevTools diariamente para 
+                            debug e otimização. Essa combinação oferece cobertura completa e confiança no código.
+                        </p>
+                        
+                        <div class="success-box">
+                            <strong>Próximo Passo:</strong> Escolha um projeto existente e comece adicionando testes 
+                            unitários básicos com Jest. Depois, experimente automatizar testes de API com Postman. 
+                            A prática consistente é a chave para dominar essas ferramentas essenciais.
+                        </div>
+                    </section>
+
+                    <!-- Artigos relacionados -->
+                    <section style="margin-bottom: 1rem;">
+                        <h2 style="text-align: center; font-size: 2rem;">Artigos Relacionados</h2>
+                        <div class="categories-grid"
+                            style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem;">
+                            <div class="category-card"
+                                style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
+                                <a href="/categories/posts/desenvolvimento/build-automacao.html" style="color: white; text-decoration: none;">
+                                <span class="category-icon">🔧</span>
+                                <h3 class="category-title" style="color: white;">Build e Automação</h3>
+                                <p style="color: rgba(255,255,255,0.9); margin-bottom: 1rem;">Webpack, Gulp, Grunt e Maven explicados.</p>
+                                Ler artigo →</a>
+                            </div>
+
+                            <div class="category-card"
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                                <a href="/categories/posts/desenvolvimento/ides-populares.html" style="color: white; text-decoration: none;">
+                                <span class="category-icon">💻</span>
+                                <h3 class="category-title" style="color: white;">IDEs Populares</h3>
+                                <p style="color: rgba(255,255,255,0.9); margin-bottom: 1rem;">Guia completo das melhores IDEs do mercado.</p>
+                                Ler artigo →</a>
+                            </div>
+
+                            <div class="category-card"
+                                style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                                <a href="/categories/posts/desenvolvimento/devOps-deploy.html" style="color: white; text-decoration: none;">
+                                <span class="category-icon">🚀</span>
+                                <h3 class="category-title" style="color: white;">DevOps e Deploy</h3>
+                                <p style="color: rgba(255,255,255,0.9); margin-bottom: 1rem;">Ferramentas essenciais de DevOps e deployment.</p>
+                                Ler artigo →</a>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </article>
+        </div>
+    </main>
+
+     <div class="scroll-top" id="scrollTop"><i class="fa fa-arrow-up"></i></div>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <script src="/js/pageComponents.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+     crossorigin="anonymous"></script>
+</body>
+
+</html>

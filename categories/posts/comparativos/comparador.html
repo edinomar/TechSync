@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comparador de Smartphones - Compare Especificações</title>
+    <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+    <meta name="description" content="Compare dois smartphones lado a lado. Especificações técnicas, preços, câmeras e muito mais para te ajudar na melhor escolha.">
+    
+    <!-- Autor -->
+    <meta name="author" content="TechSync">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+
+    <!-- Cor do tema -->
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- Fontes e Estilos -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* Estilos específicos do comparador mantendo identidade visual */
+        .comparator-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comparator-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="white" stop-opacity="0.1"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient></defs><ellipse cx="50" cy="0" rx="50" ry="20" fill="url(%23a)"/></svg>') repeat-x;
+            opacity: 0.3;
+        }
+
+        .comparator-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .comparator-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Seletor de smartphones */
+        .phone-selector {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 1200px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .selector-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .selector-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .selector-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .phone-select-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .phone-select-card:hover,
+        .phone-select-card.selected {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .phone-dropdown {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            background: white;
+            font-size: 1rem;
+            outline: none;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        .phone-dropdown:focus {
+            border-color: #667eea;
+        }
+
+        .vs-divider {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Comparação */
+        .comparison-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: none;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .phone-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .phone-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .phone-image i {
+            font-size: 4rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .phone-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .phone-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .phone-price {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .current-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .original-price {
+            font-size: 1.2rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        /* Tabela de comparação */
+        .comparison-table {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .table-header h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.3s ease;
+        }
+
+        .comparison-row:hover {
+            background: #f8f9fa;
+        }
+
+        .spec-cell {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .spec-label {
+            background: #f8f9fa;
+            padding: 20px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-left: 1px solid #f0f0f0;
+            border-right: 1px solid #f0f0f0;
+        }
+
+        .spec-value {
+            font-weight: 500;
+            color: #555;
+            text-align: center;
+        }
+
+        .spec-highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .winner-badge {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+
+        /* Radar chart para pontuação */
+        .score-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .score-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            background: #f8f9fa;
+        }
+
+        .score-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .score-chart {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#667eea 0deg, #667eea var(--score-deg), #e9ecef var(--score-deg), #e9ecef 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .score-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            z-index: 1;
+        }
+
+        .score-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .score-category {
+            text-align: center;
+            padding: 15px 10px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .category-name {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .category-score {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Botões de ação */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .btn-action {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .selector-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .vs-divider {
+                width: 60px;
+                height: 60px;
+                font-size: 1.2rem;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-label {
+                border: none;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .score-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Animações */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in-left {
+            transform: translateX(-50px);
+            opacity: 0;
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .slide-in-right {
+            transform: translateX(50px);
+            opacity: 0;
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-container"></div>
+
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+            <a href="/"><i class="fas fa-home"></i> Início</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <a href="/tecnologia"><i class="fas fa-laptop"></i> Tecnologia</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span><i class="fas fa-balance-scale"></i> Comparador</span>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="comparator-hero">
+        <div class="container">
+            <h1 class="comparator-title">⚡ Comparador de Smartphones</h1>
+            <p class="comparator-subtitle">Compare dois smartphones lado a lado e descubra qual é a melhor opção para você</p>
+        </div>
+    </header>
+
+    <!-- Seletor de Smartphones -->
+    <div class="container">
+        <div class="phone-selector">
+            <div class="selector-header">
+                <h2 class="selector-title">Escolha os Smartphones para Comparar</h2>
+                <p style="color: #666;">Selecione dois dispositivos para ver uma comparação detalhada</p>
+            </div>
+
+            <div class="selector-grid">
+                <div class="phone-select-card" id="phone1Card">
+                    <i class="fas fa-mobile-alt" style="font-size: 3rem; color: #667eea; margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 15px; color: #333;">Smartphone 1</h3>
+                    <select class="phone-dropdown" id="phone1Select" onchange="selectPhone(1, this.value)">
+                        <option value="">Escolha um smartphone...</option>
+                    </select>
+                </div>
+
+                <div class="vs-divider">
+                    VS
+                </div>
+
+                <div class="phone-select-card" id="phone2Card">
+                    <i class="fas fa-mobile-alt" style="font-size: 3rem; color: #667eea; margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 15px; color: #333;">Smartphone 2</h3>
+                    <select class="phone-dropdown" id="phone2Select" onchange="selectPhone(2, this.value)">
+                        <option value="">Escolha um smartphone...</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparação -->
+    <div class="comparison-container" id="comparisonContainer">
+        <!-- Cards dos phones -->
+        <div class="comparison-grid">
+            <div class="phone-card slide-in-left" id="phone1Card">
+                <div class="phone-image" id="phone1Image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="phone-badge" id="phone1Badge">Escolha Popular</div>
+                <h2 class="phone-name" id="phone1Name">Smartphone 1</h2>
+                <div class="phone-price">
+                    <span class="current-price" id="phone1Price">R$ 0,00</span>
+                    <span class="original-price" id="phone1OriginalPrice">R$ 0,00</span>
+                </div>
+            </div>
+
+            <div class="phone-card slide-in-right" id="phone2Card">
+                <div class="phone-image" id="phone2Image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="phone-badge" id="phone2Badge">Lançamento</div>
+                <h2 class="phone-name" id="phone2Name">Smartphone 2</h2>
+                <div class="phone-price">
+                    <span class="current-price" id="phone2Price">R$ 0,00</span>
+                    <span class="original-price" id="phone2OriginalPrice">R$ 0,00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Especificações -->
+        <div class="comparison-table fade-in">
+            <div class="table-header">
+                <h3><i class="fas fa-list"></i> Especificações Técnicas</h3>
+            </div>
+            <div id="specificationsTable">
+                <!-- Especificações serão carregadas dinamicamente -->
+            </div>
+        </div>
+
+        <!-- Pontuação Geral -->
+        <div class="score-section fade-in">
+            <h3 style="text-align: center; margin-bottom: 30px; color: #333; font-size: 1.5rem;">
+                <i class="fas fa-chart-line"></i> Pontuação Geral
+            </h3>
+            <div class="score-grid">
+                <div class="score-card">
+                    <h4 class="score-title" id="score1Name">Smartphone 1</h4>
+                    <div class="score-chart">
+                        <div class="score-circle" id="score1Circle">
+                            <span class="score-number" id="score1Number">0</span>
+                        </div>
+                    </div>
+                    <div class="score-categories" id="score1Categories">
+                        <!-- Categorias serão carregadas dinamicamente -->
+                    </div>
+                </div>
+
+                <div class="score-card">
+                    <h4 class="score-title" id="score2Name">Smartphone 2</h4>
+                    <div class="score-chart">
+                        <div class="score-circle" id="score2Circle">
+                            <span class="score-number" id="score2Number">0</span>
+                        </div>
+                    </div>
+                    <div class="score-categories" id="score2Categories">
+                        <!-- Categorias serão carregadas dinamicamente -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="action-buttons">
+            <button class="btn-action btn-primary" onclick="generatePDF()">
+                <i class="fas fa-download"></i> Baixar Comparação
+            </button>
+            <button class="btn-action btn-secondary" onclick="shareComparison()">
+                <i class="fas fa-share"></i> Compartilhar
+            </button>
+            <button class="btn-action btn-secondary" onclick="resetComparison()">
+                <i class="fas fa-refresh"></i> Nova Comparação
+            </button>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+    
+    <script src="/js/pageComponents.js"></script>
+    <script>
+        // Base de dados dos smartphones
+        const smartphones = {
+            'galaxy-s24-ultra': {
+                name: 'Galaxy S24 Ultra',
+                brand: 'Samsung',
+                price: 5499,
+                originalPrice: 6999,
+                image: 'mobile-alt',
+                badge: 'Oferta',
+                specs: {
+                    'Tela': {
+                        value: '6.8" Dynamic AMOLED 2X, 120Hz',
+                        score: 95
+                    },
+                    'Processador': {
+                        value: 'Snapdragon 8 Gen 3',
+                        score: 98
+                    },
+                    'Memória RAM': {
+                        value: '12GB',
+                        score: 90
+                    },
+                    'Armazenamento': {
+                        value: '256GB',
+                        score: 85
+                    },
+                    'Câmera Principal': {
+                        value: '200MP + Ultra Wide 12MP + Telephoto 10MP + Periscope 50MP',
+                        score: 98
+                    },
+                    'Câmera Frontal': {
+                        value: '12MP',
+                        score: 85
+                    },
+                    'Bateria': {
+                        value: '5000mAh, Carregamento 45W',
+                        score: 88
+                    },
+                    'Sistema': {
+                        value: 'Android 14 + One UI 6.1',
+                        score: 92
+                    },
+                    'Resistência': {
+                        value: 'IP68, Gorilla Glass Victus 2',
+                        score: 95
+                    },
+                    'Extras': {
+                        value: 'S Pen, 5G, Wi-Fi 7',
+                        score: 95
+                    }
+                },
+                categories: {
+                    'Desempenho': 95,
+                    'Câmera': 96,
+                    'Bateria': 88,
+                    'Tela': 95,
+                    'Extras': 95
+                }
+            },
+            'iphone-15-pro': {
+                name: 'iPhone 15 Pro',
+                brand: 'Apple',
+                price: 7999,
+                originalPrice: 8999,
+                image: 'mobile-alt',
+                badge: 'Lançamento',
+                specs: {
+                    'Tela': {
+                        value: '6.1" Super Retina XDR OLED, 120Hz',
+                        score: 92
+                    },
+                    'Processador': {
+                        value: 'Apple A17 Pro',
+                        score: 100
+                    },
+                    'Memória RAM': {
+                        value: '8GB',
+                        score: 80
+                    },
+                    'Armazenamento': {
+                        value: '128GB',
+                        score: 70
+                    },
+                    'Câmera Principal': {
+                        value: '48MP + Ultra Wide 12MP + Telephoto 12MP',
+                        score: 94
+                    },
+                    'Câmera Frontal': {
+                        value: '12MP TrueDepth',
+                        score: 90
+                    },
+                    'Bateria': {
+                        value: '3274mAh, Carregamento 20W',
+                        score: 78
+                    },
+                    'Sistema': {
+                        value: 'iOS 17',
+                        score: 96
+                    },
+                    'Resistência': {
+                        value: 'IP68, Ceramic Shield',
+                        score: 92
+                    },
+                    'Extras': {
+                        value: 'Action Button, USB-C, 5G',
+                        score: 90
+                    }
+                },
+                categories: {
+                    'Desempenho': 98,
+                    'Câmera': 94,
+                    'Bateria': 78,
+                    'Tela': 92,
+                    'Extras': 90
+                }
+            },
+            'pixel-8-pro': {
+                name: 'Pixel 8 Pro',
+                brand: 'Google',
+                price: 4299,
+                originalPrice: 4999,
+                image: 'mobile-alt',
+                badge: 'Melhor Câmera',
+                specs: {
+                    'Tela': {
+                        value: '6.7" LTPO OLED, 120Hz',
+                        score: 90
+                    },
+                    'Processador': {
+                        value: 'Google Tensor G3',
+                        score: 85
+                    },
+                    'Memória RAM': {
+                        value: '12GB',
+                        score: 90
+                    },
+                    'Armazenamento': {
+                        value: '128GB',
+                        score: 70
+                    },
+                    'Câmera Principal': {
+                        value: '50MP + Ultra Wide 48MP + Telephoto 48MP',
+                        score: 96
+                    },
+                    'Câmera Frontal': {
+                        value: '10.5MP',
+                        score: 82
+                    },
+                    'Bateria': {
+                        value: '5050mAh, Carregamento 30W',
+                        score: 85
+                    },
+                    'Sistema': {
+                        value: 'Android 14 (Stock)',
+                        score: 95
+                    },
+                    'Resistência': {
+                        value: 'IP68, Gorilla Glass Victus',
+                        score: 90
+                    },
+                    'Extras': {
+                        value: 'Magic Eraser, Call Screen, 5G',
+                        score: 88
+                    }
+                },
+                categories: {
+                    'Desempenho': 85,
+                    'Câmera': 96,
+                    'Bateria': 85,
+                    'Tela': 90,
+                    'Extras': 88
+                }
+            },
+            'xiaomi-14-ultra': {
+                name: 'Xiaomi 14 Ultra',
+                brand: 'Xiaomi',
+                price: 3899,
+                originalPrice: 4599,
+                image: 'mobile-alt',
+                badge: 'Custo-Benefício',
+                specs: {
+                    'Tela': {
+                        value: '6.73" AMOLED, 120Hz',
+                        score: 88
+                    },
+                    'Processador': {
+                        value: 'Snapdragon 8 Gen 3',
+                        score: 98
+                    },
+                    'Memória RAM': {
+                        value: '12GB',
+                        score: 90
+                    },
+                    'Armazenamento': {
+                        value: '256GB',
+                        score: 85
+                    },
+                    'Câmera Principal': {
+                        value: '50MP Leica + Ultra Wide 50MP + Telephoto 50MP + Periscope 50MP',
+                        score: 97
+                    },
+                    'Câmera Frontal': {
+                        value: '32MP',
+                        score: 88
+                    },
+                    'Bateria': {
+                        value: '5300mAh, Carregamento 90W',
+                        score: 95
+                    },
+                    'Sistema': {
+                        value: 'Android 14 + MIUI 15',
+                        score: 85
+                    },
+                    'Resistência': {
+                        value: 'IP68',
+                        score: 85
+                    },
+                    'Extras': {
+                        value: 'Carregamento 90W, 50W Wireless',
+                        score: 92
+                    }
+                },
+                categories: {
+                    'Desempenho': 95,
+                    'Câmera': 97,
+                    'Bateria': 95,
+                    'Tela': 88,
+                    'Extras': 92
+                }
+            },
+            'oneplus-12': {
+                name: 'OnePlus 12',
+                brand: 'OnePlus',
+                price: 3199,
+                originalPrice: 3799,
+                image: 'mobile-alt',
+                badge: 'Gamer',
+                specs: {
+                    'Tela': {
+                        value: '6.82" LTPO AMOLED, 120Hz',
+                        score: 90
+                    },
+                    'Processador': {
+                        value: 'Snapdragon 8 Gen 3',
+                        score: 98
+                    },
+                    'Memória RAM': {
+                        value: '16GB',
+                        score: 95
+                    },
+                    'Armazenamento': {
+                        value: '256GB',
+                        score: 85
+                    },
+                    'Câmera Principal': {
+                        value: '50MP + Ultra Wide 48MP + Telephoto 64MP',
+                        score: 90
+                    },
+                    'Câmera Frontal': {
+                        value: '32MP',
+                        score: 88
+                    },
+                    'Bateria': {
+                        value: '5400mAh, Carregamento 100W',
+                        score: 98
+                    },
+                    'Sistema': {
+                        value: 'Android 14 + OxygenOS 14',
+                        score: 90
+                    },
+                    'Resistência': {
+                        value: 'IP65',
+                        score: 80
+                    },
+                    'Extras': {
+                        value: 'Carregamento 100W, Gaming Mode',
+                        score: 93
+                    }
+                },
+                categories: {
+                    'Desempenho': 98,
+                    'Câmera': 90,
+                    'Bateria': 98,
+                    'Tela': 90,
+                    'Extras': 93
+                }
+            },
+            'galaxy-a55': {
+                name: 'Galaxy A55 5G',
+                brand: 'Samsung',
+                price: 1899,
+                originalPrice: 2299,
+                image: 'mobile-alt',
+                badge: 'Intermediário',
+                specs: {
+                    'Tela': {
+                        value: '6.6" Super AMOLED, 120Hz',
+                        score: 82
+                    },
+                    'Processador': {
+                        value: 'Exynos 1480',
+                        score: 75
+                    },
+                    'Memória RAM': {
+                        value: '8GB',
+                        score: 75
+                    },
+                    'Armazenamento': {
+                        value: '128GB',
+                        score: 70
+                    },
+                    'Câmera Principal': {
+                        value: '50MP + Ultra Wide 12MP + Macro 5MP',
+                        score: 78
+                    },
+                    'Câmera Frontal': {
+                        value: '32MP',
+                        score: 82
+                    },
+                    'Bateria': {
+                        value: '5000mAh, Carregamento 25W',
+                        score: 80
+                    },
+                    'Sistema': {
+                        value: 'Android 14 + One UI 6.1',
+                        score: 88
+                    },
+                    'Resistência': {
+                        value: 'IP67',
+                        score: 80
+                    },
+                    'Extras': {
+                        value: '5G, NFC, Samsung Knox',
+                        score: 75
+                    }
+                },
+                categories: {
+                    'Desempenho': 75,
+                    'Câmera': 78,
+                    'Bateria': 80,
+                    'Tela': 82,
+                    'Extras': 75
+                }
+            }
+        };
+
+        let selectedPhones = { phone1: null, phone2: null };
+
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', function() {
+            populatePhoneSelectors();
+        });
+
+        function populatePhoneSelectors() {
+            const phone1Select = document.getElementById('phone1Select');
+            const phone2Select = document.getElementById('phone2Select');
+
+            Object.keys(smartphones).forEach(key => {
+                const phone = smartphones[key];
+                const option1 = new Option(`${phone.brand} ${phone.name}`, key);
+                const option2 = new Option(`${phone.brand} ${phone.name}`, key);
+                
+                phone1Select.add(option1);
+                phone2Select.add(option2);
+            });
+        }
+
+        function selectPhone(phoneNumber, phoneKey) {
+            if (!phoneKey) return;
+
+            const phone = smartphones[phoneKey];
+            selectedPhones[`phone${phoneNumber}`] = { key: phoneKey, data: phone };
+
+            // Atualizar visual do card seletor
+            const card = document.getElementById(`phone${phoneNumber}Card`);
+            card.classList.add('selected');
+
+            // Se ambos selecionados, mostrar comparação
+            if (selectedPhones.phone1 && selectedPhones.phone2) {
+                showComparison();
+            }
+        }
+
+        function showComparison() {
+            const container = document.getElementById('comparisonContainer');
+            container.style.display = 'block';
+            container.scrollIntoView({ behavior: 'smooth' });
+
+            updatePhoneCards();
+            updateSpecificationsTable();
+            updateScores();
+        }
+
+        function updatePhoneCards() {
+            // Atualizar phone 1
+            const phone1 = selectedPhones.phone1.data;
+            document.getElementById('phone1Name').textContent = `${phone1.brand} ${phone1.name}`;
+            document.getElementById('phone1Price').textContent = `R$ ${phone1.price.toLocaleString('pt-BR')}`;
+            document.getElementById('phone1OriginalPrice').textContent = `R$ ${phone1.originalPrice.toLocaleString('pt-BR')}`;
+            document.getElementById('phone1Badge').textContent = phone1.badge;
+
+            // Atualizar phone 2
+            const phone2 = selectedPhones.phone2.data;
+            document.getElementById('phone2Name').textContent = `${phone2.brand} ${phone2.name}`;
+            document.getElementById('phone2Price').textContent = `R$ ${phone2.price.toLocaleString('pt-BR')}`;
+            document.getElementById('phone2OriginalPrice').textContent = `R$ ${phone2.originalPrice.toLocaleString('pt-BR')}`;
+            document.getElementById('phone2Badge').textContent = phone2.badge;
+        }
+
+        function updateSpecificationsTable() {
+            const table = document.getElementById('specificationsTable');
+            const phone1 = selectedPhones.phone1.data;
+            const phone2 = selectedPhones.phone2.data;
+            
+            let html = '';
+            
+            Object.keys(phone1.specs).forEach(specKey => {
+                const spec1 = phone1.specs[specKey];
+                const spec2 = phone2.specs[specKey];
+                
+                let winner1 = '', winner2 = '';
+                if (spec1.score > spec2.score) {
+                    winner1 = '<span class="winner-badge">Melhor</span>';
+                } else if (spec2.score > spec1.score) {
+                    winner2 = '<span class="winner-badge">Melhor</span>';
+                }
+
+                html += `
+                    <div class="comparison-row">
+                        <div class="spec-cell">
+                            <div class="spec-value ${spec1.score > spec2.score ? 'spec-highlight' : ''}">${spec1.value}${winner1}</div>
+                        </div>
+                        <div class="spec-label">
+                            <i class="fas fa-${getSpecIcon(specKey)}"></i> ${specKey}
+                        </div>
+                        <div class="spec-cell">
+                            <div class="spec-value ${spec2.score > spec1.score ? 'spec-highlight' : ''}">${spec2.value}${winner2}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            table.innerHTML = html;
+        }
+
+        function getSpecIcon(specKey) {
+            const icons = {
+                'Tela': 'desktop',
+                'Processador': 'microchip',
+                'Memória RAM': 'memory',
+                'Armazenamento': 'hdd',
+                'Câmera Principal': 'camera',
+                'Câmera Frontal': 'camera-retro',
+                'Bateria': 'battery-full',
+                'Sistema': 'cogs',
+                'Resistência': 'shield-alt',
+                'Extras': 'star'
+            };
+            return icons[specKey] || 'info';
+        }
+
+        function updateScores() {
+            const phone1 = selectedPhones.phone1.data;
+            const phone2 = selectedPhones.phone2.data;
+
+            // Calcular pontuação geral
+            const score1 = calculateOverallScore(phone1.categories);
+            const score2 = calculateOverallScore(phone2.categories);
+
+            // Atualizar nomes
+            document.getElementById('score1Name').textContent = `${phone1.brand} ${phone1.name}`;
+            document.getElementById('score2Name').textContent = `${phone2.brand} ${phone2.name}`;
+
+            // Atualizar pontuações circulares
+            updateScoreCircle('score1Circle', 'score1Number', score1);
+            updateScoreCircle('score2Circle', 'score2Number', score2);
+
+            // Atualizar categorias
+            updateScoreCategories('score1Categories', phone1.categories);
+            updateScoreCategories('score2Categories', phone2.categories);
+        }
+
+        function calculateOverallScore(categories) {
+            const scores = Object.values(categories);
+            return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+        }
+
+        function updateScoreCircle(circleId, numberId, score) {
+            const circle = document.getElementById(circleId);
+            const number = document.getElementById(numberId);
+            
+            const degrees = (score / 100) * 360;
+            circle.style.setProperty('--score-deg', `${degrees}deg`);
+            
+            // Animar número
+            let currentScore = 0;
+            const increment = score / 50;
+            const timer = setInterval(() => {
+                currentScore += increment;
+                if (currentScore >= score) {
+                    currentScore = score;
+                    clearInterval(timer);
+                }
+                number.textContent = Math.round(currentScore);
+            }, 20);
+        }
+
+        function updateScoreCategories(containerId, categories) {
+            const container = document.getElementById(containerId);
+            let html = '';
+            
+            Object.entries(categories).forEach(([category, score]) => {
+                html += `
+                    <div class="score-category">
+                        <div class="category-name">${category}</div>
+                        <div class="category-score">${score}/100</div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function generatePDF() {
+            // Simular geração de PDF
+            showNotification('PDF da comparação está sendo gerado...', 'success');
+            
+            setTimeout(() => {
+                const phone1 = selectedPhones.phone1.data;
+                const phone2 = selectedPhones.phone2.data;
+                
+                // Criar conteúdo do "PDF" (na prática seria um novo window ou download real)
+                const pdfContent = `
+                    COMPARAÇÃO DE SMARTPHONES
+                    
+                    ${phone1.brand} ${phone1.name} VS ${phone2.brand} ${phone2.name}
+                    
+                    Pontuação Geral:
+                    ${phone1.name}: ${calculateOverallScore(phone1.categories)}/100
+                    ${phone2.name}: ${calculateOverallScore(phone2.categories)}/100
+                    
+                    Preços:
+                    ${phone1.name}: R$ ${phone1.price.toLocaleString('pt-BR')}
+                    ${phone2.name}: R$ ${phone2.price.toLocaleString('pt-BR')}
+                    
+                    Gerado em: ${new Date().toLocaleDateString('pt-BR')}
+                `;
+                
+                showNotification('Comparação salva com sucesso!', 'success');
+                
+                // Em uma implementação real, você usaria uma biblioteca como jsPDF
+                console.log('PDF Content:', pdfContent);
+                
+            }, 2000);
+        }
+
+        function shareComparison() {
+            const phone1 = selectedPhones.phone1.data;
+            const phone2 = selectedPhones.phone2.data;
+            
+            const shareText = `Comparando ${phone1.brand} ${phone1.name} vs ${phone2.brand} ${phone2.name} - Veja qual é melhor!`;
+            const shareUrl = window.location.href;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Comparação de Smartphones',
+                    text: shareText,
+                    url: shareUrl,
+                });
+            } else {
+                // Fallback para navegadores sem suporte ao Web Share API
+                const textArea = document.createElement('textarea');
+                textArea.value = `${shareText}\n${shareUrl}`;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                showNotification('Link da comparação copiado!', 'success');
+            }
+        }
+
+        function resetComparison() {
+            // Resetar seleções
+            selectedPhones = { phone1: null, phone2: null };
+            
+            // Resetar dropdowns
+            document.getElementById('phone1Select').value = '';
+            document.getElementById('phone2Select').value = '';
+            
+            // Remover classes selected
+            document.getElementById('phone1Card').classList.remove('selected');
+            document.getElementById('phone2Card').classList.remove('selected');
+            
+            // Esconder comparação
+            document.getElementById('comparisonContainer').style.display = 'none';
+            
+            // Voltar ao topo
+            document.querySelector('.phone-selector').scrollIntoView({ behavior: 'smooth' });
+            
+            showNotification('Comparação resetada!', 'success');
+        }
+
+        function showNotification(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Animações ao scroll
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0) translateX(0)';
+                }
+            });
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', handleScrollAnimations);
+        window.addEventListener('load', handleScrollAnimations);
+
+        // Máscara para inputs (se necessário no futuro)
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value);
+        }
+
+        // Auto-complete e busca (pode ser expandido)
+        document.addEventListener('DOMContentLoaded', function() {
+            const phone1Select = document.getElementById('phone1Select');
+            const phone2Select = document.getElementById('phone2Select');
+            
+            // Adicionar eventos de mudança
+            phone1Select.addEventListener('change', function() {
+                if (this.value) {
+                    selectPhone(1, this.value);
+                }
+            });
+            
+            phone2Select.addEventListener('change', function() {
+                if (this.value) {
+                    selectPhone(2, this.value);
+                }
+            });
+        });
+
+        // Toast de notificação
+        const style = document.createElement('style');
+        style.textContent = `
+            .toast {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #4CAF50;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                z-index: 10001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .toast.show {
+                transform: translateX(0);
+            }
+
+            .toast.error {
+                background: #f44336;
+            }
+
+            .toast.warning {
+                background: #ff9800;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+     crossorigin="anonymous"></script>
+    <!-- Toast de notificação -->
+    <div id="toast" class="toast"></div>
+
+    <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = "www.themoneytizer.com";
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+</body>
+
+</html>

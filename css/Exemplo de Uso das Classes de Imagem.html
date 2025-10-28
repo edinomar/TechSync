@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Imagens Centralizadas</title>
+    <style>
+        /* Estilos básicos da página */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #fafafa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1, h2 { color: #333; text-align: center; }
+        p { color: #666; max-width: 800px; margin: 0 auto 1rem; }
+        
+        /* ====================================
+           ESTILOS PARA IMAGENS DO POST
+           ==================================== */
+
+        /* Imagem principal/destaque do post */
+        .featured-image {
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            margin: 2rem auto;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+        }
+
+        .featured-image:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        /* Imagens menores no conteúdo */
+        .content-image {
+            display: block;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            margin: 1.5rem auto;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .content-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Container para imagens com legendas */
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-caption {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #666;
+            font-style: italic;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        /* Variações */
+        .wide-image {
+            height: 350px;
+            max-width: 900px;
+        }
+
+        .square-image {
+            height: 400px;
+            max-width: 400px;
+        }
+
+        .polaroid-image {
+            background: white;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+        }
+
+        .polaroid-image:hover {
+            transform: rotate(0deg);
+        }
+
+        /* Galeria */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem auto;
+            max-width: 1000px;
+        }
+
+        .gallery-item {
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .featured-image {
+                height: 300px;
+                margin: 1.5rem auto;
+            }
+            
+            .content-image {
+                height: 250px;
+                margin: 1rem auto;
+            }
+            
+            .featured-image:hover,
+            .content-image:hover {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .featured-image {
+                height: 220px;
+                margin: 1rem auto;
+            }
+            
+            .content-image {
+                height: 180px;
+                margin: 0.8rem auto;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Demonstração das Classes de Imagem</h1>
+        
+        <h2>1. Imagem Principal (Featured)</h2>
+        <p>Use a classe <code>.featured-image</code> para a imagem principal do seu post:</p>
+        
+        <!-- Exemplo com placeholder - substitua por sua imagem real -->
+        <img src="https://picsum.photos/800/400?random=1" 
+             alt="Imagem principal do artigo" 
+             class="featured-image" 
+             loading="lazy">
+
+        <h2>2. Imagens de Conteúdo</h2>
+        <p>Para imagens menores dentro do texto, use <code>.content-image</code>:</p>
+        
+        <img src="https://picsum.photos/600/300?random=2" 
+             alt="Imagem ilustrativa do conteúdo" 
+             class="content-image" 
+             loading="lazy">
+
+        <h2>3. Imagem com Legenda</h2>
+        <p>Para adicionar legendas às imagens:</p>
+        
+        <div class="image-container">
+            <img src="https://picsum.photos/700/350?random=3" 
+                 alt="Imagem com legenda explicativa" 
+                 loading="lazy">
+            <p class="image-caption">Esta é uma legenda explicativa para a imagem acima</p>
+        </div>
+
+        <h2>4. Variações de Estilo</h2>
+        
+        <h3>Imagem Wide (16:9)</h3>
+        <img src="https://picsum.photos/900/350?random=4" 
+             alt="Imagem em formato wide" 
+             class="featured-image wide-image" 
+             loading="lazy">
+
+        <h3>Imagem Quadrada</h3>
+        <img src="https://picsum.photos/400/400?random=5" 
+             alt="Imagem quadrada" 
+             class="content-image square-image" 
+             loading="lazy">
+
+        <h3>Efeito Polaroid</h3>
+        <img src="https://picsum.photos/500/300?random=6" 
+             alt="Imagem com efeito polaroid" 
+             class="content-image polaroid-image" 
+             loading="lazy">
+
+        <h2>5. Galeria de Imagens</h2>
+        <p>Para múltiplas imagens organizadas em grade:</p>
+        
+        <div class="image-gallery">
+            <div class="gallery-item">
+                <img src="https://picsum.photos/300/200?random=7" alt="Imagem da galeria 1">
+            </div>
+            <div class="gallery-item">
+                <img src="https://picsum.photos/300/200?random=8" alt="Imagem da galeria 2">
+            </div>
+            <div class="gallery-item">
+                <img src="https://picsum.photos/300/200?random=9" alt="Imagem da galeria 3">
+            </div>
+            <div class="gallery-item">
+                <img src="https://picsum.photos/300/200?random=10" alt="Imagem da galeria 4">
+            </div>
+        </div>
+
+        <h2>Como Usar no Seu Post</h2>
+        <p>Simplesmente substitua as imagens do seu HTML pelas classes apropriadas:</p>
+        
+        <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto;">
+&lt;!-- Imagem principal --&gt;
+&lt;img src="../images/desenvolvedor-codigo-limpo.jpg" 
+     alt="Desenvolvedor escrevendo código limpo" 
+     class="featured-image" 
+     loading="lazy"&gt;
+
+&lt;!-- Imagem no conteúdo --&gt;
+&lt;img src="../images/top-10-boas-praticas.jpg" 
+     alt="Infográfico com as 10 práticas" 
+     class="content-image" 
+     loading="lazy"&gt;
+
+&lt;!-- Imagem com legenda --&gt;
+&lt;div class="image-container"&gt;
+    &lt;img src="../images/beneficios-boas-praticas.jpg" 
+         alt="Gráfico dos benefícios" 
+         loading="lazy"&gt;
+    &lt;p class="image-caption"&gt;Gráfico mostrando os benefícios das boas práticas&lt;/p&gt;
+&lt;/div&gt;
+        </pre>
+    </div>
+</body>
+</html>

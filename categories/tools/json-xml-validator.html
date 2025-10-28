@@ -1,0 +1,1154 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NFY6RYBJZJ');
+  </script>
+  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+  <title>Validador JSON / XML — TechSync</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/categories/tools/css/style-tools.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    /* Estilos específicos para o editor com numeração de linhas */
+    .editor-wrapper {
+      position: relative;
+      display: flex;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      min-height: 300px;
+    }
+
+    .line-numbers {
+      background: #f8f9fa;
+      color: #666;
+      padding: 10px 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      user-select: none;
+      border-right: 1px solid #e9ecef;
+      overflow: hidden;
+      white-space: nowrap;
+      min-width: 50px;
+      text-align: right;
+    }
+
+    .line-numbers div {
+      height: 21px; /* Match line height */
+    }
+
+    .code-editor {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      resize: none;
+      background: transparent;
+      overflow-y: auto;
+      overflow-x: auto;
+    }
+
+    .editor-wrapper:focus-within {
+      border-color: #667eea;
+      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+    }
+
+    /* Sincronização de scroll */
+    .editor-wrapper.synced .line-numbers,
+    .editor-wrapper.synced .code-editor {
+      overflow-y: hidden;
+    }
+
+    /* Highlight da linha com erro */
+    .line-numbers .error-line {
+      background: #fff5f5;
+      color: #dc3545;
+      font-weight: bold;
+      border-left: 3px solid #dc3545;
+      padding-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-container">
+    <nav class="breadcrumb">
+      <a href="/"><i class="fas fa-home"></i> Início</a>
+      <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+      <a href="/categories/tools/tools-index.html"><i class="fas fa-tools"></i> Ferramentas</a>
+      <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+      <span>Validador JSON/XML</span>
+    </nav>
+  </div>
+
+  <main class="tool-container">
+    <!-- Header da ferramenta -->
+    <div class="tool-header">
+      <h1>Validador JSON / XML</h1>
+      <div class="subtitle">
+        Cole seu JSON ou XML no editor, valide, formate e veja erros explicados de forma clara e intuitiva.
+      </div>
+    </div>
+
+    <!-- Seção principal da ferramenta -->
+    <div class="tool-section">
+      <div class="section-header">
+        <h2 style="text-align: center; margin-bottom: 1rem;">
+          <i class="fas fa-file-code"></i>
+          Editor de Código
+        </h2>
+        <div class="file-upload-wrapper">
+          <input id="fileInput" type="file" accept=".json,.xml,text/*" class="file-input" />
+          <label for="fileInput" class="file-label">
+            <i class="fas fa-upload"></i>
+            Carregar Arquivo
+          </label>
+        </div>
+      </div>
+
+      <!-- Abas JSON/XML -->
+      <div class="tabs-container">
+        <button id="tabJson" class="tab-button active">
+          <i class="fab fa-js-square"></i>
+          JSON
+        </button>
+        <button id="tabXml" class="tab-button">
+          <i class="fas fa-code"></i>
+          XML
+        </button>
+      </div>
+
+      <!-- Editor principal com numeração de linhas -->
+      <div class="editor-container">
+        <div class="editor-wrapper" id="editorWrapper">
+          <div class="line-numbers" id="lineNumbers">
+            <div>1</div>
+          </div>
+          <textarea id="editor" class="code-editor" placeholder="Cole seu JSON aqui..."></textarea>
+        </div>
+        
+        <!-- Botões de exemplo -->
+        <div class="samples-row">
+          <button class="sample-button" id="loadJsonSample">
+            <i class="fab fa-js-square"></i>
+            Exemplo JSON
+          </button>
+          <button class="sample-button" id="loadXmlSample">
+            <i class="fas fa-code"></i>
+            Exemplo XML
+          </button>
+          <button class="sample-button" id="clearBtn">
+            <i class="fas fa-trash-alt"></i>
+            Limpar
+          </button>
+        </div>
+
+        <!-- Botões de ação -->
+        <div class="actions-row">
+          <button class="action-button primary" id="validateBtn">
+            <i class="fas fa-check-circle"></i>
+            Validar
+          </button>
+          <button class="action-button primary" id="formatBtn">
+            <i class="fas fa-magic"></i>
+            Formatar
+          </button>
+          <button class="action-button secondary" id="minifyBtn">
+            <i class="fas fa-compress"></i>
+            Minificar
+          </button>
+          <button class="action-button secondary" id="convertBtn">
+            <i class="fas fa-exchange-alt"></i>
+            JSON ⇄ XML
+          </button>
+        </div>
+
+        <!-- Resultado -->
+        <div id="result" class="result-container"></div>
+      </div>
+
+      <!-- Informação de privacidade -->
+      <div class="info-box">
+        <i class="fas fa-shield-alt"></i>
+        <span>Toda a validação é feita localmente no seu navegador — nenhum dado é enviado para servidores externos.</span>
+      </div>
+    </div>
+
+    <!-- Recursos da ferramenta -->
+    <div class="tool-section">
+      <h2 style="text-align: center; margin-bottom: 0.50rem;">
+        <i class="fas fa-star"></i>
+        Recursos da Ferramenta
+      </h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-check-double"></i>
+          </div>
+          <h3 class="feature-title">Validação Inteligente</h3>
+          <p class="feature-description">Detecta erros de sintaxe e mostra explicações claras sobre problemas encontrados.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-magic"></i>
+          </div>
+          <h3 class="feature-title">Formatação Automática</h3>
+          <p class="feature-description">Organiza e identa seu código automaticamente para melhor legibilidade.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <h3 class="feature-title">Conversão JSON/XML</h3>
+          <p class="feature-description">Converte entre formatos JSON e XML de forma inteligente e precisa.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="feature-title">100% Privado</h3>
+          <p class="feature-description">Processamento local - seus dados nunca saem do seu navegador.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+  
+  <script src="/js/pageComponents.js"></script>
+  <script>
+    // Elements
+    const tabJson = document.getElementById('tabJson')
+    const tabXml = document.getElementById('tabXml')
+    const editor = document.getElementById('editor')
+    const lineNumbers = document.getElementById('lineNumbers')
+    const editorWrapper = document.getElementById('editorWrapper')
+    const validateBtn = document.getElementById('validateBtn')
+    const formatBtn = document.getElementById('formatBtn')
+    const minifyBtn = document.getElementById('minifyBtn')
+    const result = document.getElementById('result')
+    const loadJsonSample = document.getElementById('loadJsonSample')
+    const loadXmlSample = document.getElementById('loadXmlSample')
+    const clearBtn = document.getElementById('clearBtn')
+    const fileInput = document.getElementById('fileInput')
+    const convertBtn = document.getElementById('convertBtn')
+
+    let currentMode = 'json' // or 'xml'
+
+    // Line numbers functionality
+    function updateLineNumbers() {
+      const lines = editor.value.split('\n')
+      const lineCount = lines.length
+      
+      let html = ''
+      for (let i = 1; i <= lineCount; i++) {
+        html += `<div>${i}</div>`
+      }
+      
+      lineNumbers.innerHTML = html
+    }
+
+    function syncScroll() {
+      lineNumbers.scrollTop = editor.scrollTop
+    }
+
+    function highlightErrorLine(lineNum) {
+      const lineElements = lineNumbers.querySelectorAll('div')
+      // Remove previous highlights
+      lineElements.forEach(el => el.classList.remove('error-line'))
+      
+      // Add highlight to error line
+      if (lineNum > 0 && lineNum <= lineElements.length) {
+        lineElements[lineNum - 1].classList.add('error-line')
+      }
+    }
+
+    // Event listeners for line numbers
+    editor.addEventListener('input', updateLineNumbers)
+    editor.addEventListener('scroll', syncScroll)
+    editor.addEventListener('keyup', updateLineNumbers)
+    editor.addEventListener('paste', () => setTimeout(updateLineNumbers, 10))
+
+    // Initialize line numbers
+    updateLineNumbers()
+
+    // Samples
+    const sampleJSON = `{
+  "name": "TechSync",
+  "description": "Portal sobre tecnologia e desenvolvimento",
+  "categories": [
+    {
+      "id": 1,
+      "name": "Software",
+      "tools": ["Docker", "Jenkins", "VS Code"]
+    },
+    {
+      "id": 2,
+      "name": "Hardware",
+      "tools": ["CPUs", "GPUs", "Motherboards"]
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Guia Completo do Docker",
+      "author": "TechSync Team",
+      "published": true
+    },
+    {
+      "id": 2,
+      "title": "Jenkins para Iniciantes",
+      "author": "TechSync Team",
+      "published": true
+    }
+  ]
+}`
+
+    const sampleXML = `<?xml version="1.0" encoding="UTF-8"?>
+<site>
+  <name>TechSync</name>
+  <description>Portal sobre tecnologia e desenvolvimento</description>
+  <categories>
+    <category id="1">
+      <name>Software</name>
+      <tools>
+        <tool>Docker</tool>
+        <tool>Jenkins</tool>
+        <tool>VS Code</tool>
+      </tools>
+    </category>
+    <category id="2">
+      <name>Hardware</name>
+      <tools>
+        <tool>CPUs</tool>
+        <tool>GPUs</tool>
+        <tool>Motherboards</tool>
+      </tools>
+    </category>
+  </categories>
+  <posts>
+    <post id="1" published="true">
+      <title>Guia Completo do Docker</title>
+      <author>TechSync Team</author>
+    </post>
+    <post id="2" published="true">
+      <title>Jenkins para Iniciantes</title>
+      <author>TechSync Team</author>
+    </post>
+  </posts>
+</site>`
+
+    // Tab switching
+    function setMode(mode){
+      currentMode = mode
+      
+      // Update tab appearance
+      tabJson.classList.toggle('active', mode === 'json')
+      tabXml.classList.toggle('active', mode === 'xml')
+      
+      // Update placeholder
+      editor.placeholder = mode === 'json' ? 'Cole seu JSON aqui...' : 'Cole seu XML aqui...'
+      
+      // Clear result and error highlighting
+      result.innerHTML = ''
+      result.className = 'result-container'
+      highlightErrorLine(0) // Clear any error highlighting
+    }
+
+    tabJson.addEventListener('click', ()=> setMode('json'))
+    tabXml.addEventListener('click', ()=> setMode('xml'))
+
+    // Enhanced JSON validation with line/column detection
+    function validateJSON(text){
+      try{
+        const parsed = JSON.parse(text)
+        return { ok:true, parsed }
+      }catch(err){
+        const errorInfo = parseJSONError(err.message, text)
+        return { 
+          ok:false, 
+          error: err.message,
+          line: errorInfo.line,
+          column: errorInfo.column,
+          context: errorInfo.context,
+          suggestion: errorInfo.suggestion
+        }
+      }
+    }
+
+    // Parse JSON error to extract line and column information
+    function parseJSONError(errorMessage, text) {
+      const lines = text.split('\n')
+      
+      // Try to extract position from error message
+      const positionMatch = errorMessage.match(/position (\d+)/i)
+      const lineMatch = errorMessage.match(/line (\d+)/i)
+      const columnMatch = errorMessage.match(/column (\d+)/i)
+      
+      let line = 1, column = 1, position = 0
+      
+      if (positionMatch) {
+        position = parseInt(positionMatch[1])
+        const beforeError = text.substring(0, position)
+        line = beforeError.split('\n').length
+        const lineStart = beforeError.lastIndexOf('\n')
+        column = lineStart === -1 ? position + 1 : position - lineStart
+      } else if (lineMatch && columnMatch) {
+        line = parseInt(lineMatch[1])
+        column = parseInt(columnMatch[1])
+      } else {
+        // Fallback: try to detect common JSON errors
+        const errorPos = detectJSONErrorPosition(text, errorMessage)
+        line = errorPos.line
+        column = errorPos.column
+      }
+      
+      // Get context around the error
+      const contextLine = lines[line - 1] || ''
+      const context = {
+        before: lines.slice(Math.max(0, line - 3), line - 1),
+        errorLine: contextLine,
+        after: lines.slice(line, Math.min(lines.length, line + 2)),
+        pointer: ' '.repeat(Math.max(0, column - 1)) + '^'
+      }
+      
+      // Generate suggestion based on error type
+      const suggestion = generateJSONErrorSuggestion(errorMessage, contextLine, column)
+      
+      return { line, column, context, suggestion }
+    }
+
+    // Detect error position for common JSON syntax errors
+    function detectJSONErrorPosition(text, errorMessage) {
+      const lines = text.split('\n')
+      
+      // Common error patterns
+      const patterns = [
+        { regex: /unexpected token/i, check: (line, lineNum) => findUnexpectedToken(line, lineNum) },
+        { regex: /unexpected end/i, check: (line, lineNum) => findUnclosedBrackets(text, lineNum) },
+        { regex: /trailing comma/i, check: (line, lineNum) => findTrailingComma(line, lineNum) },
+        { regex: /duplicate key/i, check: (line, lineNum) => findDuplicateKey(line, lineNum) }
+      ]
+      
+      for (let i = 0; i < lines.length; i++) {
+        for (const pattern of patterns) {
+          if (pattern.regex.test(errorMessage)) {
+            const result = pattern.check(lines[i], i + 1)
+            if (result) return result
+          }
+        }
+      }
+      
+      return { line: 1, column: 1 }
+    }
+
+    // Helper functions for error detection
+    function findUnexpectedToken(line, lineNum) {
+      const invalidChars = /[^\s\w"':,\[\]{}.-]/
+      const match = line.match(invalidChars)
+      if (match) {
+        return { line: lineNum, column: match.index + 1 }
+      }
+      return null
+    }
+
+    function findTrailingComma(line, lineNum) {
+      const trailingCommaRegex = /,\s*[}\]]/
+      const match = line.match(trailingCommaRegex)
+      if (match) {
+        return { line: lineNum, column: match.index + 1 }
+      }
+      return null
+    }
+
+    function findUnclosedBrackets(text, lineNum) {
+      let brackets = 0, braces = 0
+      const lines = text.split('\n')
+      
+      for (let i = 0; i < Math.min(lineNum, lines.length); i++) {
+        for (let j = 0; j < lines[i].length; j++) {
+          const char = lines[i][j]
+          if (char === '[') brackets++
+          else if (char === ']') brackets--
+          else if (char === '{') braces++
+          else if (char === '}') braces--
+        }
+      }
+      
+      return { line: lineNum, column: 1 }
+    }
+
+    function findDuplicateKey(line, lineNum) {
+      const keyMatch = line.match(/"([^"]+)"\s*:/)
+      if (keyMatch) {
+        return { line: lineNum, column: keyMatch.index + 1 }
+      }
+      return null
+    }
+
+    // Generate helpful suggestions based on error type
+    function generateJSONErrorSuggestion(errorMessage, contextLine, column) {
+      const suggestions = []
+      
+      if (/unexpected token/i.test(errorMessage)) {
+        if (contextLine.includes("'")) {
+          suggestions.push("Use aspas duplas (\") em vez de aspas simples (')")
+        }
+        if (/,\s*[}\]]/.test(contextLine)) {
+          suggestions.push("Remova a vírgula antes de } ou ]")
+        }
+        if (!/:\s*/.test(contextLine) && contextLine.includes('"')) {
+          suggestions.push("Adicione dois pontos (:) após o nome da propriedade")
+        }
+      }
+      
+      if (/unexpected end/i.test(errorMessage)) {
+        suggestions.push("Verifique se todas as chaves { } e colchetes [ ] estão fechados")
+        suggestions.push("Pode estar faltando uma vírgula entre elementos")
+      }
+      
+      if (/duplicate/i.test(errorMessage)) {
+        suggestions.push("Remova ou renomeie chaves duplicadas")
+      }
+      
+      return suggestions.length > 0 ? suggestions : ["Verifique a sintaxe JSON na linha indicada"]
+    }
+
+    function prettyJSON(text){
+      const v = validateJSON(text)
+      if(!v.ok) throw new Error(v.error)
+      return JSON.stringify(v.parsed, null, 2)
+    }
+
+    function validateXML(text){
+      const parser = new DOMParser()
+      const doc = parser.parseFromString(text, 'application/xml')
+      const parsererror = doc.getElementsByTagName('parsererror')
+      if(parsererror.length > 0){
+        const msg = parsererror[0].textContent || 'XML inválido'
+        return { ok:false, error: msg }
+      }
+      return { ok:true, parsed: doc }
+    }
+
+    function prettyXML(text){
+      const v = validateXML(text)
+      if(!v.ok) throw new Error(v.error)
+      const serializer = new XMLSerializer()
+      const xmlStr = serializer.serializeToString(v.parsed)
+      const PADDING = '  '
+      const reg = /(>)(<)(\/?)/g
+      let xml = xmlStr.replace(reg, '$1\n$2$3')
+      let pad = 0
+      return xml.split('\n').map((node)=>{
+        let indent = 0
+        if(node.match(/.+<\\/)){}
+        if(node.match(/<.+?>.*<.+?>/)){
+          indent = 0
+        } else if(node.match(/<\\/)){
+          pad = pad - 1 >= 0 ? pad - 1 : 0
+        } else if(node.match(/<[^!?].*?>/)){
+          indent = 1
+        }
+        const line = PADDING.repeat(pad) + node
+        pad += indent
+        return line
+      }).join('\n')
+    }
+
+    function minifyJSON(text){
+      const v = validateJSON(text)
+      if(!v.ok) throw new Error(v.error)
+      return JSON.stringify(v.parsed)
+    }
+    
+    function minifyXML(text){
+      return text.replace(/>\s+</g, '><').trim()
+    }
+
+    // JSON <-> XML converter
+    function jsonToXml(obj, rootName='root'){
+      function build(node, name){
+        if(node === null) return `<${name}/>`
+        if(typeof node === 'object' && !Array.isArray(node)){
+          let children = ''
+          for(const k in node){
+            if(node.hasOwnProperty(k)){
+              const val = node[k]
+              children += build(val, k)
+            }
+          }
+          return `<${name}>${children}</${name}>`
+        }
+        if(Array.isArray(node)){
+          return node.map(item => build(item, name.slice(0, -1) || 'item')).join('')
+        }
+        return `<${name}>${escapeXml(String(node))}</${name}>`
+      }
+      return `<?xml version="1.0" encoding="UTF-8"?>\n${build(obj, rootName)}`
+    }
+
+    function escapeXml(unsafe){
+      return unsafe.replace(/[<>&'"]/g, function (c) {
+        switch (c) {
+          case '<': return '&lt;'
+          case '>': return '&gt;'
+          case '&': return '&amp;'
+          case "'": return '&apos;'
+          case '"': return '&quot;'
+        }
+      })
+    }
+
+    function xmlToJson(xmlDoc){
+      function nodeToObj(node){
+        if(node.nodeType === 3) return node.nodeValue.trim()
+        const obj = {}
+        if(node.attributes && node.attributes.length){
+          obj['@attributes'] = {}
+          for(let i=0;i<node.attributes.length;i++){
+            const attr = node.attributes[i]
+            obj['@attributes'][attr.name] = attr.value
+          }
+        }
+        for(let i=0;i<node.childNodes.length;i++){
+          const child = node.childNodes[i]
+          if(child.nodeType === 3){
+            const txt = child.nodeValue.trim()
+            if(txt) return txt
+            continue
+          }
+          const name = child.nodeName
+          const val = nodeToObj(child)
+          if(obj[name]){
+            if(!Array.isArray(obj[name])) obj[name] = [obj[name]]
+            obj[name].push(val)
+          } else {
+            obj[name] = val
+          }
+        }
+        return obj
+      }
+      return nodeToObj(xmlDoc.documentElement)
+    }
+
+    function showResult(message, type = 'info', icon = 'info-circle', details = null) {
+      result.className = `result-container result-${type}`
+      
+      // Clear previous error highlighting
+      highlightErrorLine(0)
+      
+      // Highlight error line if available
+      if (details && details.line) {
+        highlightErrorLine(details.line)
+      }
+      
+      let detailsHtml = ''
+      if (details && details.error) {
+        detailsHtml = `
+          <div style="margin-top: 1rem; padding: 1rem; background: rgba(0,0,0,0.05); border-radius: 8px; border-left: 4px solid #dc3545;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+              <i class="fas fa-map-marker-alt" style="color: #dc3545;"></i>
+              <strong>Localização do erro:</strong>
+              <span style="background: #dc3545; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.85rem;">
+                Linha ${details.line}, Coluna ${details.column}
+              </span>
+            </div>
+            
+            ${details.context ? `
+              <div style="margin-bottom: 1rem;">
+                <strong style="display: block; margin-bottom: 0.5rem;">Contexto do código:</strong>
+                <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; overflow: hidden;">
+                  ${details.context.before.map((line, i) => `
+                    <div style="padding: 0.25rem 0.75rem; font-family: monospace; font-size: 0.85rem; color: #6c757d; border-bottom: 1px solid #f0f0f0;">
+                      <span style="color: #adb5bd; margin-right: 1rem;">${details.line - details.context.before.length + i}</span>${escapeHtml(line)}
+                    </div>
+                  `).join('')}
+                  
+                  <div style="padding: 0.25rem 0.75rem; font-family: monospace; font-size: 0.85rem; background: #fff5f5; color: #721c24; border-bottom: 1px solid #f0f0f0;">
+                    <span style="color: #dc3545; margin-right: 1rem; font-weight: bold;">${details.line}</span>${escapeHtml(details.context.errorLine)}
+                  </div>
+                  
+                  <div style="padding: 0.25rem 0.75rem; font-family: monospace; font-size: 0.85rem; color: #dc3545; background: #fff5f5;">
+                    <span style="margin-right: 1rem; visibility: hidden;">${details.line}</span>${details.context.pointer}
+                  </div>
+                  
+                  ${details.context.after.map((line, i) => `
+                    <div style="padding: 0.25rem 0.75rem; font-family: monospace; font-size: 0.85rem; color: #6c757d;">
+                      <span style="color: #adb5bd; margin-right: 1rem;">${details.line + i + 1}</span>${escapeHtml(line)}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+            
+            ${details.suggestion && details.suggestion.length > 0 ? `
+              <div>
+                <strong style="display: block; margin-bottom: 0.5rem;">
+                  <i class="fas fa-lightbulb" style="color: #ffc107;"></i>
+                  Sugestões para corrigir:
+                </strong>
+                <ul style="margin: 0; padding-left: 1.5rem;">
+                  ${details.suggestion.map(s => `<li style="margin-bottom: 0.25rem;">${s}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+          </div>
+        `
+      }
+      
+      result.innerHTML = `
+        <div class="result-message">
+          <i class="fas fa-${icon} result-icon"></i>
+          <span>${message}</span>
+        </div>
+        ${detailsHtml}
+      `
+    }
+
+    // Event handlers with enhanced error reporting
+    validateBtn.addEventListener('click', ()=>{
+      const text = editor.value.trim()
+      if(!text){ 
+        showResult('Nenhum conteúdo para validar.', 'error', 'exclamation-circle')
+        return 
+      }
+      
+      if(currentMode === 'json'){
+        const v = validateJSON(text)
+        if(v.ok){ 
+          const keys = Object.keys(v.parsed||{}).length
+          showResult(`JSON válido! Objeto com ${keys} propriedades no nível superior.`, 'success', 'check-circle')
+        } else { 
+          showResult(`Erro de sintaxe JSON encontrado`, 'error', 'times-circle', {
+            error: v.error,
+            line: v.line,
+            column: v.column,
+            context: v.context,
+            suggestion: v.suggestion
+          })
+        }
+      } else {
+        const v = validateXML(text)
+        if(v.ok){ 
+          showResult(`XML válido! Elemento raiz: <${v.parsed.documentElement.nodeName}>`, 'success', 'check-circle')
+        } else { 
+          // For XML, we can also add line detection later
+          showResult(`Erro no XML: ${escapeHtml(v.error)}`, 'error', 'times-circle')
+        }
+      }
+    })
+
+    formatBtn.addEventListener('click', ()=>{
+      const text = editor.value.trim()
+      if(!text){ 
+        showResult('Nenhum conteúdo para formatar.', 'error', 'exclamation-circle')
+        return 
+      }
+      
+      try{
+        if(currentMode === 'json'){
+          editor.value = prettyJSON(text)
+          updateLineNumbers()
+          showResult('JSON formatado com sucesso!', 'success', 'magic')
+        } else {
+          editor.value = prettyXML(text)
+          updateLineNumbers()
+          showResult('XML formatado com sucesso!', 'success', 'magic')
+        }
+      }catch(err){ 
+        showResult(`Erro na formatação: ${escapeHtml(err.message)}`, 'error', 'times-circle')
+      }
+    })
+
+    minifyBtn.addEventListener('click', ()=>{
+      const text = editor.value.trim()
+      if(!text){ 
+        showResult('Nenhum conteúdo para minificar.', 'error', 'exclamation-circle')
+        return 
+      }
+      
+      try{
+        if(currentMode === 'json'){
+          editor.value = minifyJSON(text)
+          updateLineNumbers()
+          showResult('JSON minificado com sucesso!', 'success', 'compress')
+        } else {
+          editor.value = minifyXML(text)
+          updateLineNumbers()
+          showResult('XML minificado com sucesso!', 'success', 'compress')
+        }
+      }catch(err){ 
+        showResult(`Erro na minificação: ${escapeHtml(err.message)}`, 'error', 'times-circle')
+      }
+    })
+
+    convertBtn.addEventListener('click', ()=>{
+      const text = editor.value.trim()
+      if(!text){ 
+        showResult('Nenhum conteúdo para converter.', 'error', 'exclamation-circle')
+        return 
+      }
+      
+      try{
+        if(currentMode === 'json'){
+          const v = validateJSON(text)
+          if(!v.ok) throw new Error(v.error)
+          const xml = jsonToXml(v.parsed, 'root')
+          editor.value = xml
+          updateLineNumbers()
+          setMode('xml')
+          showResult('Convertido de JSON para XML com sucesso!', 'success', 'exchange-alt')
+        } else {
+          const v = validateXML(text)
+          if(!v.ok) throw new Error(v.error)
+          const obj = xmlToJson(v.parsed)
+          editor.value = JSON.stringify(obj, null, 2)
+          updateLineNumbers()
+          setMode('json')
+          showResult('Convertido de XML para JSON com sucesso!', 'success', 'exchange-alt')
+        }
+      }catch(err){ 
+        showResult(`Erro na conversão: ${escapeHtml(err.message)}`, 'error', 'times-circle')
+      }
+    })
+
+    // Sample loading
+    loadJsonSample.addEventListener('click', ()=>{ 
+      editor.value = sampleJSON
+      updateLineNumbers()
+      setMode('json')
+    })
+    
+    loadXmlSample.addEventListener('click', ()=>{ 
+      editor.value = sampleXML
+      updateLineNumbers()
+      setMode('xml')
+    })
+    
+    clearBtn.addEventListener('click', ()=>{ 
+      editor.value = ''
+      updateLineNumbers()
+      result.innerHTML = ''
+      result.className = 'result-container'
+      highlightErrorLine(0) // Clear error highlighting
+    })
+
+    // File input
+    fileInput.addEventListener('change', (e)=>{
+      const f = e.target.files[0]
+      if(!f) return
+      
+      const reader = new FileReader()
+      reader.onload = function(ev){
+        const text = String(ev.target.result)
+        editor.value = text
+        updateLineNumbers()
+        
+        // Auto-detect format
+        const trimmed = text.trim()
+        if(trimmed.startsWith('<')) {
+          setMode('xml')
+          showResult('Arquivo XML detectado automaticamente.', 'success', 'file-code')
+        } else {
+          setMode('json')
+          showResult('Arquivo JSON detectado automaticamente.', 'success', 'file-code')
+        }
+      }
+      reader.readAsText(f)
+    })
+
+    // Keyboard shortcuts
+    editor.addEventListener('keydown', (e)=>{
+      if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
+        e.preventDefault()
+        validateBtn.click()
+      }
+      if((e.ctrlKey || e.metaKey) && e.key === 's'){
+        e.preventDefault()
+        formatBtn.click()
+      }
+    })
+
+    // Utility function
+    function escapeHtml(s){ 
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') 
+    }
+
+    // Initialize
+    setMode('json')
+
+    // Add loading animation for better UX
+    function showLoading(message) {
+      result.className = 'result-container'
+      result.innerHTML = `
+        <div class="result-message">
+          <i class="fas fa-spinner fa-spin result-icon"></i>
+          <span>${message}</span>
+        </div>
+      `
+    }
+
+    // Enhanced validation with loading states
+    function enhancedValidate() {
+      showLoading('Validando...')
+      setTimeout(() => {
+        validateBtn.click()
+      }, 200)
+    }
+
+    function enhancedFormat() {
+      showLoading('Formatando...')
+      setTimeout(() => {
+        formatBtn.click()
+      }, 200)
+    }
+
+    // Add tooltips for better UX
+    const tooltips = {
+      validateBtn: 'Ctrl+Enter para validar rapidamente',
+      formatBtn: 'Ctrl+S para formatar rapidamente',
+      minifyBtn: 'Remove espaços em branco desnecessários',
+      convertBtn: 'Converte entre JSON e XML'
+    }
+
+    Object.entries(tooltips).forEach(([id, tooltip]) => {
+      const element = document.getElementById(id)
+      if (element) {
+        element.title = tooltip
+      }
+    })
+
+    // Add drag and drop functionality
+    const editorContainer = document.querySelector('.editor-container')
+    
+    editorContainer.addEventListener('dragover', (e) => {
+      e.preventDefault()
+      editorWrapper.style.background = 'rgba(102, 126, 234, 0.05)'
+      editorWrapper.style.borderColor = '#667eea'
+    })
+    
+    editorContainer.addEventListener('dragleave', (e) => {
+      e.preventDefault()
+      editorWrapper.style.background = ''
+      editorWrapper.style.borderColor = ''
+    })
+    
+    editorContainer.addEventListener('drop', (e) => {
+      e.preventDefault()
+      editorWrapper.style.background = ''
+      editorWrapper.style.borderColor = ''
+      
+      const files = e.dataTransfer.files
+      if (files.length > 0) {
+        const file = files[0]
+        const reader = new FileReader()
+        reader.onload = function(ev) {
+          const text = String(ev.target.result)
+          editor.value = text
+          updateLineNumbers()
+          
+          // Auto-detect format
+          const trimmed = text.trim()
+          if(trimmed.startsWith('<')) {
+            setMode('xml')
+            showResult('Arquivo XML carregado via drag & drop.', 'success', 'file-code')
+          } else {
+            setMode('json')
+            showResult('Arquivo JSON carregado via drag & drop.', 'success', 'file-code')
+          }
+        }
+        reader.readAsText(file)
+      }
+    })
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+     crossorigin="anonymous"></script>
+
+     <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = "www.themoneytizer.com";
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+</body>
+</html>

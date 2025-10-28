@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+      <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-NFY6RYBJZJ');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+    <title>Controle de Versão: Guia Prático das Melhores Ferramentas - Git, GitHub, GitLab - TechSync</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style-img.css">
+    <link rel="stylesheet" href="/categories/posts/desenvolvimento/css/style-ferramentas-dev.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="description"
+        content="Guia completo sobre ferramentas de controle de versão: Git, GitHub, GitLab, Bitbucket e SourceTree. Aprenda comandos essenciais e melhores práticas.">
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+            <a href="/"><i class="fas fa-home"></i> Início</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <a href="/categories/desenvolvimento.html"><i class="fas fa-rocket"></i> Desenvolvimento</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span>Controle de Versão</span>
+        </nav>
+    </div>
+
+    <!-- Post Content -->
+    <main class="post-content">
+        <div class="container">
+            <article>
+                <!-- Seção principal -->
+                <section class="article-content" style="margin-top: 1rem;">
+                    <!-- Título e Banner -->
+                    <section style="margin-top: 1rem;">
+                        <img src="/images/controle-versao-banner.png"
+                            alt="Controle de Versão - Guia das Melhores Ferramentas" class="featured-image wide-image"
+                            loading="lazy">
+                        <h1 class="post-title visually-hidden">🔄 Controle de Versão: Guia Prático das Melhores
+                            Ferramentas</h1>
+                        <p class="review-meta"><small>Publicado em 25/09/2025 — Tempo de leitura: 8 min</small></p>
+                    </section>
+
+                    <!-- Introdução -->
+                    <section class="review-section">
+                        <h2>🔄 O que é Controle de Versão?</h2>
+                        <p>
+                            Controle de versão é um sistema que registra mudanças em arquivos ao longo do tempo,
+                            permitindo recuperar versões específicas, comparar alterações e colaborar efetivamente
+                            em projetos de software. É essencial para qualquer desenvolvedor ou equipe.
+                        </p>
+                        <p>
+                            Este guia apresenta as principais ferramentas: Git (sistema base), GitHub, GitLab,
+                            Bitbucket (plataformas de hospedagem) e SourceTree (interface gráfica).
+                        </p>
+                    </section>
+
+                    <!-- Por que usar -->
+                    <section class="review-section">
+                        <h2>❓ Por que Usar Controle de Versão?</h2>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                            <div
+                                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                <div
+                                    style="background: #e8f5e8; border: 1px solid #c3e6c3; padding: 1rem; border-radius: 8px;">
+                                    <h4>✅ Benefícios Principais</h4>
+                                    <ul style="line-height: 1.6; font-size: 0.9rem;">
+                                        <li>Histórico completo de mudanças</li>
+                                        <li>Colaboração em equipe</li>
+                                        <li>Backup automático</li>
+                                        <li>Reversão de alterações</li>
+                                        <li>Branches para experimentos</li>
+                                        <li>Controle de releases</li>
+                                    </ul>
+                                </div>
+                                <div
+                                    style="background: #ffeaea; border: 1px solid #f5b5b5; padding: 1rem; border-radius: 8px;">
+                                    <h4>🚫 Sem Controle de Versão</h4>
+                                    <ul style="line-height: 1.6; font-size: 0.9rem; color: #e74c3c;">
+                                        <li>Arquivos perdidos ou corrompidos</li>
+                                        <li>Conflitos em equipe</li>
+                                        <li>Dificuldade para desfazer mudanças</li>
+                                        <li>Falta de backup organizado</li>
+                                        <li>Versões desatualizadas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Git -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">1</span>Git - A Base de Tudo</h2>
+
+                        <p>Git é o sistema de controle de versão distribuído mais popular, criado por Linus Torvalds.
+                            É a base para todas as outras ferramentas desta lista.</p>
+
+                        <h3>⚡ Comandos Essenciais</h3>
+                        <div class="command-block">
+                            <div class="comment"># Configuração inicial</div>
+                            <div>git config --global user.name "Seu Nome"</div>
+                            <div>git config --global user.email "email@exemplo.com"</div>
+                            <br>
+                            <div class="comment"># Comandos básicos</div>
+                            <div>git init # Iniciar repositório</div>
+                            <div>git add arquivo.txt # Adicionar ao staging</div>
+                            <div>git add . # Adicionar todos os arquivos</div>
+                            <div>git commit -m "mensagem" # Fazer commit</div>
+                            <div>git status # Ver status</div>
+                            <div>git log # Ver histórico</div>
+                            <br>
+                            <div class="comment"># Trabalho remoto</div>
+                            <div>git clone url-do-repo # Clonar repositório</div>
+                            <div>git push origin main # Enviar mudanças</div>
+                            <div>git pull origin main # Buscar mudanças</div>
+                            <br>
+                            <div class="comment"># Branches</div>
+                            <div>git branch nova-feature # Criar branch</div>
+                            <div>git checkout nova-feature # Mudar de branch</div>
+                            <div>git merge nova-feature # Fazer merge</div>
+                        </div>
+
+                        <div class="success-box">
+                            <strong>💡 Dica:</strong> Use <code>git add -A</code> para adicionar todos os arquivos
+                            (incluindo deletados) ao staging area.
+                        </div>
+                    </section>
+
+                    <!-- GitHub -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">2</span>GitHub - A Rede Social dos Desenvolvedores</h2>
+
+                        <p>GitHub é a maior plataforma de hospedagem de código do mundo, com mais de 100 milhões
+                            de desenvolvedores. Oferece recursos sociais, CI/CD e ferramentas de colaboração.</p>
+
+                        <h3>🌟 Recursos Principais</h3>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                            <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px;">
+                                <strong>📂 Repositórios</strong>
+                                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Públicos e privados, com README,
+                                    licenças e documentação</p>
+                            </div>
+                            <div style="background: #e8f4fd; padding: 1rem; border-radius: 8px;">
+                                <strong>🔄 Pull Requests</strong>
+                                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Sistema de revisão de código e merge
+                                    colaborativo</p>
+                            </div>
+                            <div style="background: #fff3e0; padding: 1rem; border-radius: 8px;">
+                                <strong>🐛 Issues</strong>
+                                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Rastreamento de bugs, features e
+                                    discussões</p>
+                            </div>
+                            <div style="background: #fce4ec; padding: 1rem; border-radius: 8px;">
+                                <strong>⚙️ Actions</strong>
+                                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">CI/CD integrado para automação de
+                                    workflows</p>
+                            </div>
+                        </div>
+
+                        <h3>🚀 GitHub Actions - Exemplo</h3>
+                        <div class="command-block">
+                            <div class="comment"># .github/workflows/ci.yml</div>
+                            <div><span style="color: #e67e22;">name:</span> CI Pipeline</div>
+                            <div><span style="color: #e67e22;">on:</span> [push, pull_request]</div>
+                            <div><span style="color: #e67e22;">jobs:</span></div>
+                            <div style="margin-left: 15px;">
+                                <div><span style="color: #e67e22;">test:</span></div>
+                                <div style="margin-left: 15px;">
+                                    <div><span style="color: #e67e22;">runs-on:</span> ubuntu-latest</div>
+                                    <div><span style="color: #e67e22;">steps:</span></div>
+                                    <div style="margin-left: 15px;">
+                                        <div>- <span style="color: #e67e22;">uses:</span> actions/checkout@v2</div>
+                                        <div>- <span style="color: #e67e22;">name:</span> Run tests</div>
+                                        <div style="margin-left: 15px;">
+                                            <span style="color: #e67e22;">run:</span> npm test
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="info-box">
+                            <strong>💰 Preços:</strong> Repositórios públicos são gratuitos. Planos privados
+                            começam em $4/mês por usuário com recursos avançados.
+                        </div>
+                    </section>
+
+                    <!-- GitLab -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">3</span>GitLab - DevOps Completo</h2>
+
+                        <p>GitLab oferece uma plataforma DevOps completa com Git, CI/CD, monitoramento e segurança
+                            integrados. Disponível em versão cloud e self-hosted.</p>
+
+                        <h3>🛠️ Diferenciais do GitLab</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                            <tr style="background: #e9ecef;">
+                                <th style="border: 1px solid #dee2e6; padding: 0.75rem; text-align: left;">Recurso</th>
+                                <th style="border: 1px solid #dee2e6; padding: 0.75rem; text-align: left;">Descrição
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>CI/CD Nativo</strong>
+                                </td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Pipeline completo integrado
+                                </td>
+                            </tr>
+                            <tr style="background: #f8f9fa;">
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Container
+                                        Registry</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Armazenamento de imagens Docker
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Security
+                                        Scanning</strong></td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Análise de vulnerabilidades
+                                    automática</td>
+                            </tr>
+                            <tr style="background: #f8f9fa;">
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Self-hosted</strong>
+                                </td>
+                                <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Controle total dos dados</td>
+                            </tr>
+                        </table>
+
+                        <div class="success-box">
+                            <strong>🎯 Ideal para:</strong> Empresas que precisam de DevOps completo, controle de dados
+                            ou querem migrar do GitHub/Bitbucket.
+                        </div>
+                    </section>
+
+                    <!-- Bitbucket -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">4</span>Bitbucket - Integração Atlassian</h2>
+
+                        <p>Bitbucket da Atlassian integra perfeitamente com Jira, Confluence e outras ferramentas
+                            da empresa, sendo popular em ambientes corporativos.</p>
+
+                        <h3>🔗 Vantagens do Bitbucket</h3>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                            <ul style="line-height: 1.8; columns: 2; column-gap: 2rem;">
+                                <li>Integração nativa com Jira</li>
+                                <li>Pipelines CI/CD integrados</li>
+                                <li>Repositórios privados gratuitos (até 5 usuários)</li>
+                                <li>Interface limpa e intuitiva</li>
+                                <li>Suporte a Git e Mercurial</li>
+                                <li>Deploy keys e webhooks</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>💼 Melhor para:</strong> Equipes que já usam ferramentas Atlassian
+                            (Jira, Confluence) e querem integração completa.
+                        </div>
+                    </section>
+
+                    <!-- SourceTree -->
+                    <section class="review-section">
+                        <h2><span class="step-counter">5</span>SourceTree - Interface Gráfica</h2>
+
+                        <p>SourceTree é um cliente Git gratuito da Atlassian que oferece interface visual intuitiva,
+                            ideal para quem prefere não usar linha de comando.</p>
+
+                        <h3>🎨 Características</h3>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <div
+                                style="background: #e8f5e8; border: 1px solid #c3e6c3; padding: 1rem; border-radius: 8px;">
+                                <h4>✅ Vantagens</h4>
+                                <ul style="line-height: 1.6; font-size: 0.9rem; margin: 0; padding-left: 1.5rem;">
+                                    <li>Interface visual intuitiva</li>
+                                    <li>Git flow integrado</li>
+                                    <li>Histórico visual de branches</li>
+                                    <li>Resolução visual de conflitos</li>
+                                    <li>Gratuito</li>
+                                </ul>
+                            </div>
+                            <div
+                                style="background: #fff3e0; border: 1px solid #ffcc80; padding: 1rem; border-radius: 8px;">
+                                <h4>⚠️ Limitações</h4>
+                                <ul style="line-height: 1.6; font-size: 0.9rem; margin: 0; padding-left: 1.5rem;">
+                                    <li>Menos flexível que linha de comando</li>
+                                    <li>Pode ser lento com repos grandes</li>
+                                    <li>Windows e macOS apenas</li>
+                                    <li>Curva de aprendizado própria</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="success-box">
+                            <strong>👥 Ideal para:</strong> Iniciantes em Git, designers, ou qualquer pessoa
+                            que prefira interface visual para controle de versão.
+                        </div>
+                    </section>
+
+                    <!-- Comparativo -->
+                    <section class="review-section">
+                        <h2>⚖️ Comparativo das Plataformas</h2>
+
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem; min-width: 600px;">
+                                <tr style="background: #667eea; color: white;">
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Plataforma</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Gratuito</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem;">CI/CD</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Comunidade</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 0.75rem;">Melhor Para</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>GitHub</strong>
+                                    </td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Repos públicos</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Actions</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Maior</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Open source</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>GitLab</strong>
+                                    </td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Sim (limitado)</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Nativo</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Grande</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">DevOps completo</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>Bitbucket</strong>
+                                    </td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">5 usuários</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Pipelines</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Média</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Atlassian stack</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;"><strong>SourceTree</strong>
+                                    </td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Sim</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">-</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">-</td>
+                                    <td style="border: 1px solid #dee2e6; padding: 0.75rem;">Interface visual</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Melhores Práticas -->
+                    <section class="review-section">
+                        <h2>💡 Melhores Práticas</h2>
+
+                        <h3>📝 Commits</h3>
+                        <div class="command-block">
+                            <div class="comment"># Mensagens de commit claras</div>
+                            <div>git commit -m "feat: adiciona sistema de login"</div>
+                            <div>git commit -m "fix: corrige bug no carrinho de compras"</div>
+                            <div>git commit -m "docs: atualiza documentação da API"</div>
+                            <br>
+                            <div class="comment"># Convenções comuns</div>
+                            <div>feat: nova funcionalidade</div>
+                            <div>fix: correção de bug</div>
+                            <div>docs: documentação</div>
+                            <div>style: formatação</div>
+                            <div>refactor: refatoração</div>
+                            <div>test: testes</div>
+                        </div>
+
+                        <h3>🌿 Workflow Git Flow</h3>
+                        <div style="background: #e8f4fd; padding: 1rem; border-radius: 8px;">
+                            <ul style="line-height: 1.8; margin: 0;">
+                                <li><strong>main:</strong> código de produção estável</li>
+                                <li><strong>develop:</strong> branch de desenvolvimento</li>
+                                <li><strong>feature/*:</strong> novas funcionalidades</li>
+                                <li><strong>hotfix/*:</strong> correções urgentes</li>
+                                <li><strong>release/*:</strong> preparação de versões</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box">
+                            <strong>⚠️ Dicas Importantes:</strong> Sempre faça pull antes de push, use branches
+                            para features, e nunca faça commit de arquivos sensíveis (senhas, chaves API).
+                        </div>
+                    </section>
+
+                    <!-- Conclusão -->
+                    <section class="review-section">
+                        <h2>🎯 Conclusão</h2>
+                        <p>
+                            Controle de versão é fundamental para qualquer projeto de desenvolvimento.
+                            Git é a base que você deve dominar, enquanto GitHub, GitLab e Bitbucket
+                            oferecem plataformas robustas para hospedagem e colaboração.
+                        </p>
+
+                        <div style="background: #e8f4fd; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                            <h3>🚀 Recomendações por Cenário</h3>
+                            <ul style="line-height: 1.8; margin: 0;">
+                                <li><strong>Iniciantes:</strong> Comece com GitHub + SourceTree para interface visual
+                                </li>
+                                <li><strong>Open Source:</strong> GitHub é a escolha padrão da comunidade</li>
+                                <li><strong>Empresarial:</strong> GitLab para DevOps completo ou Bitbucket para
+                                    integração Atlassian</li>
+                                <li><strong>Equipes pequenas:</strong> Bitbucket oferece repositórios privados gratuitos
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="success-box">
+                            <strong>💡 Próximo Passo:</strong> Pratique os comandos Git básicos e crie sua primeira
+                            conta no GitHub. A prática consistente é o que realmente importa!
+                        </div>
+                    </section>
+
+    </main>
+        <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <script src="/js/pageComponents.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+     crossorigin="anonymous"></script>
+
+     <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = "www.themoneytizer.com";
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+</body>
+
+</html>
