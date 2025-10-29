@@ -1,0 +1,28 @@
+# robots.txt para https://techsync.net.br
+# Última atualização: 29/10/2025
+
+User-agent: *
+Allow: /
+
+# Bloqueia pastas desnecessárias
+Disallow: /wp-admin/
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+Disallow: /search
+
+# Permite acesso aos arquivos de mídia e scripts
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Indica o sitemap principal para ajudar na indexação
+Sitemap: https://techsync.net.br/sitemap.xml
+
+# Evita sobrecarga dos crawlers (opcional)
+Crawl-delay: 10
