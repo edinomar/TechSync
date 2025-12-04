@@ -121,6 +121,17 @@ const newsData = [
         readTime: "9 min",
         link:"/categories/posts/noticias/playstation-plus-extra.html"
     },
+    {
+        id: 12,
+        title: "One UI 8.5 O que muda, quando chega e vale a pena atualizar?",
+        excerpt: "One UI 8.5 é a atualização incremental da interface da Samsung baseada no Android 16 que chega prometendo melhorias focadas em inteligência artificial.",
+        category: "lancamentos",
+        icon: "🤖",
+        img: "/images/one-ui-8-5-cover.jpg",
+        date: "2025-12-05",
+        readTime: "9 min",
+        link: "/categories/posts/noticias/one-ui-8-5-tudo-sobre.html"
+    },
 ];
 
 let currentPage = 1;
