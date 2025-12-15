@@ -688,11 +688,19 @@ search-box:focus {
 .ad-desktop {
     display: block;
     background-color: #f0f0f0;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+    text-align: center;
 }
 
 .ad-mobile {
     display: none;
     background-color: #f0f0f0;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+    text-align: center;
 }
 
 /* ===== ELEMENTOS DIVERSOS ===== */
