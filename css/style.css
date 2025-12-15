@@ -687,7 +687,6 @@ search-box:focus {
 
 .ad-desktop {
     display: block;
-    background-color: #f0f0f0;
     justify-content: center;
     align-items: center;
     margin: 0px auto;
@@ -696,7 +695,6 @@ search-box:focus {
 
 .ad-mobile {
     display: none;
-    background-color: #f0f0f0;
     justify-content: center;
     align-items: center;
     margin: 0px auto;
