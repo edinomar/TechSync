@@ -10,8 +10,18 @@ const smartphoneData = [
         readTime: "12 min",
         link: "/categories/posts/reviews/iphone-16-pro-max.html" 
     },
-    {
+        {
         id: 2,
+        title: "Celular Lento, Travando e Superaquecendo? Descubra as Soluções Definitivas",
+        excerpt: "Neste guia completo, você vai descobrir as causas desses problemas e aprender 15 soluções práticas e eficazes para recuperar o desempenho do seu celular.",
+        category: "tutoriais",
+        img: "/images/artigo-celular-html.jpg" ,
+        date: "2025-09-18",
+        readTime: "12 min",
+        link: "/categories/posts/guias/artigo-celular-html.html" 
+    },
+    {
+        id: 3,
         title: "Samsung Galaxy S25 Ultra chega ao Brasil por R$ 11.999",
         excerpt: "O novo flagship da Samsung traz S Pen aprimorada, câmeras de 200MP e processador Snapdragon 8 Gen 4.",
         category: "lancamentos",
@@ -22,7 +32,7 @@ const smartphoneData = [
         link: "/categories/posts/reviews/samsung_s_25_ultra.html" 
     },
     {
-        id: 3,
+        id: 4,
         title: "iPhone 16 vs Galaxy S25: Comparativo completo",
         excerpt: "Comparamos os principais flagships de 2025 em design, performance, câmeras, bateria e preço no Brasil.",
         category: "comparativos",
@@ -33,7 +43,7 @@ const smartphoneData = [
         link: "/categories/posts/comparativos/iPhone16-vs-GalaxyS25.html"
     },
     {
-        id: 4,
+        id: 5,
         title: "Como otimizar a bateria do seu smartphone Android",
         excerpt: "Dicas práticas para aumentar a duração da bateria e melhorar a performance do seu celular Android.",
         category: "tutoriais",
@@ -44,7 +54,7 @@ const smartphoneData = [
         link: "/categories/posts/guias/como_otimizar_bateria_android.html" 
     },
     {
-        id: 5,
+        id: 6,
         title: "Xiaomi 14 Ultra: Fotografia profissional no celular",
         excerpt: "O novo smartphone da Xiaomi promete rivalizar com DSLRs profissionais em qualidade de imagem.",
         category: "reviews",
