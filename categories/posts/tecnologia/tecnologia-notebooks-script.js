@@ -1,7 +1,19 @@
 // Dados simulados de notebooks e PCs
 const notebookPcData = [
+
     {
         id: 1,
+        title: "9 Melhores Jogos Leves para PC Fraco em 2026",
+        excerpt: "Tem um PC fraco e acha que não dá pra jogar nada legal? Você está completamente enganado! Existe uma infinidade de jogos incríveis pra você.",
+        category: "guias",
+        icon: "💻",
+        img: "/images/jogos-leves-pc.jpg",
+        date: "2026-01-15",
+        readTime: "12 min",
+        link: "/categories/posts/guias/jogos-leves-pc.html"
+    },
+    {
+        id: 2,
         title: "MacBook Pro M4: Apple revoluciona novamente o mercado de notebooks",
         excerpt: "Novo processador M4 promete 40% mais performance e 6 horas a mais de bateria comparado ao M3. Análise completa das novidades.",
         category: "reviews",
@@ -10,8 +22,9 @@ const notebookPcData = [
         readTime: "7 min",
         link: "/categories/posts/reviews/macbook-pro-m4.html"
     },
+
     {
-        id: 2,
+        id: 10,
         title: "Dell XPS 15 2025: O notebook premium que compete com MacBook",
         excerpt: "Nova geração do XPS 15 traz tela OLED 4K, Intel Core Ultra e design ainda mais refinado. Vale a pena o investimento?",
         category: "reviews",
@@ -22,7 +35,7 @@ const notebookPcData = [
         link: "/categories/posts/reviews/dell-xps-15.html"
     },
     {
-        id: 3,
+        id: 14,
         title: "Gaming Desktop vs Console: Qual escolher em 2025?",
         excerpt: "Comparamos custos, performance e biblioteca de jogos entre PCs gamers e consoles de nova geração.",
         category: "comparativos",
@@ -33,7 +46,7 @@ const notebookPcData = [
         link: "/categories/posts/comparativos/desktop-vs-console.html"
     },
     {
-        id: 4,
+        id: 14,
         title: "Como montar um PC Gamer com R$ 3.000 em 2025",
         excerpt: "Guia completo com lista de componentes, dicas de montagem e onde economizar sem perder performance.",
         category: "guias",
@@ -44,7 +57,7 @@ const notebookPcData = [
         link: "/categories/posts/guias/pc-gamer-3000.html"
     },
     {
-        id: 5,
+        id: 15,
         title: "Lenovo ThinkPad X1 Carbon Gen 12: Produtividade em estado puro",
         excerpt: "O notebook corporativo mais famoso do mundo ganha nova geração. Testamos durabilidade, performance e autonomia.",
         category: "reviews",
@@ -55,7 +68,7 @@ const notebookPcData = [
         link: "/categories/posts/reviews/lenovo-thinkpad-x1-carbon-gen12.html"
     },
     {
-        id: 7,
+        id: 17,
         title: "Framework Laptop: O notebook modular que você pode reparar",
         excerpt: "Conheça o laptop sustentável que permite trocar praticamente todos os componentes. Futuro dos notebooks?",
         category: "lancamentos",
@@ -66,7 +79,7 @@ const notebookPcData = [
         link: "/categories/posts/reviews/framework-laptop.html"
     },
     {
-        id: 8,
+        id: 18,
         title: "Como limpar e otimizar seu PC para máxima performance",
         excerpt: "Tutorial passo a passo para deixar seu computador mais rápido com limpeza física e otimizações de software.",
         category: "tutoriais",
@@ -77,7 +90,7 @@ const notebookPcData = [
         link: "/categories/posts/guias/limpar-otimizar-PC.html"
     },
     {
-        id: 9,
+        id: 19,
         title: "ASUS ROG Strix G18: O notebook gamer que supera desktops",
         excerpt: "Com RTX 4090 mobile e tela de 240Hz, este notebook gamer promete performance de desktop. Mas esquenta muito?",
         category: "reviews",
@@ -88,7 +101,7 @@ const notebookPcData = [
         link: "/categories/posts/reviews/ASUS-ROG-Strix-G18.html"
     },
     {
-        id: 10,
+        id: 110,
         title: "Processadores Intel vs AMD: Qual escolher em 2025?",
         excerpt: "Comparativo detalhado entre as últimas gerações de processadores para diferentes perfis de uso e orçamentos.",
         category: "comparativos",
@@ -99,7 +112,7 @@ const notebookPcData = [
         link: "/categories/posts/comparativos/processadores-Intel-vs-AMD.html"
     },
     {
-        id: 12,
+        id: 112,
         title: "Chromebooks em 2025: Alternativa real aos notebooks tradicionais?",
         excerpt: "Analisamos se os laptops com Chrome OS evoluíram o suficiente para substituir Windows e macOS no dia a dia.",
         category: "comparativos",
@@ -110,7 +123,7 @@ const notebookPcData = [
         link: "/categories/posts/comparativos/chromebooks-2025.html"
     },
     {
-        id: 13,
+        id: 113,
         title: "Como escolher a placa de vídeo ideal para seu orçamento",
         excerpt: "Guia completo das GPUs disponíveis no mercado brasileiro, desde entrada até high-end, com análise custo-benefício.",
         category: "guias",
@@ -121,7 +134,7 @@ const notebookPcData = [
         link: "/categories/posts/guias/como-escolher-placa-de-video.html"
     },
     {
-        id: 15,
+        id: 115,
         title: "SSD vs HDD em 2025: Ainda faz sentido usar disco rígido?",
         excerpt: "Comparamos velocidade, durabilidade, preço e capacidade entre SSDs e HDDs. Qual escolher para cada situação?",
         category: "tutoriais",
@@ -179,7 +192,7 @@ function getFilteredContent() {
             break;
         case 'oldest':
             filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
-            break;    
+            break;
     }
 
     return filtered;
