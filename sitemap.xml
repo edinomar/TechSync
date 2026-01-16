@@ -195,7 +195,7 @@
 <url>
   <loc>https://techsync.net.br/categories/posts/guias/pc-gamer-3000.html</loc>
   <lastmod>2025-10-12T11:52:21+00:00</lastmod>
-  <priority>0.64</priority>
+  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://techsync.net.br/categories/posts/guias/teclado-mecanico-vs-membrana.html</loc>
@@ -231,6 +231,26 @@
   <loc>https://techsync.net.br/categories/posts/guias/melhor_celular_custo_beneficio_em_2026.html</loc>
   <lastmod>2026-01-16T10:52:21+00:00</lastmod>
   <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://techsync.net.br/categories/tools/tools-index.html</loc>
+  <lastmod>2026-01-16T17:00:21+00:00</lastmod>
+  <priority>0.74</priority>
+</url>
+<url>
+  <loc>https://techsync.net.br/categories/tools/text-diff-tool.html</loc>
+  <lastmod>2026-01-16T10:52:21+00:00</lastmod>
+  <priority>0.74</priority>
+</url>
+<url>
+  <loc>https://techsync.net.br/categories/tools/json-xml-validator.html</loc>
+  <lastmod>2026-01-16T10:52:21+00:00</lastmod>
+  <priority>0.74</priority>
+</url>
+<url>
+  <loc>https://techsync.net.br/categories/tools/image-compressor.html</loc>
+  <lastmod>2026-01-16T10:52:21+00:00</lastmod>
+  <priority>0.74</priority>
 </url>
 <url>
   <loc>https://techsync.net.br/categories/reviews.html</loc>
