@@ -24,7 +24,7 @@ const smartphoneData = [
         id: 3,
         title: "Melhor Celular Custo-Benefício em 2026: Qual Vale Mais a Pena?",
         excerpt: "Descubra os smartphones com melhor relação custo-benefício em 2026. Analisamos desempenho, câmeras, bateria e preço para ajudar você a escolher o celular ideal sem gastar muito.",
-        category: "reviews",
+        category: "guias",
         img: "/images/melhor_celular_custo_beneficio_em_2026.jpg" ,
         date: "2026-01-17",
         readTime: "9 min",
@@ -32,6 +32,16 @@ const smartphoneData = [
     },
     {
         id: 4,
+        title: "Melhor celular custo-benefício até R$ 2.000 em 2026",
+        excerpt: "Descubra qual é o melhor celular custo-benefício até R$ 2.000 em 2026. Comparação completa, prós e contras e recomendações certeiras para comprar bem.",
+        category: "guias",
+        img: "/images/melhor-celular-custo-beneficio-ate-2000.jpg" ,
+        date: "2026-01-18",
+        readTime: "10 min",
+        link: "/categories/posts/comparativos/melhor-celular-custo-beneficio-ate-2000.html" 
+    },
+    {
+        id: 14,
         title: "Samsung Galaxy S25 Ultra chega ao Brasil por R$ 11.999",
         excerpt: "O novo flagship da Samsung traz S Pen aprimorada, câmeras de 200MP e processador Snapdragon 8 Gen 4.",
         category: "lancamentos",
@@ -42,7 +52,7 @@ const smartphoneData = [
         link: "/categories/posts/reviews/samsung_s_25_ultra.html" 
     },
     {
-        id: 5,
+        id: 15,
         title: "iPhone 16 vs Galaxy S25: Comparativo completo",
         excerpt: "Comparamos os principais flagships de 2025 em design, performance, câmeras, bateria e preço no Brasil.",
         category: "comparativos",
@@ -53,7 +63,7 @@ const smartphoneData = [
         link: "/categories/posts/comparativos/iPhone16-vs-GalaxyS25.html"
     },
     {
-        id: 6,
+        id: 16,
         title: "Como otimizar a bateria do seu smartphone Android",
         excerpt: "Dicas práticas para aumentar a duração da bateria e melhorar a performance do seu celular Android.",
         category: "tutoriais",
@@ -64,7 +74,7 @@ const smartphoneData = [
         link: "/categories/posts/guias/como_otimizar_bateria_android.html" 
     },
     {
-        id: 7,
+        id: 17,
         title: "Xiaomi 14 Ultra: Fotografia profissional no celular",
         excerpt: "O novo smartphone da Xiaomi promete rivalizar com DSLRs profissionais em qualidade de imagem.",
         category: "reviews",
@@ -76,7 +86,7 @@ const smartphoneData = [
 
     },
     {
-        id: 17,
+        id: 18,
         title: "Motorola Edge 50 Pro: Custo-benefício imbatível",
         excerpt: "A Motorola surpreende com smartphone intermediário premium que oferece recursos de flagship por metade do preço.",
         category: "reviews",
@@ -87,7 +97,7 @@ const smartphoneData = [
         link: "/categories/posts/reviews/motorola_edge_50_pro.html" 
     },
     {
-        id: 18,
+        id: 19,
         title: "IA nos smartphones: Como a tecnologia está mudando o mobile",
         excerpt: "Recursos de inteligência artificial estão transformando como usamos nossos celulares no dia a dia.",
         category: "tendencias",
@@ -98,7 +108,7 @@ const smartphoneData = [
         link: "/categories/posts/noticias/ia_smartphones_mobile.html" 
     },
     {
-        id: 19,
+        id: 20,
         title: "Nothing Phone 3: Design transparente e performance surpreendente",
         excerpt: "A Nothing revela seu terceiro smartphone com visual único e especificações que competem com gigantes do mercado.",
         category: "lancamentos",
@@ -109,7 +119,7 @@ const smartphoneData = [
         link: "/categories/posts/reviews/nothing_phone_3.html" 
     },
     {
-        id: 20,
+        id: 21,
         title: "Como escolher o smartphone ideal para você em 2025",
         excerpt: "Guia completo para escolher o celular perfeito considerando uso, orçamento e necessidades específicas.",
         category: "tutoriais",
@@ -120,7 +130,7 @@ const smartphoneData = [
         link: "/categories/posts/guias/guia_escolher_smartphone_2025.html"
     },
     {
-        id: 21,
+        id: 22,
         title: "Pixel 9 Pro: Google aposta forte na fotografia computacional",
         excerpt: "Novo smartphone do Google traz recursos avançados de IA para fotografia e experiência Android pura otimizada.",
         category: "reviews",
