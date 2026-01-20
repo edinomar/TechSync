@@ -202,6 +202,80 @@
             position: relative;
         }
 
+        /* Estilos para upload de foto */
+        .foto-upload-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .foto-preview {
+            width: 120px;
+            height: 160px;
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+
+        .foto-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .foto-preview-placeholder {
+            text-align: center;
+            color: #999;
+            font-size: 0.85em;
+            padding: 10px;
+        }
+
+        .foto-upload-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .foto-upload-btn input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .foto-upload-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .foto-upload-label:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .foto-remove-btn {
+            padding: 8px 16px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.3s;
+        }
+
+        .foto-remove-btn:hover {
+            background: #c82333;
+        }
+
         @media (max-width: 768px) {
             .grid-2 {
                 grid-template-columns: 1fr;
@@ -221,7 +295,12 @@
             }
 
             .content {
-                padding: 0px;
+                padding: 20px;
+            }
+
+            .foto-upload-container {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -254,6 +333,31 @@
             <form id="resumeForm">
                 <div class="section">
                     <h2>Informacoes Pessoais</h2>
+                    
+                    <!-- Upload de Foto -->
+                    <div class="form-group">
+                        <label>Foto 3x4 (opcional)</label>
+                        <div class="foto-upload-container">
+                            <div class="foto-preview" id="fotoPreview">
+                                <div class="foto-preview-placeholder">
+                                    <i class="fas fa-user" style="font-size: 2em; color: #ccc;"></i>
+                                    <p>Nenhuma foto</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="foto-upload-btn">
+                                    <input type="file" id="fotoInput" accept="image/*" onchange="carregarFoto(event)">
+                                    <label for="fotoInput" class="foto-upload-label">
+                                        <i class="fas fa-upload"></i> Escolher Foto
+                                    </label>
+                                </div>
+                                <button type="button" class="foto-remove-btn" onclick="removerFoto()" style="display: none; margin-top: 10px;" id="removerFotoBtn">
+                                    <i class="fas fa-trash"></i> Remover Foto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="grid-2">
                         <div class="form-group">
                             <label>Nome Completo</label>
@@ -370,13 +474,14 @@
                         <li>Quantifique suas conquistas sempre que possivel</li>
                         <li>Mantenha o curriculo objetivo e direto</li>
                         <li>Atualize regularmente suas informacoes</li>
+                        <li>Use uma foto profissional e recente (fundo neutro, vestimenta adequada)</li>
                     </ul>
                 </div>
             </form>
         </div>
     </div>
 
-        <!-- Footer -->
+    <!-- Footer -->
     <div id="footer-container"></div>
 
     <script src="/js/pageComponents.js"></script>
@@ -386,6 +491,30 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
+        var fotoBase64 = null;
+
+        function carregarFoto(event) {
+            var file = event.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    fotoBase64 = e.target.result;
+                    var preview = document.getElementById('fotoPreview');
+                    preview.innerHTML = '<img src="' + fotoBase64 + '" alt="Foto">';
+                    document.getElementById('removerFotoBtn').style.display = 'inline-block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removerFoto() {
+            fotoBase64 = null;
+            var preview = document.getElementById('fotoPreview');
+            preview.innerHTML = '<div class="foto-preview-placeholder"><i class="fas fa-user" style="font-size: 2em; color: #ccc;"></i><p>Nenhuma foto</p></div>';
+            document.getElementById('fotoInput').value = '';
+            document.getElementById('removerFotoBtn').style.display = 'none';
+        }
+
         function adicionarExperiencia() {
             var container = document.getElementById('experiencias');
             var div = document.createElement('div');
@@ -452,19 +581,29 @@
                 idiomas: document.getElementById('idiomas').value,
                 certificacoes: document.getElementById('certificacoes').value,
                 experiencias: experiencias,
-                formacoes: formacoes
+                formacoes: formacoes,
+                foto: fotoBase64
             };
         }
 
         function visualizar() {
             var dados = coletarDados();
             var html = '<div style="font-family: Arial; padding: 40px; max-width: 800px; margin: 0 auto;">';
-            html += '<h1 style="color: #2c3e50; font-size: 2em; margin-bottom: 5px;">' + dados.nome + '</h1>';
+            
+            html += '<div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px;">';
+            
+            if (dados.foto) {
+                html += '<div style="flex-shrink: 0;"><img src="' + dados.foto + '" style="width: 120px; height: 160px; object-fit: cover; border-radius: 8px; border: 2px solid #3498db;"></div>';
+            }
+            
+            html += '<div style="flex-grow: 1;">';
+            html += '<h1 style="color: #2c3e50; font-size: 2em; margin-bottom: 5px; margin-top: 0;">' + dados.nome + '</h1>';
             html += '<div style="color: #34495e; font-size: 1.2em; margin-bottom: 10px;">' + dados.cargo + '</div>';
             html += '<div style="color: #555; font-size: 0.9em; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #3498db;">';
             html += dados.email + ' | ' + dados.telefone + ' | ' + dados.localizacao;
             if (dados.linkedin) html += ' | ' + dados.linkedin;
             html += '</div>';
+            html += '</div></div>';
             
             if (dados.resumo) {
                 html += '<div style="color: #2c3e50; font-size: 1.3em; font-weight: bold; margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #3498db;">RESUMO PROFISSIONAL</div>';
@@ -517,32 +656,95 @@
             var doc = new jsPDF();
             
             var y = 20;
+            var leftMargin = 20;
+            var rightMargin = 190;
             
-            doc.setFontSize(24);
-            doc.text(dados.nome, 20, y);
-            y += 10;
-            
-            doc.setFontSize(14);
-            doc.text(dados.cargo, 20, y);
-            y += 8;
-            
-            doc.setFontSize(10);
-            var contato = dados.email + ' | ' + dados.telefone + ' | ' + dados.localizacao;
-            doc.text(contato, 20, y);
-            y += 10;
-            
-            if (dados.resumo) {
-                doc.setFontSize(12);
-                doc.text('RESUMO PROFISSIONAL', 20, y);
-                y += 7;
-                doc.setFontSize(10);
-                var resumoLines = doc.splitTextToSize(dados.resumo, 170);
-                doc.text(resumoLines, 20, y);
-                y += (resumoLines.length * 5) + 5;
+            // Adicionar foto no canto superior esquerdo se existir
+            if (dados.foto) {
+                doc.addImage(dados.foto, 'JPEG', 20, 15, 25, 33);
             }
             
-            doc.setFontSize(12);
-            doc.text('EXPERIENCIA PROFISSIONAL', 20, y);
+            // Ajustar margem esquerda se houver foto
+            var textLeftMargin = dados.foto ? 50 : leftMargin;
+            
+// Nome
+doc.setFontSize(22);
+doc.setFont(undefined, 'bold');
+doc.setTextColor(44, 62, 80);
+doc.text(dados.nome, textLeftMargin, y);
+y += 8;
+
+// Cargo
+doc.setFontSize(14);
+doc.setFont(undefined, 'normal');
+doc.setTextColor(52, 73, 94);
+doc.text(dados.cargo, textLeftMargin, y);
+y += 8;
+
+// Contato
+doc.setFontSize(10);
+doc.setTextColor(85, 85, 85);
+
+var contato = dados.email + ' | ' + dados.telefone + ' | ' + dados.localizacao;
+if (dados.linkedin) contato += ' | ' + dados.linkedin;
+
+var contatoLines = doc.splitTextToSize(contato, dados.foto ? 140 : 170);
+doc.text(contatoLines, textLeftMargin, y);
+
+// avança exatamente o espaço ocupado pelo contato
+y += contatoLines.length * 1;
+
+// Linha azul ABAIXO do contato
+y += 3; // pequeno espaçamento
+doc.setDrawColor(52, 152, 219);
+doc.setLineWidth(0.5);
+doc.line(textLeftMargin, y, rightMargin, y);
+
+// Espaço após a linha
+y += 14;
+
+// A partir daqui, voltar para margem normal
+leftMargin = 20;
+            
+            // Resumo Profissional
+            if (dados.resumo) {
+                // Título da seção
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(44, 62, 80);
+                doc.text('RESUMO PROFISSIONAL', leftMargin, y);
+                y += 2;
+                
+                // Linha azul
+                doc.setDrawColor(52, 152, 219);
+                doc.setLineWidth(0.5);
+                doc.line(leftMargin, y, rightMargin, y);
+                y += 7;
+                
+                // Conteúdo
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(0, 0, 0);
+                var resumoLines = doc.splitTextToSize(dados.resumo, 170);
+                doc.text(resumoLines, leftMargin, y);
+                y += (resumoLines.length * 5) + 8;
+            }
+            
+            // Experiência Profissional
+            if (y > 220) {
+                doc.addPage();
+                y = 20;
+            }
+            
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(44, 62, 80);
+            doc.text('EXPERIENCIA PROFISSIONAL', leftMargin, y);
+            y += 2;
+            
+            doc.setDrawColor(52, 152, 219);
+            doc.setLineWidth(0.5);
+            doc.line(leftMargin, y, rightMargin, y);
             y += 7;
             
             for (var i = 0; i < dados.experiencias.length; i++) {
@@ -552,29 +754,49 @@
                     y = 20;
                 }
                 
-                doc.setFontSize(11);
-                doc.text(exp.cargo, 20, y);
+                // Cargo
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(0, 0, 0);
+                doc.text(exp.cargo, leftMargin, y);
                 y += 6;
                 
+                // Empresa
                 doc.setFontSize(10);
-                doc.text(exp.empresa, 20, y);
+                doc.setFont(undefined, 'italic');
+                doc.setTextColor(85, 85, 85);
+                doc.text(exp.empresa, leftMargin, y);
                 y += 5;
                 
-                doc.text(exp.periodo, 20, y);
-                y += 5;
+                // Período
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(119, 119, 119);
+                doc.text(exp.periodo, leftMargin, y);
+                y += 6;
                 
+                // Descrição
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(0, 0, 0);
                 var descLines = doc.splitTextToSize(exp.descricao, 170);
-                doc.text(descLines, 20, y);
-                y += (descLines.length * 5) + 5;
+                doc.text(descLines, leftMargin, y);
+                y += (descLines.length * 5) + 8;
             }
             
+            // Formação Acadêmica
             if (y > 220) {
                 doc.addPage();
                 y = 20;
             }
             
-            doc.setFontSize(12);
-            doc.text('FORMACAO ACADEMICA', 20, y);
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(44, 62, 80);
+            doc.text('FORMACAO ACADEMICA', leftMargin, y);
+            y += 2;
+            
+            doc.setDrawColor(52, 152, 219);
+            doc.setLineWidth(0.5);
+            doc.line(leftMargin, y, rightMargin, y);
             y += 7;
             
             for (var j = 0; j < dados.formacoes.length; j++) {
@@ -584,49 +806,104 @@
                     y = 20;
                 }
                 
-                doc.setFontSize(11);
-                doc.text(edu.curso, 20, y);
+                // Curso
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(0, 0, 0);
+                doc.text(edu.curso, leftMargin, y);
                 y += 6;
                 
+                // Instituição
                 doc.setFontSize(10);
-                doc.text(edu.instituicao, 20, y);
+                doc.setFont(undefined, 'italic');
+                doc.setTextColor(85, 85, 85);
+                doc.text(edu.instituicao, leftMargin, y);
                 y += 5;
                 
-                doc.text(edu.periodo, 20, y);
-                y += 7;
+                // Período
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(119, 119, 119);
+                doc.text(edu.periodo, leftMargin, y);
+                y += 8;
             }
             
+            // Habilidades
             if (dados.habilidades) {
                 if (y > 240) {
                     doc.addPage();
                     y = 20;
                 }
                 
-                doc.setFontSize(12);
-                doc.text('HABILIDADES', 20, y);
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(44, 62, 80);
+                doc.text('HABILIDADES', leftMargin, y);
+                y += 2;
+                
+                doc.setDrawColor(52, 152, 219);
+                doc.setLineWidth(0.5);
+                doc.line(leftMargin, y, rightMargin, y);
                 y += 7;
                 
                 doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(0, 0, 0);
                 var habLines = doc.splitTextToSize(dados.habilidades, 170);
-                doc.text(habLines, 20, y);
-                y += (habLines.length * 5) + 5;
+                doc.text(habLines, leftMargin, y);
+                y += (habLines.length * 5) + 8;
             }
             
+            // Idiomas
             if (dados.idiomas) {
                 if (y > 240) {
                     doc.addPage();
                     y = 20;
                 }
                 
-                doc.setFontSize(12);
-                doc.text('IDIOMAS', 20, y);
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(44, 62, 80);
+                doc.text('IDIOMAS', leftMargin, y);
+                y += 2;
+                
+                doc.setDrawColor(52, 152, 219);
+                doc.setLineWidth(0.5);
+                doc.line(leftMargin, y, rightMargin, y);
                 y += 7;
                 
                 doc.setFontSize(10);
-                doc.text(dados.idiomas, 20, y);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(0, 0, 0);
+                doc.text(dados.idiomas, leftMargin, y);
+                y += 8;
             }
 
-            doc.save('Curriculo' +' '+ dados.nome + '.pdf');
+            // Certificações
+            if (dados.certificacoes) {
+                if (y > 240) {
+                    doc.addPage();
+                    y = 20;
+                }
+                
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(44, 62, 80);
+                doc.text('CERTIFICACOES', leftMargin, y);
+                y += 2;
+                
+                doc.setDrawColor(52, 152, 219);
+                doc.setLineWidth(0.5);
+                doc.line(leftMargin, y, rightMargin, y);
+                y += 7;
+                
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(0, 0, 0);
+                var certLines = doc.splitTextToSize(dados.certificacoes, 170);
+                doc.text(certLines, leftMargin, y);
+            }
+
+            doc.save('Curriculo' + ' ' + dados.nome + '.pdf');
         }
     </script>
 </body>
