@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NFY6RYBJZJ');
+    </script>
+
+    <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Curriculo Moderno</title>
+
+    <meta name="description" content="Crie seu curriculo profissional moderno e impressione recrutadores com nosso gerador de curriculos facil de usar.">
+
+    <meta name="keywords"
+    content="gerador de curriculo, curriculo profissional, modelo de curriculo, criar curriculo online, curriculo moderno, dicas de curriculo, como fazer curriculo, exemplo de curriculo, template de curriculo, curriculo para emprego, curriculo gratis, curriculo pdf, curriculo word, curriculo simples, curriculo criativo">
+
+    <meta name="author" content="TechSync">
+    
+    <link rel="canonical" href="https://techsync.com.br/categories/tools/Gerador-de-Curriculo-Profissional.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+
+    <!-- Cor do tema -->
+    <meta name="theme-color" content="#667eea">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+
+        }
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+        }
+
+        .section h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #555;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .experience-item,
+        .education-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e9ecef;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            font-size: 0.9em;
+            padding: 8px 16px;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-add {
+            background: #28a745;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn-add:hover {
+            background: #218838;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tips {
+            background: #e7f3ff;
+            border: 2px solid #b3d9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .tips h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .tips ul {
+            list-style: none;
+            color: #004080;
+        }
+
+        .tips li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+            <a href="/"><i class="fas fa-home"></i> Início</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <a href="/categories/tools/tools-index.html"><i class="fas fa-tools"></i> Ferramentas</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span>Gerador de Curriculo Profissional</span>
+        </nav>
+    </div>
+
+    <div class="container" style="margin-top: 1rem; margin-bottom: 1rem; background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;">
+        <div style="padding: 40px; text-align: center; ">
+            <h1 style="font-size: 2.5em; margin-bottom: 10px;">Gerador de Curriculo Profissional</h1>
+            <p style="font-size: 1.1em; opacity: 0.9;">Crie seu curriculo moderno e profissional em minutos</p>
+        </div>
+
+        <div class="content">
+            <form id="resumeForm">
+                <div class="section">
+                    <h2>Informacoes Pessoais</h2>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Nome Completo</label>
+                            <input type="text" id="nome" value="Nome completo" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cargo Desejado</label>
+                            <input type="text" id="cargo" value="Seu Cargo Profissional" required>
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input type="email" id="email" value="seu.email@exemplo.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="tel" id="telefone" value="(00) 00000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Localizacao</label>
+                            <input type="text" id="localizacao" value="Brasilia, DF" required>
+                        </div>
+                        <div class="form-group">
+                            <label>LinkedIn (opcional)</label>
+                            <input type="text" id="linkedin" placeholder="linkedin.com/in/seu-perfil">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Resumo Profissional</h2>
+                    <div class="form-group">
+                        <label>Resumo</label>
+                        <textarea id="resumo" placeholder="Descreva brevemente sua experiencia e objetivos profissionais..."></textarea>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Experiencia Profissional</h2>
+                    <div id="experiencias">
+                        <div class="experience-item">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label>Cargo</label>
+                                    <input type="text" class="exp-cargo" value="Cargo Atual">
+                                </div>
+                                <div class="form-group">
+                                    <label>Empresa</label>
+                                    <input type="text" class="exp-empresa" value="Nome da Empresa">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Periodo</label>
+                                <input type="text" class="exp-periodo" value="Jan/2020 - Atual">
+                            </div>
+                            <div class="form-group">
+                                <label>Descricao</label>
+                                <textarea class="exp-descricao">Exemplo: Responsavel por liderar projetos estrategicos</textarea>
+                            </div>
+                            <button type="button" class="btn btn-danger" onclick="removerExperiencia(this)">Remover</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-add" onclick="adicionarExperiencia()">Adicionar Experiencia</button>
+                </div>
+
+                <div class="section">
+                    <h2>Formacao Academica</h2>
+                    <div id="formacoes">
+                        <div class="education-item">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label>Curso</label>
+                                    <input type="text" class="edu-curso" value="Graduacao em...">
+                                </div>
+                                <div class="form-group">
+                                    <label>Instituicao</label>
+                                    <input type="text" class="edu-instituicao" value="Nome da Instituicao">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Periodo</label>
+                                <input type="text" class="edu-periodo" value="2018 - 2022">
+                            </div>
+                            <button type="button" class="btn btn-danger" onclick="removerFormacao(this)">Remover</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-add" onclick="adicionarFormacao()">Adicionar Formacao</button>
+                </div>
+
+                <div class="section">
+                    <h2>Habilidades e Competencias</h2>
+                    <div class="form-group">
+                        <label>Habilidades (separe por virgula)</label>
+                        <textarea id="habilidades">Exemplo: Lideranca, Gestao de Projetos, Comunicacao, Trabalho em Equipe</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Idiomas</label>
+                        <textarea id="idiomas">Portugues (Nativo), Ingles (Avancado)</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Certificacoes (opcional)</label>
+                        <textarea id="certificacoes" placeholder="Liste suas certificacoes..."></textarea>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary" onclick="gerarPDF()">Gerar PDF</button>
+                    <button type="button" class="btn btn-secondary" onclick="visualizar()">Visualizar</button>
+                </div>
+
+                <div class="tips">
+                    <h3>Dicas para um Curriculo Eficaz</h3>
+                    <ul>
+                        <li>Use verbos de acao para descrever suas responsabilidades</li>
+                        <li>Quantifique suas conquistas sempre que possivel</li>
+                        <li>Mantenha o curriculo objetivo e direto</li>
+                        <li>Atualize regularmente suas informacoes</li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <script src="/js/pageComponents.js"></script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function adicionarExperiencia() {
+            var container = document.getElementById('experiencias');
+            var div = document.createElement('div');
+            div.className = 'experience-item';
+            div.innerHTML = '<div class="grid-2"><div class="form-group"><label>Cargo</label><input type="text" class="exp-cargo"></div><div class="form-group"><label>Empresa</label><input type="text" class="exp-empresa"></div></div><div class="form-group"><label>Periodo</label><input type="text" class="exp-periodo"></div><div class="form-group"><label>Descricao</label><textarea class="exp-descricao"></textarea></div><button type="button" class="btn btn-danger" onclick="removerExperiencia(this)">Remover</button>';
+            container.appendChild(div);
+        }
+
+        function removerExperiencia(btn) {
+            if (document.querySelectorAll('.experience-item').length > 1) {
+                btn.parentElement.remove();
+            } else {
+                alert('Voce precisa ter pelo menos uma experiencia!');
+            }
+        }
+
+        function adicionarFormacao() {
+            var container = document.getElementById('formacoes');
+            var div = document.createElement('div');
+            div.className = 'education-item';
+            div.innerHTML = '<div class="grid-2"><div class="form-group"><label>Curso</label><input type="text" class="edu-curso"></div><div class="form-group"><label>Instituicao</label><input type="text" class="edu-instituicao"></div></div><div class="form-group"><label>Periodo</label><input type="text" class="edu-periodo"></div><button type="button" class="btn btn-danger" onclick="removerFormacao(this)">Remover</button>';
+            container.appendChild(div);
+        }
+
+        function removerFormacao(btn) {
+            if (document.querySelectorAll('.education-item').length > 1) {
+                btn.parentElement.remove();
+            } else {
+                alert('Voce precisa ter pelo menos uma formacao!');
+            }
+        }
+
+        function coletarDados() {
+            var experiencias = [];
+            var exps = document.querySelectorAll('.experience-item');
+            for (var i = 0; i < exps.length; i++) {
+                experiencias.push({
+                    cargo: exps[i].querySelector('.exp-cargo').value,
+                    empresa: exps[i].querySelector('.exp-empresa').value,
+                    periodo: exps[i].querySelector('.exp-periodo').value,
+                    descricao: exps[i].querySelector('.exp-descricao').value
+                });
+            }
+
+            var formacoes = [];
+            var edus = document.querySelectorAll('.education-item');
+            for (var j = 0; j < edus.length; j++) {
+                formacoes.push({
+                    curso: edus[j].querySelector('.edu-curso').value,
+                    instituicao: edus[j].querySelector('.edu-instituicao').value,
+                    periodo: edus[j].querySelector('.edu-periodo').value
+                });
+            }
+
+            return {
+                nome: document.getElementById('nome').value,
+                cargo: document.getElementById('cargo').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                localizacao: document.getElementById('localizacao').value,
+                linkedin: document.getElementById('linkedin').value,
+                resumo: document.getElementById('resumo').value,
+                habilidades: document.getElementById('habilidades').value,
+                idiomas: document.getElementById('idiomas').value,
+                certificacoes: document.getElementById('certificacoes').value,
+                experiencias: experiencias,
+                formacoes: formacoes
+            };
+        }
+
+        function visualizar() {
+            var dados = coletarDados();
+            var html = '<div style="font-family: Arial; padding: 40px; max-width: 800px; margin: 0 auto;">';
+            html += '<h1 style="color: #2c3e50; font-size: 2em; margin-bottom: 5px;">' + dados.nome + '</h1>';
+            html += '<div style="color: #34495e; font-size: 1.2em; margin-bottom: 10px;">' + dados.cargo + '</div>';
+            html += '<div style="color: #555; font-size: 0.9em; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #3498db;">';
+            html += dados.email + ' | ' + dados.telefone + ' | ' + dados.localizacao;
+            if (dados.linkedin) html += ' | ' + dados.linkedin;
+            html += '</div>';
+            
+            if (dados.resumo) {
+                html += '<div style="color: #2c3e50; font-size: 1.3em; font-weight: bold; margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #3498db;">RESUMO PROFISSIONAL</div>';
+                html += '<div style="margin-top: 8px; line-height: 1.6;">' + dados.resumo + '</div>';
+            }
+            
+            html += '<div style="color: #2c3e50; font-size: 1.3em; font-weight: bold; margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #3498db;">EXPERIENCIA PROFISSIONAL</div>';
+            
+            for (var i = 0; i < dados.experiencias.length; i++) {
+                var exp = dados.experiencias[i];
+                html += '<div style="font-weight: bold; font-size: 1.1em; margin-top: 15px;">' + exp.cargo + '</div>';
+                html += '<div style="font-style: italic; color: #555; margin-top: 3px;">' + exp.empresa + '</div>';
+                html += '<div style="color: #777; font-size: 0.9em; margin-top: 3px;">' + exp.periodo + '</div>';
+                html += '<div style="margin-top: 8px; line-height: 1.6;">' + exp.descricao + '</div>';
+            }
+
+            html += '<div style="color: #2c3e50; font-size: 1.3em; font-weight: bold; margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #3498db;">FORMACAO ACADEMICA</div>';
+            
+            for (var k = 0; k < dados.formacoes.length; k++) {
+                var edu = dados.formacoes[k];
+                html += '<div style="font-weight: bold; font-size: 1.1em; margin-top: 15px;">' + edu.curso + '</div>';
+                html += '<div style="font-style: italic; color: #555; margin-top: 3px;">' + edu.instituicao + '</div>';
+                html += '<div style="color: #777; font-size: 0.9em; margin-top: 3px;">' + edu.periodo + '</div>';
+            }
+
+            if (dados.habilidades) {
+                html += '<div style="color: #2c3e50; font-size: 1.3em; font-weight: bold; margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #3498db;">HABILIDADES</div>';
+                html += '<div style="margin-top: 8px; line-height: 1.6;">' + dados.habilidades + '</div>';
+            }
+
+            if (dados.idiomas) {
+                html += '<div style="color: #2c3e50; font-size: 1.3em; font-weight: bold; margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #3498db;">IDIOMAS</div>';
+                html += '<div style="margin-top: 8px; line-height: 1.6;">' + dados.idiomas + '</div>';
+            }
+
+            if (dados.certificacoes) {
+                html += '<div style="color: #2c3e50; font-size: 1.3em; font-weight: bold; margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #3498db;">CERTIFICACOES</div>';
+                html += '<div style="margin-top: 8px; line-height: 1.6;">' + dados.certificacoes + '</div>';
+            }
+
+            html += '</div>';
+
+            var novaJanela = window.open('', '_blank');
+            novaJanela.document.write(html);
+        }
+
+        function gerarPDF() {
+            var dados = coletarDados();
+            var jsPDF = window.jspdf.jsPDF;
+            var doc = new jsPDF();
+            
+            var y = 20;
+            
+            doc.setFontSize(24);
+            doc.text(dados.nome, 20, y);
+            y += 10;
+            
+            doc.setFontSize(14);
+            doc.text(dados.cargo, 20, y);
+            y += 8;
+            
+            doc.setFontSize(10);
+            var contato = dados.email + ' | ' + dados.telefone + ' | ' + dados.localizacao;
+            doc.text(contato, 20, y);
+            y += 10;
+            
+            if (dados.resumo) {
+                doc.setFontSize(12);
+                doc.text('RESUMO PROFISSIONAL', 20, y);
+                y += 7;
+                doc.setFontSize(10);
+                var resumoLines = doc.splitTextToSize(dados.resumo, 170);
+                doc.text(resumoLines, 20, y);
+                y += (resumoLines.length * 5) + 5;
+            }
+            
+            doc.setFontSize(12);
+            doc.text('EXPERIENCIA PROFISSIONAL', 20, y);
+            y += 7;
+            
+            for (var i = 0; i < dados.experiencias.length; i++) {
+                var exp = dados.experiencias[i];
+                if (y > 250) {
+                    doc.addPage();
+                    y = 20;
+                }
+                
+                doc.setFontSize(11);
+                doc.text(exp.cargo, 20, y);
+                y += 6;
+                
+                doc.setFontSize(10);
+                doc.text(exp.empresa, 20, y);
+                y += 5;
+                
+                doc.text(exp.periodo, 20, y);
+                y += 5;
+                
+                var descLines = doc.splitTextToSize(exp.descricao, 170);
+                doc.text(descLines, 20, y);
+                y += (descLines.length * 5) + 5;
+            }
+            
+            if (y > 220) {
+                doc.addPage();
+                y = 20;
+            }
+            
+            doc.setFontSize(12);
+            doc.text('FORMACAO ACADEMICA', 20, y);
+            y += 7;
+            
+            for (var j = 0; j < dados.formacoes.length; j++) {
+                var edu = dados.formacoes[j];
+                if (y > 250) {
+                    doc.addPage();
+                    y = 20;
+                }
+                
+                doc.setFontSize(11);
+                doc.text(edu.curso, 20, y);
+                y += 6;
+                
+                doc.setFontSize(10);
+                doc.text(edu.instituicao, 20, y);
+                y += 5;
+                
+                doc.text(edu.periodo, 20, y);
+                y += 7;
+            }
+            
+            if (dados.habilidades) {
+                if (y > 240) {
+                    doc.addPage();
+                    y = 20;
+                }
+                
+                doc.setFontSize(12);
+                doc.text('HABILIDADES', 20, y);
+                y += 7;
+                
+                doc.setFontSize(10);
+                var habLines = doc.splitTextToSize(dados.habilidades, 170);
+                doc.text(habLines, 20, y);
+                y += (habLines.length * 5) + 5;
+            }
+            
+            if (dados.idiomas) {
+                if (y > 240) {
+                    doc.addPage();
+                    y = 20;
+                }
+                
+                doc.setFontSize(12);
+                doc.text('IDIOMAS', 20, y);
+                y += 7;
+                
+                doc.setFontSize(10);
+                doc.text(dados.idiomas, 20, y);
+            }
+
+            doc.save('Curriculo' +' '+ dados.nome + '.pdf');
+        }
+    </script>
+</body>
+</html>
