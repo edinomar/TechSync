@@ -1230,7 +1230,6 @@ search-box:focus {
 /* Tablets e dispositivos médios */
 @media (max-width: 1024px) {
     .footer-content {
-        grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
     }
 }
