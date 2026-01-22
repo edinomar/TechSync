@@ -40,6 +40,16 @@ const smartphoneData = [
         readTime: "10 min",
         link: "/categories/posts/comparativos/melhor-celular-custo-beneficio-ate-2000.html" 
     },
+        {
+        id: 5,
+        title: "8 GB de RAM ainda é suficiente em 2026? Android, apps e jogos",
+        excerpt: " Guia completo para entender se 8 GB de RAM atendem suas necessidades em 2026, com comparações reais e testes práticos",
+        category: "guias",
+        img: "/images/artigo_8gb_ram_2026_mini.jpg" ,
+        date: "2026-01-18",
+        readTime: "12 min",
+        link: "/categories/posts/guias/artigo_8gb_ram_2026.html" 
+    },
     {
         id: 14,
         title: "Samsung Galaxy S25 Ultra chega ao Brasil por R$ 11.999",
