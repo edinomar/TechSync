@@ -2,6 +2,16 @@
 const smartphoneData = [
     {
         id: 1,
+        title: "Celular com a melhor bateria em 2026: quais realmente duram o dia todo?",
+        excerpt: "Guia completo com análise real de autonomia, comparação de modelos e critérios técnicos para escolher um smartphone que realmente dura",
+        category: "reviews",
+        img: "/images/celular-com-a-melhor-bateria-em-2026-mini.jpg" ,
+        date: "2026-01-26",
+        readTime: "14 min",
+        link: "/categories/posts/guias/celular-com-a-melhor-bateria-em-2026.html" 
+    },
+       {
+        id: 2,
         title: "iPhone 16 Pro Max: Review completo do flagship da Apple",
         excerpt: "Analisamos o novo iPhone 16 Pro Max em todos os detalhes: câmeras, performance, bateria e recursos de IA integrados.",
         category: "reviews",
@@ -11,7 +21,7 @@ const smartphoneData = [
         link: "/categories/posts/reviews/iphone-16-pro-max.html" 
     },
         {
-        id: 2,
+        id: 3,
         title: "Celular Lento, Travando e Superaquecendo? Descubra as Soluções Definitivas",
         excerpt: "Neste guia completo, você vai descobrir as causas desses problemas e aprender 15 soluções práticas e eficazes para recuperar o desempenho do seu celular.",
         category: "tutoriais",
@@ -21,7 +31,7 @@ const smartphoneData = [
         link: "/categories/posts/guias/artigo-celular-html.html" 
     },
             {
-        id: 3,
+        id: 4,
         title: "Melhor Celular Custo-Benefício em 2026: Qual Vale Mais a Pena?",
         excerpt: "Descubra os smartphones com melhor relação custo-benefício em 2026. Analisamos desempenho, câmeras, bateria e preço para ajudar você a escolher o celular ideal sem gastar muito.",
         category: "guias",
@@ -31,7 +41,7 @@ const smartphoneData = [
         link: "/categories/posts/guias/melhor_celular_custo_beneficio_em_2026.html" 
     },
     {
-        id: 4,
+        id: 5,
         title: "Melhor celular custo-benefício até R$ 2.000 em 2026",
         excerpt: "Descubra qual é o melhor celular custo-benefício até R$ 2.000 em 2026. Comparação completa, prós e contras e recomendações certeiras para comprar bem.",
         category: "guias",
@@ -40,8 +50,8 @@ const smartphoneData = [
         readTime: "10 min",
         link: "/categories/posts/comparativos/melhor-celular-custo-beneficio-ate-2000.html" 
     },
-        {
-        id: 5,
+    {
+        id: 6,
         title: "8 GB de RAM ainda é suficiente em 2026? Android, apps e jogos",
         excerpt: " Guia completo para entender se 8 GB de RAM atendem suas necessidades em 2026, com comparações reais e testes práticos",
         category: "guias",
