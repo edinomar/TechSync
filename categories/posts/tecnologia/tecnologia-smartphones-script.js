@@ -60,6 +60,16 @@ const smartphoneData = [
         readTime: "12 min",
         link: "/categories/posts/guias/artigo_8gb_ram_2026.html" 
     },
+        {
+        id: 7,
+        title: "6G nos celulares: quando chega, como funciona e o que muda para os usuários",
+        excerpt: "Descubra tudo sobre o 6G nos celulares: previsão de chegada, funcionamento, benefícios reais e se vale a pena esperar por essa tecnologia revolucionária.",
+        category: "guias",
+        img: "/images/artigo-6g-celulares.jpg" ,
+        date: "2026-01-27",
+        readTime: "12 min",
+        link: "/categories/posts/guias/artigo-6g-celulares.html" 
+    },
     {
         id: 14,
         title: "Samsung Galaxy S25 Ultra chega ao Brasil por R$ 11.999",
