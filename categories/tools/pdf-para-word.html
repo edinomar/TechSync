@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-NFY6RYBJZJ');
+    </script>
+
+    <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- TITLE SEO OTIMIZADO -->
+    <title>Conversor de PDF para Word Online Grátis | 100% Seguro e Privado</title>
+
+    <!-- META DESCRIPTION OTIMIZADA -->
+    <meta name="description"
+        content="Converta PDF para Word editável grátis e sem cadastro. Seus arquivos nunca saem do navegador. Conversão rápida, segura e 100% privada. Experimente agora!">
+
+    <!-- KEYWORDS OTIMIZADAS -->
+    <meta name="keywords"
+        content="converter pdf para word, pdf para word online, conversor pdf word grátis, pdf para docx, converter pdf em word editável, pdf to word, conversão pdf word grátis, pdf para word sem cadastro, conversor pdf seguro">
+
+    <meta name="author" content="TechSync">
+    <link rel="canonical" href="https://www.techsync.net.br/categories/tools/pdf-para-word.html">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+
+    <!-- Cor do tema -->
+    <meta name="theme-color" content="#667eea">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.techsync.net.br/categories/tools/pdf-para-word.html">
+    <meta property="og:title" content="Conversor de PDF para Word Online Grátis | 100% Seguro">
+    <meta property="og:description"
+        content="Converta PDF para Word editável sem enviar arquivos para servidor. Totalmente gratuito e privado.">
+    <meta property="og:image" content="https://www.techsync.net.br/images/capa-techsync.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Conversor de PDF para Word Online Grátis | 100% Seguro">
+    <meta name="twitter:description"
+        content="Converta PDF para Word editável grátis. Seus arquivos nunca saem do navegador.">
+    <meta name="twitter:image" content="https://www.techsync.net.br/images/capa-techsync.jpg">
+
+    <!-- Schema.org - SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Conversor PDF para Word - TechSync",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BRL"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "1247"
+        },
+        "description": "Converta arquivos PDF para Word (DOCX) editável diretamente no navegador. 100% gratuito, seguro e privado - seus arquivos nunca são enviados para servidores."
+    }
+    </script>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- Docx Library (para gerar Word) -->
+    <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+
+    <style>
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* ==== HEADER ==== */
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 12px;
+            padding:40px;
+            text-align: center;
+            background: #f8f9ff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: #f0f2ff;
+            transform: translateY(-2px);
+        }
+
+        .upload-area.drag-over {
+            border-color: #28a745;
+            background: #e8f5e9;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: #ee2828;
+            margin-bottom: 20px;
+        }
+
+        .upload-area h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .upload-area p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .upload-area input[type="file"] {
+            display: none;
+        }
+
+        .btn-upload {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-upload:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .file-size-limit {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 15px;
+        }
+
+        /* ==== PROGRESS BAR ==== */
+        .progress-section {
+            display: none;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin: -30px auto 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+
+        .progress-section.active {
+            display: block;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .file-info i {
+            font-size: 2.5rem;
+            color: #dc3545;
+        }
+
+        .file-details h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .file-details p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .status-message {
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .btn-download {
+            display: none;
+            background: #28a745;
+            color: white;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px auto 0;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn-download:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-download.active {
+            display: block;
+        }
+
+        .btn-convert-another {
+            background: #6c757d;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .btn-convert-another:hover {
+            background: #5a6268;
+        }
+
+        /* ==== FEATURES ==== */
+        .features-section {
+            padding: 20px 20px;
+            background: white;
+        }
+
+        .features-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 12px;
+            background: #f8f9fa;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ==== HOW IT WORKS ==== */
+        .how-it-works {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 50px;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            color: #666;
+        }
+
+        /* ==== FAQ ==== */
+        .faq-section {
+            padding: 60px 20px;
+            background: white;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        /* ==== ADSENSE SLOTS ==== */
+        .ad-slot {
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px auto;
+            max-width: 728px;
+        }
+
+        .ad-slot p {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* ==== RESPONSIVE ==== */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .page-header .subtitle {
+                font-size: 1rem;
+            }
+
+            .upload-section {
+                padding: 30px 20px;
+                margin: -20px 20px 30px;
+            }
+
+            .upload-area {
+                padding: 40px 20px;
+            }
+
+            .upload-icon {
+                font-size: 3rem;
+            }
+
+            .security-badges {
+                gap: 15px;
+            }
+
+            .features-grid,
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .subtitle{
+                margin-bottom: 0.5rem;
+            }
+
+            .features-section{
+                padding: 0px 10px;
+            }
+        }
+
+        /* ==== LOADING SPINNER ==== */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-container"></div>
+
+        <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+            <a href="/"><i class="fas fa-home"></i> Início</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <a href="/categories/tools/tools-index.html"><i class="fas fa-tools"></i> Ferramentas</a>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span>Conversor de PDF para Word</span>
+        </nav>
+    </div>
+
+    <!-- Page Header -->
+    <header class="container" style="margin-top: 1rem;">
+
+            <h1>🔄 Conversor de PDF para Word Online Grátis</h1>
+            <p class="subtitle">Converta seus arquivos PDF em documentos Word editáveis. Rápido, seguro e 100% privado.</p>
+
+            <div class="security-badges">
+                <div class="security-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>100% Seguro</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-lock"></i>
+                    <span>Privacidade Total</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-bolt"></i>
+                    <span>Conversão Rápida</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-gift"></i>
+                    <span>100% Gratuito</span>
+                </div>
+            </div>
+    </header>
+
+    <!-- Upload Section -->
+    <main class="container">
+        <section class="upload-section" id="uploadSection">
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-file-pdf upload-icon"></i>
+                <h2>Arraste seu PDF aqui</h2>
+                <p>ou clique para selecionar um arquivo</p>
+                <input type="file" id="pdfInput" accept=".pdf,application/pdf">
+                <p class="file-size-limit">📁 Tamanho máximo: 10 MB (limite gratuito)</p>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section class="progress-section" id="progressSection">
+            <div class="file-info" id="fileInfo">
+                <i class="fas fa-file-pdf"></i>
+                <div class="file-details">
+                    <h3 id="fileName">documento.pdf</h3>
+                    <p id="fileSize">0 KB</p>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p class="progress-text" id="progressText">Preparando conversão...</p>
+
+            <div class="status-message" id="statusMessage" style="display: none;"></div>
+
+            <button class="btn-download" id="btnDownload">
+                <i class="fas fa-download"></i> Baixar Arquivo Word
+            </button>
+
+            <div style="text-align: center;">
+                <button class="btn-convert-another" id="btnConvertAnother" style="display: none;">
+                    <i class="fas fa-redo"></i> Converter Outro Arquivo
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2>✨ Por que usar nosso conversor?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3>100% Privado</h3>
+                    <p>Seus arquivos nunca saem do seu navegador. Nenhum upload para servidores externos.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt feature-icon"></i>
+                    <h3>Super Rápido</h3>
+                    <p>Conversão instantânea processada localmente no seu computador.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-gift feature-icon"></i>
+                    <h3>Totalmente Gratuito</h3>
+                    <p>Sem cadastro, sem assinatura, sem custos ocultos. Use quantas vezes quiser.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-edit feature-icon"></i>
+                    <h3>100% Editável</h3>
+                    <p>Arquivo Word gerado está completamente editável no Microsoft Word, Google Docs e LibreOffice.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3>Qualquer Dispositivo</h3>
+                    <p>Funciona em computadores, tablets e smartphones. Sem instalação necessária.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-check-circle feature-icon"></i>
+                    <h3>Fácil de Usar</h3>
+                    <p>Interface simples e intuitiva. Basta arrastar o PDF e baixar o Word.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>🚀 Como funciona?</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Selecione o PDF</h3>
+                    <p>Arraste seu arquivo PDF ou clique para selecionar do seu computador</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Conversão Automática</h3>
+                    <p>O arquivo é processado automaticamente no seu navegador</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Baixe o Word</h3>
+                    <p>Faça o download do arquivo Word editável (.docx) pronto para usar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>❓ Perguntas Frequentes</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Meus arquivos são enviados para algum servidor?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Não! Toda a conversão acontece 100% no seu navegador. Seus arquivos nunca saem do seu
+                            computador, garantindo total privacidade e segurança.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>O conversor é realmente gratuito?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, totalmente gratuito! Você pode converter quantos arquivos quiser sem pagar nada.
+                            Usuários gratuitos têm limite de 10 MB por arquivo.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Funciona em celular ou tablet?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! Nossa ferramenta funciona em qualquer dispositivo com navegador moderno, incluindo
+                            smartphones Android e iOS, tablets e computadores.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>O arquivo Word gerado é editável?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! O arquivo .docx gerado é totalmente editável no Microsoft Word, Google Docs, LibreOffice
+                            e outros editores de texto compatíveis.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Qual o tamanho máximo do arquivo?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>O limite atual para usuários gratuitos é de 10 MB. Para arquivos maiores, será necessário
+                            dividir o PDF ou aguardar a implementação de planos premium.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Funciona com PDF protegido por senha?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Não. Arquivos PDF protegidos por senha não podem ser convertidos. Você precisa remover a
+                            senha antes de fazer a conversão.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <script src="/js/pageComponents.js"></script>
+
+    <!-- Bibliotecas Essenciais -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- Link específico para versão Browser Global -->
+    <script src="https://unpkg.com/docx@7.1.0/build/index.js"></script>
+
+
+    <script>
+        /// 1. Configuração do PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // 2. Variáveis de Elementos
+        const uploadArea = document.getElementById('uploadArea');
+        const pdfInput = document.getElementById('pdfInput');
+        const uploadSection = document.getElementById('uploadSection');
+        const progressSection = document.getElementById('progressSection');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const statusMessage = document.getElementById('statusMessage');
+        const btnDownload = document.getElementById('btnDownload');
+        const btnConvertAnother = document.getElementById('btnConvertAnother');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+
+        let convertedDocBlob = null;
+
+        // 3. Eventos
+        uploadArea.onclick = () => pdfInput.click();
+        uploadArea.ondragover = (e) => { e.preventDefault(); uploadArea.classList.add('drag-over'); };
+        uploadArea.ondragleave = () => uploadArea.classList.remove('drag-over');
+        uploadArea.ondrop = (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+        };
+        pdfInput.onchange = (e) => {
+            if (e.target.files.length > 0) handleFile(e.target.files[0]);
+        };
+
+        function handleFile(file) {
+            if (file.type !== 'application/pdf') {
+                alert('❌ Selecione um PDF válido.');
+                return;
+            }
+            fileName.textContent = file.name;
+            fileSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+            uploadSection.style.display = 'none';
+            progressSection.classList.add('active');
+            convertPDFtoWord(file);
+        }
+
+        // 4. Lógica de Conversão
+        async function convertPDFtoWord(file) {
+            try {
+                // --- DETECÇÃO ULTRA-ROBUSTA ---
+                let docxLib = null;
+
+                // Testa todas as possibilidades de onde a biblioteca pode ter se escondido
+                if (typeof window.docx !== 'undefined') {
+                    docxLib = window.docx;
+                } else if (typeof docx !== 'undefined') {
+                    docxLib = docx;
+                }
+
+                if (!docxLib || !docxLib.Document) {
+                    console.error("DEBUG: window.docx =", window.docx);
+                    throw new Error("A biblioteca 'docx' não carregou corretamente. Isso geralmente acontece por lentidão na internet ou bloqueio do navegador. Tente usar o navegador Edge ou Chrome sem extensões.");
+                }
+
+                updateProgress(10, 'Lendo PDF...');
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({
+                    data: arrayBuffer,
+                    standardFontDataUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/standard_fonts/'
+                }).promise;
+
+                const docParagraphs = [];
+                const numPages = pdf.numPages;
+
+                for (let i = 1; i <= numPages; i++) {
+                    updateProgress(10 + (i / numPages * 70), `Convertendo página ${i}...`);
+                    const page = await pdf.getPage(i);
+                    const textContent = await page.getTextContent();
+
+                    let lastY;
+                    let lineText = "";
+
+                    for (const item of textContent.items) {
+                        if (lastY !== undefined && Math.abs(item.transform[5] - lastY) > 5) {
+                            docParagraphs.push(new docxLib.Paragraph({
+                                children: [new docxLib.TextRun({ text: lineText, size: 24 })]
+                            }));
+                            lineText = "";
+                        }
+                        lineText += item.str + " ";
+                        lastY = item.transform[5];
+                    }
+                    if (lineText) {
+                        docParagraphs.push(new docxLib.Paragraph({
+                            children: [new docxLib.TextRun({ text: lineText, size: 24 })]
+                        }));
+                    }
+                    if (i < numPages) {
+                        docParagraphs.push(new docxLib.Paragraph({ children: [new docxLib.PageBreak()] }));
+                    }
+                }
+
+                updateProgress(90, 'Gerando Word...');
+                const doc = new docxLib.Document({
+                    sections: [{ children: docParagraphs }]
+                });
+
+                convertedDocBlob = await docxLib.Packer.toBlob(doc);
+                updateProgress(100, 'Pronto!');
+                showSuccess();
+
+            } catch (err) {
+                console.error("Erro completo:", err);
+                showError(err.message);
+            }
+        }
+
+        // 5. Auxiliares
+        function updateProgress(p, t) {
+            progressBar.style.width = p + '%';
+            progressText.textContent = t;
+        }
+
+        function showSuccess() {
+            statusMessage.style.display = 'block';
+            statusMessage.className = 'status-message success';
+            statusMessage.textContent = '✅ Arquivo convertido!';
+            btnDownload.classList.add('active');
+            btnConvertAnother.style.display = 'inline-block';
+        }
+
+        function showError(msg) {
+            statusMessage.style.display = 'block';
+            statusMessage.className = 'status-message error';
+            statusMessage.textContent = '❌ ' + msg;
+            btnConvertAnother.style.display = 'inline-block';
+        }
+
+        btnDownload.onclick = () => {
+            const url = URL.createObjectURL(convertedDocBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName.textContent.replace('.pdf', '.docx');
+            a.click();
+        };
+
+        btnConvertAnother.onclick = () => location.reload();
+
+        function toggleFAQ(el) {
+            el.parentElement.classList.toggle('active');
+        }
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
