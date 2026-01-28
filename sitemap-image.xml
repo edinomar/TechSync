@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://techsync.net.br/categories/posts/software/ferramentas-de-administracao-bancos-de-dados.html</loc>
+    <image:image>
+      <image:loc>https://techsync.net.br/images/ferramentas-de-administração-bancos-de-dados.png</image:loc>
+      <image:title>Melhores ferramentas de Banco de Dados 2026</image:title>
+      <image:caption>Interface do software de gestão de base de dados SQL.</image:caption>
+    </image:image>
+  </url>
+    <url>
+    <loc>https://techsync.net.br/categories/posts/desenvolvimento/boas-praticas.html</loc>
+    <image:image>
+      <image:loc>https://techsync.net.br/images/desenvolvedor-codigo-limpo.png</image:loc>
+      <image:title>Boas Práticas no Desenvolvimento: O Guia para Devs Modernos</image:title>
+      <image:caption>Desenvolvedor escrevendo código limpo</image:caption>
+    </image:image>
+  </url>
+    <url>
+    <loc>https://techsync.net.br/categories/posts/noticias/blockchain-e-criptomoedas.html</loc>
+    <image:image>
+      <image:loc>https://techsync.net.br/images/blockchain-criptomoedas-2026.png</image:loc>
+      <image:title>Blockchain e Criptomoedas: Tendências e Inovações em 2026</image:title>
+      <image:caption>Representação digital de criptomoedas e blockchain</image:caption>
+    </image:image>
+    </url>  
+    <url>
+    <loc>https://www.techsync.net.br/categories/posts/desenvolvimento/build-automacao.html</loc>
+    <image:image>
+      <image:loc>https://techsync.net.br/images/build-automacao.png</image:loc>
+      <image:title>Build e Automação: O Guia para DevOps Modernos</image:title>
+      <image:caption>Interface de automação de build em ambiente DevOps</image:caption>
+    </image:image>
+    </url>  
+    <url>
+    <loc>https://www.techsync.net.br/categories/posts/desenvolvimento/build-automacao.html</loc>
+    <image:image>
+      <image:loc>https://techsync.net.br/images/build-automacao.png</image:loc>
+      <image:title>Build e Automação: O Guia para DevOps Modernos</image:title>
+      <image:caption>Interface de automação de build em ambiente DevOps</image:caption>
+    </image:image>
+    </url>  
+    <url>
+    <loc>https://www.techsync.net.br/categories/posts/desenvolvimento/devOps-deploy.html</loc>
+    <image:image>
+      <image:loc>https://techsync.net.br/images/devOps-deploy.png</image:loc>
+      <image:title>DevOps Deploy: O Guia para Implantação Moderna</image:title>
+      <image:caption>Interface de deploy em ambiente DevOps</image:caption>
+    </image:image>
+    </url> 
+</urlset>
