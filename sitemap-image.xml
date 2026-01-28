@@ -25,16 +25,7 @@
       <image:caption>Representação digital de criptomoedas e blockchain</image:caption>
     </image:image>
     </url>  
-    <url>
-    <loc>https://www.techsync.net.br/categories/posts/desenvolvimento/build-automacao.html</loc>
-    <image:image>
-      <image:loc>https://techsync.net.br/images/build-automacao.png</image:loc>
-      <image:title>Build e Automação: O Guia para DevOps Modernos</image:title>
-      <image:caption>Interface de automação de build em ambiente DevOps</image:caption>
-    </image:image>
-    </url>  
-    <url>
-    <loc>https://www.techsync.net.br/categories/posts/desenvolvimento/build-automacao.html</loc>
+    <loc>https://techsync.net.br/categories/posts/desenvolvimento/build-automacao.html</loc>
     <image:image>
       <image:loc>https://techsync.net.br/images/build-automacao.png</image:loc>
       <image:title>Build e Automação: O Guia para DevOps Modernos</image:title>
