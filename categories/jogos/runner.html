@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Runner 3D Mobile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a2535 0%, #2a3f5a 50%, #1f2f42 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    #gameContainer {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 500px;
+      max-height: 900px;
+      box-shadow: 
+        0 0 30px rgba(0, 191, 255, 0.5),
+        0 0 60px rgba(0, 191, 255, 0.3),
+        0 20px 60px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      border: 2px solid rgba(0, 255, 255, 0.3);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #1a2332 0%, #2a3f5f 30%, #1e2f45 60%, #1a2332 100%);
+    }
+
+    #instructions {
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.9);
+      color: white;
+      padding: 30px 20px;
+      border-radius: 16px;
+      text-align: center;
+      max-width: 90%;
+      z-index: 10;
+    }
+
+    #instructions.hide {
+      display: none;
+    }
+
+    #instructions h2 {
+      margin-bottom: 20px;
+      color: #00ffff;
+      font-size: 28px;
+      text-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.8),
+        0 0 40px rgba(0, 191, 255, 0.6);
+    }
+
+    #instructions p {
+      margin: 12px 0;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    #instructions .emoji {
+      font-size: 24px;
+    }
+
+    #startBtn {
+      margin-top: 20px;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #00bfff, #0080ff);
+      border: 2px solid #00ffff;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 
+        0 0 20px rgba(0, 191, 255, 0.6),
+        0 4px 15px rgba(0, 191, 255, 0.4);
+      transition: all 0.3s;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    }
+
+    #startBtn:hover {
+      background: linear-gradient(135deg, #00d4ff, #0099ff);
+      box-shadow: 
+        0 0 30px rgba(0, 255, 255, 0.8),
+        0 4px 20px rgba(0, 191, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    #startBtn:active {
+      transform: scale(0.95);
+    }
+
+    #restartBtn {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 50px;
+      font-size: 20px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #ff00ff, #8800ff);
+      border: 2px solid #ff00ff;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 
+        0 0 20px rgba(255, 0, 255, 0.6),
+        0 4px 15px rgba(255, 0, 255, 0.4);
+      transition: all 0.3s;
+      display: none;
+      z-index: 101;
+      text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+    }
+
+    #restartBtn.show {
+      display: block;
+    }
+
+    #restartBtn:hover {
+      background: linear-gradient(135deg, #ff33ff, #9900ff);
+      box-shadow: 
+        0 0 30px rgba(255, 0, 255, 0.8),
+        0 4px 20px rgba(255, 0, 255, 0.6);
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    #restartBtn:active {
+      transform: translateX(-50%) scale(0.95);
+    }
+
+    #gameOverOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 25%;
+      align-items: center;
+      z-index: 100;
+    }
+
+    #gameOverOverlay.show {
+      display: flex;
+    }
+
+    #gameOverOverlay h1 {
+      font-size: 48px;
+      color: #ff0080;
+      margin-bottom: 30px;
+      text-shadow: 
+        0 0 30px rgba(255, 0, 128, 0.8),
+        0 0 60px rgba(255, 0, 128, 0.5);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    #gameOverOverlay .score {
+      font-size: 32px;
+      color: #00ffff;
+      margin: 15px 0;
+      text-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.8),
+        0 0 40px rgba(0, 255, 255, 0.5);
+    }
+
+    #gameOverOverlay .coins {
+      font-size: 32px;
+      color: #ffd700;
+      margin: 15px 0;
+      text-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.8),
+        0 0 40px rgba(255, 215, 0, 0.5);
+    }
+
+    #gameOverOverlay .instruction {
+      font-size: 16px;
+      color: #aaa;
+      margin-top: 30px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div id="gameContainer">
+  <canvas id="game"></canvas>
+  
+  <div id="instructions">
+    <h2>🏃 Runner 3D</h2>
+    <button id="startBtn">COMEÇAR</button>
+  </div>
+
+  <div id="gameOverOverlay">
+    <h1>GAME OVER</h1>
+    <div class="score">🏆 Pontuação: <span id="finalScore">0</span></div>
+    <div class="coins">🪙 Moedas: <span id="finalCoins">0</span></div>
+  </div>
+
+  <button id="restartBtn">REINICIAR</button>
+</div>
+
+<script>
+/* =====================================================
+   SETUP BÁSICO
+===================================================== */
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+const instructions = document.getElementById("instructions");
+const startBtn = document.getElementById("startBtn");
+const restartBtn = document.getElementById("restartBtn");
+
+// Ajustar canvas para tela cheia
+function resizeCanvas() {
+  const container = document.getElementById("gameContainer");
+  canvas.width = container.clientWidth;
+  canvas.height = container.clientHeight;
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+let gameSpeed = 3;
+let gravity = 0.75; // Reduzido de 0.8 para 0.75 (pulo mais suave)
+let score = 0;
+let coins = 0;
+let gameOver = false;
+let gameStarted = false;
+
+// Carregar imagem do personagem da mesma pasta
+const playerImage = new Image();
+playerImage.src = 'personagem.png'; // Coloque a imagem com este nome na mesma pasta do HTML
+let imageLoaded = false;
+
+playerImage.onload = () => {
+  imageLoaded = true;
+  console.log('Imagem do personagem carregada com sucesso!');
+};
+
+playerImage.onerror = () => {
+  console.error('Erro ao carregar imagem. Certifique-se de que "personagem.png" está na mesma pasta do HTML.');
+  imageLoaded = false;
+};
+
+// Carregar imagem do drone (obstáculo baixo)
+const droneImage = new Image();
+droneImage.src = 'drone_futurista_menor.png';
+let droneImageLoaded = false;
+
+droneImage.onload = () => {
+  droneImageLoaded = true;
+  console.log('Imagem do drone carregada com sucesso!');
+};
+
+droneImage.onerror = () => {
+  console.error('Erro ao carregar imagem do drone. Certifique-se de que "drone_futurista_menor.png" está na mesma pasta do HTML.');
+  droneImageLoaded = false;
+};
+
+// Carregar imagem do drone maior (obstáculo alto)
+const droneMaiorImage = new Image();
+droneMaiorImage.src = 'drone_futurista_maior.png';
+let droneMaiorImageLoaded = false;
+
+droneMaiorImage.onload = () => {
+  droneMaiorImageLoaded = true;
+  console.log('Imagem do drone maior carregada com sucesso!');
+};
+
+droneMaiorImage.onerror = () => {
+  console.error('Erro ao carregar imagem do drone maior. Certifique-se de que "drone_futurista_maior.png" está na mesma pasta do HTML.');
+  droneMaiorImageLoaded = false;
+};
+
+/* =====================================================
+   PERSONAGEM
+===================================================== */
+const player = {
+  x: 0,
+  y: 0,
+  width: 80,  // Aumentado de 60 para 80
+  height: 100, // Aumentado de 80 para 100
+  velocityY: 0,
+  velocityX: 0,
+  speedX: 7, // Velocidade de movimento lateral
+  maxSpeed: 12,
+  friction: 0.85,
+  onGround: true,
+  movingLeft: false,
+  movingRight: false,
+
+  init() {
+    this.x = canvas.width / 2;
+    this.y = canvas.height - 120; // Movido para baixo (era 180)
+    this.velocityX = 0;
+  },
+
+  jump() {
+    if (this.onGround) {
+      this.velocityY = -19.5; // Aumentado de -18 para -19.5 (pulo mais alto)
+      this.onGround = false;
+    }
+  },
+
+  update() {
+    // Movimento lateral contínuo
+    if (this.movingLeft) {
+      this.velocityX -= this.speedX * 0.15;
+    }
+    if (this.movingRight) {
+      this.velocityX += this.speedX * 0.15;
+    }
+
+    // Aplicar fricção quando não está se movendo
+    if (!this.movingLeft && !this.movingRight) {
+      this.velocityX *= this.friction;
+    }
+
+    // Limitar velocidade máxima
+    if (this.velocityX > this.maxSpeed) this.velocityX = this.maxSpeed;
+    if (this.velocityX < -this.maxSpeed) this.velocityX = -this.maxSpeed;
+
+    // Aplicar movimento
+    this.x += this.velocityX;
+
+    // Limites da tela com margem
+    const margin = 50;
+    if (this.x < margin) {
+      this.x = margin;
+      this.velocityX = 0;
+    }
+    if (this.x > canvas.width - margin) {
+      this.x = canvas.width - margin;
+      this.velocityX = 0;
+    }
+
+    // Física do pulo
+    this.velocityY += gravity;
+    this.y += this.velocityY;
+
+    if (this.y >= canvas.height - 120) { // Atualizado para 120
+      this.y = canvas.height - 120;
+      this.velocityY = 0;
+      this.onGround = true;
+    }
+  },
+
+  draw() {
+    // Desenhar personagem (SEM SOMBRA)
+    if (imageLoaded) {
+      // Desenhar a imagem do personagem
+      ctx.drawImage(
+        playerImage,
+        this.x - this.width / 2,
+        this.y - this.height,
+        this.width,
+        this.height
+      );
+    } else {
+      // Fallback: desenhar retângulo se a imagem não carregar
+      const gradient = ctx.createLinearGradient(
+        this.x - this.width/2,
+        this.y - this.height,
+        this.x + this.width/2,
+        this.y
+      );
+      gradient.addColorStop(0, "#00ff88");
+      gradient.addColorStop(1, "#00cc66");
+      
+      ctx.fillStyle = gradient;
+      ctx.fillRect(
+        this.x - this.width / 2,
+        this.y - this.height,
+        this.width,
+        this.height
+      );
+
+      // Olhos
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(this.x - 12, this.y - this.height + 12, 8, 8);
+      ctx.fillRect(this.x + 4, this.y - this.height + 12, 8, 8);
+      
+      // Pupilas
+      ctx.fillStyle = "#000";
+      ctx.fillRect(this.x - 10, this.y - this.height + 14, 4, 4);
+      ctx.fillRect(this.x + 6, this.y - this.height + 14, 4, 4);
+    }
+  }
+};
+
+/* =====================================================
+   ESTRADA COM PERSPECTIVA
+===================================================== */
+let roadOffset = 0;
+
+function drawRoad() {
+  // Linhas laterais sólidas - Azul neon brilhante
+  ctx.strokeStyle = "rgba(0, 191, 255, 0.9)";
+  ctx.lineWidth = 4;
+  ctx.shadowColor = '#00bfff';
+  ctx.shadowBlur = 20;
+
+  // Linha lateral esquerda
+  ctx.beginPath();
+  ctx.moveTo(50, 0);
+  ctx.lineTo(50, canvas.height);
+  ctx.stroke();
+
+  // Linha lateral direita
+  ctx.beginPath();
+  ctx.moveTo(canvas.width - 50, 0);
+  ctx.lineTo(canvas.width - 50, canvas.height);
+  ctx.stroke();
+
+  ctx.shadowBlur = 0;
+  roadOffset += gameSpeed;
+  if (roadOffset > 60) roadOffset = 0;
+}
+
+/* =====================================================
+   OBSTÁCULOS E MOEDAS (VINDO DE CIMA)
+===================================================== */
+const objects = [];
+let objectTimer = 0;
+
+function createObject() {
+  const rand = Math.random();
+  let type, height, color;
+
+  if (rand < 0.25) {
+    type = 'coin';
+    height = 30;
+    color = '#FFD700';
+  } else if (rand < 0.6) {
+    type = 'low';
+    height = 50;  // Drone pequeno
+    color = '#ff4444';
+  } else {
+    type = 'high';
+    height = 95;  // Aumentado para 95
+    color = '#4444ff';
+  }
+
+  // Posição aleatória horizontal com margem
+  const margin = 60;
+  const randomX = margin + Math.random() * (canvas.width - margin * 2);
+
+  objects.push({
+    x: randomX,
+    y: -height - 20,
+    width: type === 'coin' ? 30 : (type === 'low' ? 70 : 95),  // Drone maior 95x95
+    height: height,
+    type: type,
+    color: color,
+    rotation: 0
+  });
+}
+
+function updateObjects() {
+  objectTimer++;
+
+  if (objectTimer > 50 - (gameSpeed * 2)) {
+    createObject();
+    objectTimer = 0;
+  }
+
+  objects.forEach((obj, index) => {
+    obj.y += gameSpeed;
+
+    if (obj.type === 'coin') {
+      obj.rotation += 0.15;
+    }
+
+    // Colisão - usando hitbox reduzida para colisão mais justa
+    const hitboxScale = 0.6; // 60% do tamanho visual para colisão mais justa
+    const playerHitWidth = player.width * hitboxScale;
+    const playerHitHeight = player.height * hitboxScale;
+    
+    const playerBottom = player.y;
+    const playerTop = player.y - playerHitHeight;
+    const playerLeft = player.x - playerHitWidth / 2;
+    const playerRight = player.x + playerHitWidth / 2;
+
+    // Hitbox reduzida também para os obstáculos (não para moedas)
+    const objHitboxScale = obj.type === 'coin' ? 1.0 : 0.7; // 70% para obstáculos
+    const objHitWidth = obj.width * objHitboxScale;
+    const objHitHeight = obj.height * objHitboxScale;
+    
+    const objLeft = obj.x - objHitWidth / 2;
+    const objRight = obj.x + objHitWidth / 2;
+    const objTop = obj.y - objHitHeight;
+    const objBottom = obj.y;
+
+    if (
+      playerRight > objLeft + 5 &&
+      playerLeft < objRight - 5 &&
+      playerBottom > objTop + 5 &&
+      playerTop < objBottom - 5
+    ) {
+      if (obj.type === 'coin') {
+        coins += 1;
+        objects.splice(index, 1);
+        return;
+      } else {
+        gameOver = true;
+      }
+    }
+
+    // Saiu da tela
+    if (obj.y > canvas.height + 50) {
+      objects.splice(index, 1);
+      if (obj.type !== 'coin') {
+        score++;
+        if (score % 8 === 0 && gameSpeed < 8) {
+          gameSpeed += 0.3;
+        }
+      }
+    }
+  });
+}
+
+function drawObjects() {
+  objects.forEach(obj => {
+    ctx.save();
+
+    if (obj.type === 'coin') {
+      // Moeda giratória
+      ctx.translate(obj.x, obj.y - obj.height/2);
+      ctx.scale(Math.cos(obj.rotation), 1);
+      
+      const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, obj.width/2);
+      gradient.addColorStop(0, '#FFED4E');
+      gradient.addColorStop(0.5, '#FFD700');
+      gradient.addColorStop(1, '#FFA500');
+      
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(0, 0, obj.width/2, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.strokeStyle = '#CC8800';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+    } else if (obj.type === 'low' && droneImageLoaded) {
+      // Obstáculo baixo - usar imagem do drone (SEM PERSPECTIVA)
+      ctx.drawImage(
+        droneImage,
+        obj.x - obj.width / 2,
+        obj.y - obj.height,
+        obj.width,
+        obj.height
+      );
+
+    } else if (obj.type === 'high' && droneMaiorImageLoaded) {
+      // Obstáculo alto - usar imagem do drone maior (SEM PERSPECTIVA)
+      ctx.drawImage(
+        droneMaiorImage,
+        obj.x - obj.width / 2,
+        obj.y - obj.height,
+        obj.width,
+        obj.height
+      );
+
+    } else {
+      // Obstáculo com gradiente (SEM SOMBRA E SEM PERSPECTIVA) - fallback
+      const gradient = ctx.createLinearGradient(
+        obj.x - obj.width/2, obj.y - obj.height,
+        obj.x + obj.width/2, obj.y
+      );
+      
+      if (obj.type === 'low') {
+        gradient.addColorStop(0, '#ff6666');
+        gradient.addColorStop(1, '#cc0000');
+      } else {
+        gradient.addColorStop(0, '#6666ff');
+        gradient.addColorStop(1, '#0000cc');
+      }
+      
+      ctx.fillStyle = gradient;
+      
+      // Desenha sem perspectiva (tamanho constante)
+      ctx.fillRect(
+        obj.x - obj.width / 2,
+        obj.y - obj.height,
+        obj.width,
+        obj.height
+      );
+
+      // Borda
+      ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(
+        obj.x - obj.width / 2,
+        obj.y - obj.height,
+        obj.width,
+        obj.height
+      );
+    }
+
+    ctx.restore();
+  });
+}
+
+/* =====================================================
+   CONTROLES MOBILE - DUPLO CLIQUE PARA PULAR + DESLIZAR PARA MOVER
+===================================================== */
+let lastTapTime = 0;
+const doubleTapDelay = 300; // 300ms para detectar duplo clique
+
+// Variáveis para controle de deslize
+let touchStartX = 0;
+let touchCurrentX = 0;
+let isTouching = false;
+const swipeSensitivity = 0.5; // Sensibilidade do movimento
+
+// Detectar início do toque
+canvas.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  
+  if (!gameStarted || gameOver) return;
+  
+  // Pegar posição inicial do toque
+  touchStartX = e.touches[0].clientX;
+  touchCurrentX = touchStartX;
+  isTouching = true;
+  
+  // Detectar duplo clique para pular
+  const currentTime = new Date().getTime();
+  const tapTimeDiff = currentTime - lastTapTime;
+  
+  if (tapTimeDiff < doubleTapDelay && tapTimeDiff > 0) {
+    // Duplo clique detectado!
+    if (gameStarted && !gameOver) {
+      player.jump();
+    }
+  }
+  
+  lastTapTime = currentTime;
+});
+
+// Detectar movimento do dedo
+canvas.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+  
+  if (!gameStarted || gameOver || !isTouching) return;
+  
+  touchCurrentX = e.touches[0].clientX;
+  
+  // Calcular diferença entre posição inicial e atual
+  const deltaX = (touchCurrentX - touchStartX) * swipeSensitivity;
+  
+  // Aplicar movimento baseado na direção do deslize
+  if (deltaX < -10) {
+    // Deslizando para esquerda
+    player.movingLeft = true;
+    player.movingRight = false;
+  } else if (deltaX > 10) {
+    // Deslizando para direita
+    player.movingRight = true;
+    player.movingLeft = false;
+  } else {
+    // Parado ou movimento mínimo
+    player.movingLeft = false;
+    player.movingRight = false;
+  }
+});
+
+// Detectar fim do toque
+canvas.addEventListener("touchend", (e) => {
+  e.preventDefault();
+  
+  isTouching = false;
+  player.movingLeft = false;
+  player.movingRight = false;
+});
+
+// Mouse para testar no computador (duplo clique)
+canvas.addEventListener("dblclick", (e) => {
+  e.preventDefault();
+  if (gameStarted && !gameOver) {
+    player.jump();
+  }
+});
+
+// Suporte teclado para computador
+document.addEventListener("keydown", (e) => {
+  // Reiniciar jogo
+  if (gameOver && (e.key === "Enter" || e.key === " ")) {
+    e.preventDefault();
+    resetGame();
+    return;
+  }
+
+  // Iniciar jogo
+  if (!gameStarted && (e.key === "Enter" || e.key === " ")) {
+    e.preventDefault();
+    instructions.classList.add('hide');
+    gameStarted = true;
+    player.init();
+    return;
+  }
+
+  // Controles durante o jogo
+  if (!gameStarted || gameOver) return;
+  
+  if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
+    e.preventDefault();
+    player.movingLeft = true;
+  }
+  if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") {
+    e.preventDefault();
+    player.movingRight = true;
+  }
+  if (e.key === "ArrowUp" || e.key === " " || e.key === "w" || e.key === "W") {
+    e.preventDefault();
+    player.jump();
+  }
+});
+
+document.addEventListener("keyup", (e) => {
+  if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
+    player.movingLeft = false;
+  }
+  if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") {
+    player.movingRight = false;
+  }
+});
+
+/* =====================================================
+   HUD
+===================================================== */
+function drawHUD() {
+  // Painel de pontuação
+  ctx.fillStyle = "rgba(0,0,0,0.7)";
+  ctx.fillRect(15, 15, 180, 85);
+  
+  ctx.fillStyle = "#FFD700";
+  ctx.font = "bold 22px Arial";
+  ctx.fillText("🏆 " + score, 30, 48);
+  
+  ctx.fillStyle = "#FFD700";
+  ctx.font = "bold 22px Arial";
+  ctx.fillText("🪙 " + coins, 30, 80);
+
+  // Velocidade (menor)
+  ctx.fillStyle = "rgba(255,255,255,0.6)";
+  ctx.font = "12px Arial";
+  ctx.fillText("Vel: " + gameSpeed.toFixed(1), 30, 95);
+}
+
+/* =====================================================
+   INICIAR/RESET
+===================================================== */
+startBtn.addEventListener("click", () => {
+  instructions.classList.add('hide');
+  gameStarted = true;
+  player.init();
+});
+
+// Permitir Enter para iniciar via botão visual
+startBtn.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    startBtn.click();
+  }
+});
+
+restartBtn.addEventListener("click", () => {
+  resetGame();
+});
+
+function resetGame() {
+  score = 0;
+  coins = 0;
+  gameSpeed = 3;
+  objects.length = 0;
+  gameOver = false;
+  player.init();
+  player.velocityY = 0;
+  player.velocityX = 0;
+  player.onGround = true;
+  player.movingLeft = false;
+  player.movingRight = false;
+}
+
+/* =====================================================
+   LOOP PRINCIPAL
+===================================================== */
+const gameOverOverlay = document.getElementById('gameOverOverlay');
+const finalScoreElement = document.getElementById('finalScore');
+const finalCoinsElement = document.getElementById('finalCoins');
+
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  drawRoad();
+
+  if (gameStarted && !gameOver) {
+    player.update();
+    updateObjects();
+  }
+
+  if (gameOver) {
+    // Mostrar overlay de Game Over
+    gameOverOverlay.classList.add('show');
+    finalScoreElement.textContent = score;
+    finalCoinsElement.textContent = coins;
+    
+    // Mostrar botão de reiniciar
+    restartBtn.classList.add('show');
+  } else {
+    // Esconder overlay e botão de reiniciar
+    gameOverOverlay.classList.remove('show');
+    restartBtn.classList.remove('show');
+  }
+
+  drawObjects();
+  player.draw();
+  
+  if (gameStarted) {
+    drawHUD();
+  }
+
+  requestAnimationFrame(gameLoop);
+}
+
+// Inicializar
+player.init();
+gameLoop();
+</script>
+
+</body>
+</html>
