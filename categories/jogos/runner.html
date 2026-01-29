@@ -2,50 +2,71 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Runner 3D Mobile</title>
+  <title>Runner Tech Mobile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <!-- GPT: Troque o ID do bloco abaixo se necessário -->
+  <!-- Google Ad Manager (GPT) -->
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
   <script>
     window.googletag = window.googletag || { cmd: [] };
-    // Variáveis globais para rewarded
+    
+    // Variáveis globais para o anúncio recompensado
     let rewardedSlot = null;
-    let onRewardGranted = null; // callback chamado quando a recompensa for concedida
+    let onRewardGranted = null;
+    let adManagerReady = false;
+    let lastAdTime = 0; // Controle de cooldown
 
-    // ATENÇÃO: substitua '/23338423029/runner_anuncio' pelo seu ID se for diferente
+    // IMPORTANTE: Substitua '/23338423029/runner_anuncio' pelo seu Ad Unit Path correto
     googletag.cmd.push(function () {
       try {
+        // Define o slot de anúncio recompensado
         rewardedSlot = googletag.defineOutOfPageSlot(
           '/23338423029/runner_anuncio',
           googletag.enums.OutOfPageFormat.REWARDED
-        ).addService(googletag.pubads());
+        );
 
-        // Registra listeners
-        googletag.pubads().addEventListener('rewardedSlotReady', function (event) {
-          // abre o anúncio quando estiver pronto
-          try {
+        if (rewardedSlot) {
+          rewardedSlot.addService(googletag.pubads());
+
+          // Evento: slot está pronto para ser exibido
+          googletag.pubads().addEventListener('rewardedSlotReady', function (event) {
+            console.log('✅ Anúncio recompensado pronto');
             event.makeRewardedVisible();
-          } catch (e) {
-            console.warn('Erro ao tornar rewarded visível', e);
-          }
-        });
+          });
 
-        googletag.pubads().addEventListener('rewardedSlotGranted', function (event) {
-          // chamado quando a recompensa é confirmada pelo provedor
-          if (typeof onRewardGranted === 'function') {
-            try { onRewardGranted(); } catch (e) { console.error(e); }
-            onRewardGranted = null;
-          }
-        });
+          // Evento: recompensa foi concedida
+          googletag.pubads().addEventListener('rewardedSlotGranted', function (event) {
+            console.log('🎁 Recompensa concedida!');
+            if (typeof onRewardGranted === 'function') {
+              onRewardGranted();
+              onRewardGranted = null;
+            }
+          });
 
-        googletag.pubads().addEventListener('rewardedSlotClosed', function () {
-          console.log('Rewarded fechado');
-        });
+          // Evento: usuário fechou o anúncio
+          googletag.pubads().addEventListener('rewardedSlotClosed', function () {
+            console.log('❌ Anúncio fechado pelo usuário');
+            // Resetar callback se o usuário fechou sem ver
+            if (typeof onRewardGranted === 'function') {
+              alert('Você precisa assistir o anúncio completo para ganhar a vida extra!');
+              onRewardGranted = null;
+            }
+          });
 
-        googletag.enableServices();
+          // Evento: slot renderizado (útil para debug)
+          googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+            console.log('📺 Slot renderizado:', event);
+          });
+
+          // Habilita serviços do GPT
+          googletag.enableServices();
+          adManagerReady = true;
+          console.log('✅ Google Ad Manager inicializado');
+        } else {
+          console.error('❌ Falha ao criar rewardedSlot');
+        }
       } catch (err) {
-        console.warn('Erro ao configurar GPT rewarded slot', err);
+        console.error('❌ Erro ao configurar Google Ad Manager:', err);
       }
     });
   </script>
@@ -117,6 +138,13 @@
         0 0 40px rgba(0, 191, 255, 0.6);
     }
 
+    #instructions p {
+      margin: 10px 0;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #ffffff;
+    }
+
     #startBtn {
       margin-top: 20px;
       padding: 15px 40px;
@@ -146,7 +174,7 @@
       transform: scale(0.95);
     }
 
-    #restartBtn, #rewardBtn, #shareBtn {
+    .btn-game {
       position: relative;
       padding: 14px 45px;
       font-size: 18px;
@@ -154,40 +182,45 @@
       border-radius: 30px;
       color: white;
       cursor: pointer;
-      box-shadow:
-        0 0 20px rgba(0,0,0,0.2),
-        0 4px 15px rgba(0,0,0,0.1);
+      border: 2px solid;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2), 0 4px 15px rgba(0,0,0,0.1);
       transition: all 0.3s;
       text-shadow: 0 0 10px rgba(0,0,0,0.2);
+      margin: 10px;
+    }
+
+    .btn-game:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      filter: grayscale(0.5);
+    }
+
+    .btn-game:not(:disabled):active {
+      transform: scale(0.95);
     }
 
     #restartBtn {
       background: linear-gradient(135deg, #ff00ff, #8800ff);
-      border: 2px solid #ff00ff;
-      box-shadow:
-        0 0 20px rgba(255, 0, 255, 0.6),
-        0 4px 15px rgba(255, 0, 255, 0.4);
+      border-color: #ff00ff;
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.6), 0 4px 15px rgba(255, 0, 255, 0.4);
     }
 
     #rewardBtn {
       background: linear-gradient(135deg, #ffd700, #ff9900);
-      border: 2px solid #ffd700;
+      border-color: #ffd700;
       color: #000;
-      box-shadow:
-        0 0 20px rgba(255, 215, 0, 0.6),
-        0 4px 15px rgba(255, 153, 0, 0.4);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 4px 15px rgba(255, 153, 0, 0.4);
+    }
+
+    #rewardBtn.loading {
+      background: linear-gradient(135deg, #888, #666);
+      animation: pulse 1.5s infinite;
     }
 
     #shareBtn {
       background: linear-gradient(135deg, #00ff88, #00cc66);
-      border: 2px solid #00ff88;
-      box-shadow:
-        0 0 20px rgba(0, 255, 136, 0.6),
-        0 4px 15px rgba(0, 255, 136, 0.4);
-    }
-
-    #restartBtn:active, #rewardBtn:active, #shareBtn:active {
-      transform: scale(0.95);
+      border-color: #00ff88;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.6), 0 4px 15px rgba(0, 255, 136, 0.4);
     }
 
     #gameOverOverlay {
@@ -200,7 +233,7 @@
       display: none;
       flex-direction: column;
       justify-content: flex-start;
-      padding-top: 20%;
+      padding-top: 15%;
       align-items: center;
       z-index: 100;
     }
@@ -224,39 +257,39 @@
       50% { transform: scale(1.05); }
     }
 
-    
+    #gameOverOverlay .score,
+    #gameOverOverlay .coins,
+    #gameOverOverlay .record {
+      font-size: 28px;
+      margin: 8px 0;
+    }
+
     #gameOverOverlay .score {
-      font-size: 32px;
       color: #00ffff;
-      margin: 10px 0;
-      text-shadow: 
-        0 0 10px rgba(0, 255, 255, 0.5),
-        0 0 20px rgba(0, 255, 255, 0.3);
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
     }
 
     #gameOverOverlay .coins {
-      font-size: 32px;
       color: #ffd700;
-      margin: 10px 0;
-      text-shadow: 
-        0 0 10px rgba(255, 215, 0, 0.5),
-        0 0 20px rgba(255, 215, 0, 0.3);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     }
 
     #gameOverOverlay .record {
-      font-size: 28px;
       color: #ff1493;
-      margin: 15px 0;
-      text-shadow: 
-        0 0 10px rgba(255, 20, 147, 0.5),
-        0 0 20px rgba(255, 20, 147, 0.3);
+      text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+    }
+
+    #gameOverOverlay .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
     }
 
     #newRecordBadge {
       position: fixed;
       top: 15%;
       left: 50%;
-      text-align: center;
       transform: translateX(-50%) translateY(-50%);
       display: none;
       font-size: 26px;
@@ -265,12 +298,8 @@
       padding: 15px 30px;
       background: linear-gradient(135deg, #ff1493, #ff69b4);
       border-radius: 25px;
-      text-shadow:
-        0 0 10px rgba(255, 255, 0, 0.7),
-        0 0 20px rgba(255, 255, 0, 0.4);
-      box-shadow:
-        0 0 30px rgba(255, 20, 147, 0.7),
-        0 0 50px rgba(255, 20, 147, 0.4);
+      text-shadow: 0 0 10px rgba(255, 255, 0, 0.7);
+      box-shadow: 0 0 30px rgba(255, 20, 147, 0.7);
       animation: recordPopup 3s ease-in-out;
       z-index: 200;
     }
@@ -286,26 +315,34 @@
       }
       15% {
         opacity: 1;
-        transform: translateX(-50%) translateY(-50%) scale(1.2);
+        transform: translateX(-50%) translateY(-50%) scale(1.1);
       }
-      25% {
-        transform: translateX(-50%) translateY(-50%) scale(1);
-      }
-      75% {
+      85% {
         opacity: 1;
         transform: translateX(-50%) translateY(-50%) scale(1);
       }
       100% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-100px) scale(0.8);
+        transform: translateX(-50%) translateY(-100px) scale(0.5);
       }
     }
 
-    #gameOverOverlay .instruction {
-      font-size: 16px;
-      color: #aaa;
-      margin-top: 30px;
-      text-align: center;
+    #adStatus {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: #ffd700;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      display: none;
+      z-index: 300;
+    }
+
+    #adStatus.show {
+      display: block;
     }
   </style>
 </head>
@@ -314,38 +351,48 @@
 <div id="gameContainer">
   <canvas id="game"></canvas>
 
+  <!-- Instruções iniciais -->
   <div id="instructions">
-    <h2>🏃 Runner 3D</h2>
+    <h2>RUNNER TECH</h2>
+
     <button id="startBtn">COMEÇAR</button>
   </div>
 
+  <!-- Tela de Game Over -->
   <div id="gameOverOverlay">
     <h1>GAME OVER</h1>
-    <div class="score">🏆 Pontuação: <span id="finalScore">0</span></div>
+    <div class="score">🏆 Pontos: <span id="finalScore">0</span></div>
     <div class="coins">🪙 Moedas: <span id="finalCoins">0</span></div>
     <div class="record">⭐ Recorde: <span id="bestScore">0</span></div>
-
-    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 30px; align-items: center;">
-      <button id="rewardBtn">🎁 CONTINUAR (ASSISTIR ANÚNCIO)</button>
-      <button id="restartBtn">REINICIAR</button>
-      <button id="shareBtn">📤 COMPARTILHAR</button>
+    
+    <div class="buttons">
+      <button id="rewardBtn" class="btn-game">🎁 CONTINUAR (ASSISTIR ANÚNCIO)</button>
+      <button id="restartBtn" class="btn-game">🔄 REINICIAR</button>
+      <button id="shareBtn" class="btn-game">📤 COMPARTILHAR</button>
     </div>
   </div>
 
-  <div id="newRecordBadge"> NOVO RECORDE! </div>
+  <!-- Badge de novo recorde -->
+  <div id="newRecordBadge">🎉 NOVO RECORDE! 🎉</div>
+
+  <!-- Status do anúncio -->
+  <div id="adStatus">⏳ Carregando anúncio...</div>
 </div>
 
 <script>
-/* =====================================================
-   SETUP BÁSICO
-===================================================== */
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
-const instructions = document.getElementById("instructions");
-const startBtn = document.getElementById("startBtn");
-const restartBtn = document.getElementById("restartBtn");
-const rewardBtn = document.getElementById("rewardBtn");
-const shareBtn = document.getElementById("shareBtn");
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const instructions = document.getElementById('instructions');
+const startBtn = document.getElementById('startBtn');
+const restartBtn = document.getElementById('restartBtn');
+const rewardBtn = document.getElementById('rewardBtn');
+const shareBtn = document.getElementById('shareBtn');
+const gameOverOverlay = document.getElementById('gameOverOverlay');
+const finalScoreElement = document.getElementById('finalScore');
+const finalCoinsElement = document.getElementById('finalCoins');
+const bestScoreElement = document.getElementById('bestScore');
+const newRecordBadge = document.getElementById('newRecordBadge');
+const adStatus = document.getElementById('adStatus');
 
 // Ajustar canvas para tela cheia
 function resizeCanvas() {
@@ -357,57 +404,36 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-let gameSpeed = 3;
-let gravity = 0.75; // Reduzido de 0.8 para 0.75 (pulo mais suave)
+// Variáveis do jogo
+let gameStarted = false;
+let gameOver = false;
 let score = 0;
 let coins = 0;
-let gameOver = false;
-let gameStarted = false;
-
-// Sistema de Recordes
-let bestScore = 0;
+let gameSpeed = 3;
+let bestScore = parseInt(localStorage.getItem('runnerBestScore')) || 0;
 let isNewRecord = false;
+let roadOffset = 0;
+let objectTimer = 0;
 
-// Carregar recorde salvo
-function loadBestScore() {
-  const saved = localStorage.getItem('runnerBestScore');
-  if (saved) {
-    bestScore = parseInt(saved);
-  }
-  return bestScore;
-}
+// Proteção após continuar com anúncio
+let protectionTime = 0;
+const PROTECTION_DURATION = 180; // 3 segundos de proteção (60 frames por segundo)
 
-// Salvar novo recorde
-function saveBestScore(newScore) {
-  localStorage.setItem('runnerBestScore', newScore.toString());
-  bestScore = newScore;
-}
+// Cooldown de anúncios (30 segundos)
+const AD_COOLDOWN = 30000;
 
-// Verificar se é novo recorde
-function checkNewRecord() {
-  if (score > bestScore) {
-    isNewRecord = true;
-    saveBestScore(score);
-    return true;
-  }
-  return false;
-}
-
-// Inicializar recorde ao carregar a página
-loadBestScore();
-
-// Carregar imagem do personagem da mesma pasta
+// Carregar imagens
 const playerImage = new Image();
-playerImage.src = 'personagem.png'; // Coloque a imagem com este nome na mesma pasta do HTML
+playerImage.src = 'personagem.png';
 let imageLoaded = false;
 
 playerImage.onload = () => {
   imageLoaded = true;
-  console.log('Imagem do personagem carregada com sucesso!');
+  console.log('✅ Imagem do personagem carregada com sucesso!');
 };
 
 playerImage.onerror = () => {
-  console.error('Erro ao carregar imagem. Certifique-se de que "personagem.png" está na mesma pasta do HTML.');
+  console.error('❌ Erro ao carregar imagem do personagem. Certifique-se de que "personagem.png" está na mesma pasta do HTML.');
   imageLoaded = false;
 };
 
@@ -418,11 +444,11 @@ let droneImageLoaded = false;
 
 droneImage.onload = () => {
   droneImageLoaded = true;
-  console.log('Imagem do drone carregada com sucesso!');
+  console.log('✅ Imagem do drone carregada com sucesso!');
 };
 
 droneImage.onerror = () => {
-  console.error('Erro ao carregar imagem do drone. Certifique-se de que "drone_futurista_menor.png" está na mesma pasta do HTML.');
+  console.error('❌ Erro ao carregar imagem do drone. Certifique-se de que "drone_futurista_menor.png" está na mesma pasta do HTML.');
   droneImageLoaded = false;
 };
 
@@ -433,45 +459,41 @@ let droneMaiorImageLoaded = false;
 
 droneMaiorImage.onload = () => {
   droneMaiorImageLoaded = true;
-  console.log('Imagem do drone maior carregada com sucesso!');
+  console.log('✅ Imagem do drone maior carregada com sucesso!');
 };
 
 droneMaiorImage.onerror = () => {
-  console.error('Erro ao carregar imagem do drone maior. Certifique-se de que "drone_futurista_maior.png" está na mesma pasta do HTML.');
+  console.error('❌ Erro ao carregar imagem do drone maior. Certifique-se de que "drone_futurista_maior.png" está na mesma pasta do HTML.');
   droneMaiorImageLoaded = false;
 };
 
-/* =====================================================
-   PERSONAGEM
-===================================================== */
+// Player
 const player = {
-  x: 0,
-  y: 0,
+  x: 200,
+  y: 580,
   width: 80,
   height: 100,
   velocityY: 0,
   velocityX: 0,
-  speedX: 8,
-  maxSpeed: 15,
-  friction: 0.88,
-  onGround: true,
+  onGround: false,
   movingLeft: false,
   movingRight: false,
-
+  jumpForce: -19.5,
+  gravity: 0.75,
+  maxSpeed: 15,
+  speedX: 8,
+  friction: 0.88,
+  
   init() {
     this.x = canvas.width / 2;
     this.y = canvas.height - 120;
+    this.velocityY = 0;
     this.velocityX = 0;
-  },
-
-  jump() {
-    if (this.onGround) {
-      this.velocityY = -19.5;
-      this.onGround = false;
-    }
+    this.onGround = true;
   },
 
   update() {
+    // Movimento horizontal
     if (this.movingLeft) {
       this.velocityX -= this.speedX * 0.2;
     }
@@ -487,11 +509,10 @@ const player = {
       this.velocityX *= 0.95;
     }
 
-    if (this.velocityX > this.maxSpeed) this.velocityX = this.maxSpeed;
-    if (this.velocityX < -this.maxSpeed) this.velocityX = -this.maxSpeed;
-
+    this.velocityX = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.velocityX));
     this.x += this.velocityX;
 
+    // Limites laterais
     const margin = 30;
     if (this.x < margin) {
       this.x = margin;
@@ -502,13 +523,24 @@ const player = {
       this.velocityX = 0;
     }
 
-    this.velocityY += gravity;
+    // Gravidade
+    this.velocityY += this.gravity;
     this.y += this.velocityY;
 
+    // Chão
     if (this.y >= canvas.height - 120) {
       this.y = canvas.height - 120;
       this.velocityY = 0;
       this.onGround = true;
+    } else {
+      this.onGround = false;
+    }
+  },
+
+  jump() {
+    if (this.onGround) {
+      this.velocityY = this.jumpForce;
+      this.onGround = false;
     }
   },
 
@@ -522,6 +554,7 @@ const player = {
         this.height
       );
     } else {
+      // Fallback caso a imagem não carregue
       const gradient = ctx.createLinearGradient(
         this.x - this.width/2,
         this.y - this.height,
@@ -552,54 +585,25 @@ const player = {
   }
 };
 
-/* =====================================================
-   ESTRADA COM PERSPECTIVA
-===================================================== */
-let roadOffset = 0;
-
-function drawRoad() {
-  ctx.strokeStyle = "rgba(0, 191, 255, 0.9)";
-  ctx.lineWidth = 4;
-  ctx.shadowColor = '#00bfff';
-  ctx.shadowBlur = 20;
-
-  ctx.beginPath();
-  ctx.moveTo(30, 0);
-  ctx.lineTo(30, canvas.height);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(canvas.width - 30, 0);
-  ctx.lineTo(canvas.width - 30, canvas.height);
-  ctx.stroke();
-
-  ctx.shadowBlur = 0;
-  roadOffset += gameSpeed;
-  if (roadOffset > 60) roadOffset = 0;
-}
-
-/* =====================================================
-   OBSTÁCULOS E MOEDAS (VINDO DE CIMA)
-===================================================== */
+// Objetos (obstáculos e moedas)
 const objects = [];
-let objectTimer = 0;
 
 function createObject() {
   const rand = Math.random();
-  let type, height, color;
+  let type, height, width;
 
   if (rand < 0.25) {
     type = 'coin';
     height = 30;
-    color = '#FFD700';
+    width = 30;
   } else if (rand < 0.6) {
     type = 'low';
     height = 50;
-    color = '#ff4444';
+    width = 70;
   } else {
     type = 'high';
     height = 95;
-    color = '#4444ff';
+    width = 95;
   }
 
   const margin = 40;
@@ -608,20 +612,26 @@ function createObject() {
   objects.push({
     x: randomX,
     y: -height - 20,
-    width: type === 'coin' ? 30 : (type === 'low' ? 70 : 95),
+    width: width,
     height: height,
     type: type,
-    color: color,
-    rotation: 0
+    rotation: 0,
+    collected: false
   });
 }
 
 function updateObjects() {
   objectTimer++;
 
-  if (objectTimer > 50 - (gameSpeed * 2)) {
+  // Só criar novos obstáculos após o tempo de proteção
+  if (protectionTime <= 0 && objectTimer > 50 - (gameSpeed * 2)) {
     createObject();
     objectTimer = 0;
+  }
+
+  // Decrementar tempo de proteção
+  if (protectionTime > 0) {
+    protectionTime--;
   }
 
   objects.forEach((obj, index) => {
@@ -631,6 +641,7 @@ function updateObjects() {
       obj.rotation += 0.15;
     }
 
+    // Hitbox com escala
     const hitboxScale = 0.6;
     const playerHitWidth = player.width * hitboxScale;
     const playerHitHeight = player.height * hitboxScale;
@@ -649,21 +660,25 @@ function updateObjects() {
     const objTop = obj.y - objHitHeight;
     const objBottom = obj.y;
 
+    // Detecção de colisão
     if (
       playerRight > objLeft + 5 &&
       playerLeft < objRight - 5 &&
       playerBottom > objTop + 5 &&
       playerTop < objBottom - 5
     ) {
-      if (obj.type === 'coin') {
-        coins += 1;
+      if (obj.type === 'coin' && !obj.collected) {
+        obj.collected = true;
+        coins++;
+        // Moeda NÃO adiciona pontos, apenas incrementa o contador de moedas
         objects.splice(index, 1);
         return;
-      } else {
+      } else if (obj.type !== 'coin') {
         gameOver = true;
       }
     }
 
+    // Remover objetos fora da tela
     if (obj.y > canvas.height + 50) {
       objects.splice(index, 1);
       if (obj.type !== 'coin') {
@@ -678,9 +693,12 @@ function updateObjects() {
 
 function drawObjects() {
   objects.forEach(obj => {
+    if (obj.collected) return;
+
     ctx.save();
 
     if (obj.type === 'coin') {
+      // Moeda com rotação
       ctx.translate(obj.x, obj.y - obj.height/2);
       ctx.scale(Math.cos(obj.rotation), 1);
 
@@ -699,6 +717,7 @@ function drawObjects() {
       ctx.stroke();
 
     } else if (obj.type === 'low' && droneImageLoaded) {
+      // Drone pequeno (obstáculo baixo)
       ctx.drawImage(
         droneImage,
         obj.x - obj.width / 2,
@@ -708,6 +727,7 @@ function drawObjects() {
       );
 
     } else if (obj.type === 'high' && droneMaiorImageLoaded) {
+      // Drone grande (obstáculo alto)
       ctx.drawImage(
         droneMaiorImage,
         obj.x - obj.width / 2,
@@ -717,6 +737,7 @@ function drawObjects() {
       );
 
     } else {
+      // Fallback para obstáculos sem imagem
       const gradient = ctx.createLinearGradient(
         obj.x - obj.width/2, obj.y - obj.height,
         obj.x + obj.width/2, obj.y
@@ -731,7 +752,6 @@ function drawObjects() {
       }
 
       ctx.fillStyle = gradient;
-
       ctx.fillRect(
         obj.x - obj.width / 2,
         obj.y - obj.height,
@@ -753,14 +773,82 @@ function drawObjects() {
   });
 }
 
-/* =====================================================
-   CONTROLES MOBILE - DUPLO CLIQUE PARA PULAR + TOQUE PARA MOVER
-===================================================== */
+// Desenhar pista com perspectiva
+function drawRoad() {
+  ctx.strokeStyle = "rgba(0, 191, 255, 0.9)";
+  ctx.lineWidth = 4;
+  ctx.shadowColor = '#00bfff';
+  ctx.shadowBlur = 20;
+
+  ctx.beginPath();
+  ctx.moveTo(30, 0);
+  ctx.lineTo(30, canvas.height);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(canvas.width - 30, 0);
+  ctx.lineTo(canvas.width - 30, canvas.height);
+  ctx.stroke();
+
+  ctx.shadowBlur = 0;
+  roadOffset += gameSpeed;
+  if (roadOffset > 60) roadOffset = 0;
+}
+
+// HUD
+function drawHUD() {
+  ctx.fillStyle = "rgba(0,0,0,0.75)";
+  ctx.fillRect(10, 10, 200, 95);
+
+  ctx.strokeStyle = "rgba(0, 191, 255, 0.5)";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(10, 10, 200, 95);
+
+  ctx.fillStyle = "#00ffff";
+  ctx.font = "bold 20px Arial";
+  ctx.fillText("🏆 " + Math.floor(score), 25, 38);
+
+  ctx.fillStyle = "#FFD700";
+  ctx.font = "bold 20px Arial";
+  ctx.fillText("🪙 " + coins, 25, 65);
+
+  ctx.fillStyle = "#ff1493";
+  ctx.font = "bold 20px Arial";
+  ctx.fillText("⭐ " + bestScore, 25, 92);
+
+  // Indicador de proteção
+  if (protectionTime > 0) {
+    ctx.save();
+    ctx.fillStyle = "rgba(0, 255, 0, 0.2)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.fillStyle = "rgba(0, 0, 0, 0.85)";
+    ctx.fillRect(canvas.width / 2 - 120, canvas.height / 2 - 40, 240, 80);
+    
+    ctx.strokeStyle = "#00ff00";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(canvas.width / 2 - 120, canvas.height / 2 - 40, 240, 80);
+    
+    ctx.fillStyle = "#00ff00";
+    ctx.font = "bold 24px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("🛡️ PROTEÇÃO ATIVA", canvas.width / 2, canvas.height / 2 - 5);
+    
+    ctx.font = "bold 18px Arial";
+    ctx.fillStyle = "#88ff88";
+    const timeLeft = (protectionTime / 60).toFixed(1);
+    ctx.fillText(`${timeLeft}s`, canvas.width / 2, canvas.height / 2 + 25);
+    
+    ctx.textAlign = "left";
+    ctx.restore();
+  }
+}
+
+// Controles
+let isTouching = false;
+let touchStartX = 0;
 let lastTapTime = 0;
 const doubleTapDelay = 300;
-
-let touchStartX = 0;
-let isTouching = false;
 
 canvas.addEventListener("touchstart", (e) => {
   e.preventDefault();
@@ -800,18 +888,13 @@ canvas.addEventListener("touchmove", (e) => {
 
 canvas.addEventListener("touchend", (e) => {
   e.preventDefault();
-
   isTouching = false;
   player.velocityX *= 0.7;
+  player.movingLeft = false;
+  player.movingRight = false;
 });
 
-canvas.addEventListener("dblclick", (e) => {
-  e.preventDefault();
-  if (gameStarted && !gameOver) {
-    player.jump();
-  }
-});
-
+// Teclado
 document.addEventListener("keydown", (e) => {
   if (gameOver && (e.key === "Enter" || e.key === " ")) {
     e.preventDefault();
@@ -852,33 +935,198 @@ document.addEventListener("keyup", (e) => {
   }
 });
 
-/* =====================================================
-   HUD
-===================================================== */
-function drawHUD() {
-  ctx.fillStyle = "rgba(0,0,0,0.75)";
-  ctx.fillRect(10, 10, 200, 95);
-
-  ctx.strokeStyle = "rgba(0, 191, 255, 0.5)";
-  ctx.lineWidth = 2;
-  ctx.strokeRect(10, 10, 200, 95);
-
-  ctx.fillStyle = "#00ffff";
-  ctx.font = "bold 20px Arial";
-  ctx.fillText("🏆 " + Math.floor(score), 25, 38);
-
-  ctx.fillStyle = "#FFD700";
-  ctx.font = "bold 20px Arial";
-  ctx.fillText("🪙 " + coins, 25, 65);
-
-  ctx.fillStyle = "#ff1493";
-  ctx.font = "bold 20px Arial";
-  ctx.fillText("⭐ " + bestScore, 25, 92);
+// Funções do jogo
+function resetGame() {
+  // REINICIAR: Zera TUDO e começa do zero (sem recompensas)
+  score = 0;
+  coins = 0;
+  gameSpeed = 3;
+  objects.length = 0;
+  objectTimer = 0;
+  gameOver = false;
+  isNewRecord = false;
+  player.init();
+  gameOverOverlay.classList.remove('show');
+  
+  // Resetar estado do botão de anúncio
+  rewardBtn.disabled = false;
+  rewardBtn.classList.remove('loading');
+  rewardBtn.textContent = '🎁 CONTINUAR (ASSISTIR ANÚNCIO)';
 }
 
-/* =====================================================
-   INICIAR/RESET
-===================================================== */
+function checkNewRecord() {
+  if (Math.floor(score) > bestScore) {
+    bestScore = Math.floor(score);
+    localStorage.setItem('runnerBestScore', bestScore);
+    isNewRecord = true;
+  }
+}
+
+function shareResults() {
+  const shareText = `🏃 Runner Tech!\n\n🏆 Pontuação: ${Math.floor(score)}\n🪙 Moedas: ${coins}\n⭐ Recorde: ${bestScore}\n\nJogue agora: https://techsync.net.br/categories/jogos/runner.html`;
+
+  if (navigator.share) {
+    navigator.share({
+      title: 'Runner Tech',
+      text: shareText,
+    }).catch(() => {});
+  } else {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareText)
+        .then(() => {
+          shareBtn.textContent = '✓ COPIADO!';
+          shareBtn.style.background = 'linear-gradient(135deg, #00dd77, #00aa55)';
+          setTimeout(() => {
+            shareBtn.textContent = '📤 COMPARTILHAR';
+            shareBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc66)';
+          }, 2000);
+        })
+        .catch(() => alert(shareText));
+    } else {
+      alert(shareText);
+    }
+  }
+}
+
+// =====================================================
+// ANÚNCIO RECOMPENSADO - VERSÃO CORRIGIDA
+// =====================================================
+
+function mostrarAnuncioRecompensado(callback) {
+  // Validações
+  if (!gameOver) {
+    console.warn('⚠️ Anúncio só pode ser exibido durante Game Over');
+    return;
+  }
+
+  // Verificar cooldown
+  const now = Date.now();
+  if (now - lastAdTime < AD_COOLDOWN) {
+    const tempoRestante = Math.ceil((AD_COOLDOWN - (now - lastAdTime)) / 1000);
+    alert(`⏳ Aguarde ${tempoRestante} segundos para assistir outro anúncio`);
+    return;
+  }
+
+  // Verificar se Ad Manager está pronto
+  if (!adManagerReady || !rewardedSlot) {
+    console.warn('⚠️ Google Ad Manager não está pronto');
+    showAdStatus('❌ Anúncio não disponível no momento', 3000);
+    usarFallbackSimulado(callback);
+    return;
+  }
+
+  // Definir callback global
+  onRewardGranted = callback;
+
+  // Feedback visual
+  rewardBtn.disabled = true;
+  rewardBtn.classList.add('loading');
+  rewardBtn.textContent = '⏳ CARREGANDO...';
+  showAdStatus('⏳ Carregando anúncio...', 0);
+
+  // Exibir anúncio usando o método correto
+  googletag.cmd.push(function () {
+    try {
+      // CORREÇÃO PRINCIPAL: usar refresh() ao invés de display()
+      googletag.pubads().refresh([rewardedSlot]);
+      console.log('📺 Solicitando exibição do anúncio recompensado');
+      
+      // Timeout de segurança (10 segundos)
+      setTimeout(() => {
+        if (rewardBtn.disabled && rewardBtn.classList.contains('loading')) {
+          console.warn('⏱️ Timeout: anúncio não carregou a tempo');
+          hideAdStatus();
+          usarFallbackSimulado(callback);
+        }
+      }, 10000);
+      
+    } catch (err) {
+      console.error('❌ Erro ao exibir anúncio:', err);
+      hideAdStatus();
+      usarFallbackSimulado(callback);
+    }
+  });
+}
+
+function usarFallbackSimulado(callback) {
+  console.log('🔄 Usando fallback simulado (modo de teste)');
+  
+  rewardBtn.textContent = '⏳ ASSISTINDO...';
+  showAdStatus('🎬 Simulando anúncio (modo teste)', 0);
+  
+  setTimeout(() => {
+    hideAdStatus();
+    rewardBtn.textContent = '💎 VIDA EXTRA';
+    rewardBtn.disabled = false;
+    rewardBtn.classList.remove('loading');
+    
+    // Conceder recompensa
+    if (typeof callback === 'function') {
+      callback();
+      lastAdTime = Date.now();
+    }
+    
+    onRewardGranted = null;
+  }, 3000);
+}
+
+function continuarJogo() {
+  console.log('✅ Recompensa concedida - continuando jogo');
+  
+  // IMPORTANTE: Manter score e coins (os ganhos da partida anterior)
+  // NÃO resetar: score, coins
+  
+  // Resetar apenas o estado do jogo
+  gameOver = false;
+  gameOverOverlay.classList.remove('show');
+  
+  // Limpar TODOS os obstáculos da tela (começar com tela limpa)
+  objects.length = 0;
+  objectTimer = 0;
+  
+  // Ativar tempo de proteção (3 segundos sem obstáculos)
+  protectionTime = PROTECTION_DURATION;
+  
+  // Resetar velocidade do jogo para dar uma chance ao jogador
+  gameSpeed = 3;
+  
+  // Reposicionar player no chão
+  player.x = canvas.width / 2;
+  player.y = canvas.height - 120;
+  player.velocityY = 0;
+  player.velocityX = 0;
+  player.onGround = true;
+  player.movingLeft = false;
+  player.movingRight = false;
+  
+  // Resetar botão
+  rewardBtn.disabled = false;
+  rewardBtn.classList.remove('loading');
+  rewardBtn.textContent = '🎁 CONTINUAR (ASSISTIR ANÚNCIO)';
+  
+  // Feedback visual
+  showAdStatus('🎁 Vida extra concedida! Continue de onde parou!', 3000);
+  
+  console.log(`💰 Mantidos: ${Math.floor(score)} pontos e ${coins} moedas`);
+}
+
+function showAdStatus(message, duration) {
+  adStatus.textContent = message;
+  adStatus.classList.add('show');
+  
+  if (duration > 0) {
+    setTimeout(() => hideAdStatus(), duration);
+  }
+}
+
+function hideAdStatus() {
+  adStatus.classList.remove('show');
+}
+
+// =====================================================
+// EVENT LISTENERS
+// =====================================================
+
 startBtn.addEventListener("click", () => {
   instructions.classList.add('hide');
   gameStarted = true;
@@ -891,69 +1139,19 @@ startBtn.addEventListener("keydown", (e) => {
   }
 });
 
-restartBtn.addEventListener("click", () => {
-  resetGame();
+restartBtn.addEventListener("click", resetGame);
+shareBtn.addEventListener("click", shareResults);
+
+rewardBtn.addEventListener('click', () => {
+  if (!gameOver) return;
+  mostrarAnuncioRecompensado(() => {
+    continuarJogo();
+  });
 });
 
-const shareBtnEl = document.getElementById('shareBtn');
-shareBtnEl.addEventListener("click", () => {
-  shareResults();
-});
-
-function shareResults() {
-  const shareText = `🏃 Runner Tech!\n\n🏆 Pontuação: ${Math.floor(score)}\n🪙 Moedas: ${coins}\n⭐ Recorde: ${bestScore}\n\nJogue agora: https://techsync.net.br/categories/jogos/runner.html`;
-
-  if (navigator.share) {
-    navigator.share({
-      title: 'Runner Tech',
-      text: shareText,
-    })
-    .then(() => console.log('Compartilhamento bem-sucedido'))
-    .catch((error) => console.log('Erro ao compartilhar:', error));
-  } else {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(shareText)
-        .then(() => {
-          shareBtn.textContent = '✓ COPIADO!';
-          shareBtn.style.background = 'linear-gradient(135deg, #00dd77, #00aa55)';
-          setTimeout(() => {
-            shareBtn.textContent = '📤 COMPARTILHAR';
-            shareBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc66)';
-          }, 2000);
-        })
-        .catch(() => {
-          alert(shareText);
-        });
-    } else {
-      alert(shareText);
-    }
-  }
-}
-
-function resetGame() {
-  score = 0;
-  coins = 0;
-  gameSpeed = 3;
-  objects.length = 0;
-  gameOver = false;
-  isNewRecord = false; // Resetar flag de novo recorde
-  player.init();
-  player.velocityY = 0;
-  player.velocityX = 0;
-  player.onGround = true;
-  player.movingLeft = false;
-  player.movingRight = false;
-  gameOverOverlay.classList.remove('show');
-}
-
-/* =====================================================
-   LOOP PRINCIPAL
-===================================================== */
-const gameOverOverlay = document.getElementById('gameOverOverlay');
-const finalScoreElement = document.getElementById('finalScore');
-const finalCoinsElement = document.getElementById('finalCoins');
-const bestScoreElement = document.getElementById('bestScore');
-const newRecordBadge = document.getElementById('newRecordBadge');
+// =====================================================
+// GAME LOOP
+// =====================================================
 
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -981,8 +1179,6 @@ function gameLoop() {
     finalScoreElement.textContent = Math.floor(score);
     finalCoinsElement.textContent = coins;
     bestScoreElement.textContent = bestScore;
-  } else {
-    gameOverOverlay.classList.remove('show');
   }
 
   drawObjects();
@@ -999,88 +1195,17 @@ function gameLoop() {
 player.init();
 gameLoop();
 
-/* ANÚNCIO RECOMPENSADO (com fallback para testes locais) */
-function mostrarAnuncioRecompensado(callback) {
-  // Proteção: só permitir quando o jogo estiver em overlay (gameOver)
-  if (!gameOver) return;
-
-  // define callback global que será invocado quando a recompensa for confirmada
-  onRewardGranted = callback;
-
-  googletag.cmd.push(function () {
-    try {
-      if (rewardedSlot) {
-        // tenta exibir o slot reward
-        try {
-          googletag.display(rewardedSlot);
-          console.log('Tentando mostrar rewarded via GPT');
-        } catch (e) {
-          console.warn('Erro ao chamar googletag.display, fallback simulado', e);
-          fallbackSimulaAnuncio();
-        }
-      } else {
-        console.warn('rewardedSlot undefined — usando fallback simulado');
-        fallbackSimulaAnuncio();
-      }
-    } catch (err) {
-      console.warn('Erro ao mostrar anúncio rewarded', err);
-      fallbackSimulaAnuncio();
-    }
-  });
-
-  function fallbackSimulaAnuncio() {
-    // Feedback visual no botão
-    const oldText = rewardBtn.textContent;
-    rewardBtn.textContent = 'Carregando anúncio...';
-    rewardBtn.disabled = true;
-
-    setTimeout(() => {
-      rewardBtn.textContent = oldText;
-      rewardBtn.disabled = false;
-      // simula recompensa concedida
-      if (typeof onRewardGranted === 'function') {
-        try { onRewardGranted(); } catch(e){ console.error(e); }
-        onRewardGranted = null;
-      }
-    }, 3000);
-  }
-}
-
-/* =====================================================
-   LIGAÇÃO DO BOTÃO DE RECOMPENSA
-===================================================== */
-rewardBtn.addEventListener('click', () => {
-  if (!gameOver) return; // só faz sentido com gameOver
-  // Proteção UX: se morreu em menos de X segundos, evitar (implemente se quiser)
-  mostrarAnuncioRecompensado(() => {
-    continuarJogo();
-  });
-});
-
-function continuarJogo() {
-  // chamada quando a recompensa é concedida
-  gameOver = false;
-  gameOverOverlay.classList.remove('show');
-
-  // Exemplo de efeito: reposicionar o player para o chão e dar leve penalidade
-  player.y = canvas.height - 120;
-  player.velocityY = 0;
-  player.onGround = true;
-
-  // opcional: penalidade ou vantagem
-  // score = Math.max(0, score - 2); // exemplo de penalidade leve
-  // ou dar "vida extra" se implementar esse sistema
-
-  console.log('Recompensa concedida — jogador retomou o jogo');
-}
-
-/* =====================================================
-   DEBUG: simular Game Over (clique com o botão direito no canvas)
-===================================================== */
+// Debug: simular Game Over (botão direito do mouse)
 canvas.addEventListener('contextmenu', (e) => {
   e.preventDefault();
-  gameOver = true;
+  if (gameStarted && !gameOver) {
+    gameOver = true;
+    console.log('🐛 DEBUG: Game Over forçado');
+  }
 });
+
+console.log('🎮 Runner Tech inicializado!');
+console.log('📱 Google Ad Manager:', adManagerReady ? '✅ Pronto' : '⏳ Carregando...');
 </script>
 
 </body>
