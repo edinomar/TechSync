@@ -112,12 +112,9 @@
     }
 
     #restartBtn {
-      position: absolute;
-      top: 60%;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 15px 50px;
-      font-size: 20px;
+      position: relative;
+      padding: 14px 45px;
+      font-size: 18px;
       font-weight: bold;
       background: linear-gradient(135deg, #ff00ff, #8800ff);
       border: 2px solid #ff00ff;
@@ -128,25 +125,11 @@
         0 0 20px rgba(255, 0, 255, 0.6),
         0 4px 15px rgba(255, 0, 255, 0.4);
       transition: all 0.3s;
-      display: none;
-      z-index: 101;
       text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
     }
 
-    #restartBtn.show {
-      display: block;
-    }
-
-    #restartBtn:hover {
-      background: linear-gradient(135deg, #ff33ff, #9900ff);
-      box-shadow: 
-        0 0 30px rgba(255, 0, 255, 0.8),
-        0 4px 20px rgba(255, 0, 255, 0.6);
-      transform: translateX(-50%) translateY(-2px);
-    }
-
     #restartBtn:active {
-      transform: translateX(-50%) scale(0.95);
+      transform: scale(0.95);
     }
 
     #gameOverOverlay {
@@ -159,7 +142,7 @@
       display: none;
       flex-direction: column;
       justify-content: flex-start;
-      padding-top: 25%;
+      padding-top: 20%;
       align-items: center;
       z-index: 100;
     }
@@ -186,7 +169,7 @@
     #gameOverOverlay .score {
       font-size: 32px;
       color: #00ffff;
-      margin: 15px 0;
+      margin: 10px 0;
       text-shadow: 
         0 0 20px rgba(0, 255, 255, 0.8),
         0 0 40px rgba(0, 255, 255, 0.5);
@@ -195,10 +178,98 @@
     #gameOverOverlay .coins {
       font-size: 32px;
       color: #ffd700;
-      margin: 15px 0;
+      margin: 10px 0;
       text-shadow: 
         0 0 20px rgba(255, 215, 0, 0.8),
         0 0 40px rgba(255, 215, 0, 0.5);
+    }
+
+    #gameOverOverlay .record {
+      font-size: 28px;
+      color: #ff1493;
+      margin: 15px 0;
+      text-shadow: 
+        0 0 20px rgba(255, 20, 147, 0.8),
+        0 0 40px rgba(255, 20, 147, 0.5);
+    }
+
+    #newRecordBadge {
+      position: fixed;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      display: none;
+      font-size: 26px;
+      font-weight: bold;
+      color: #ffff00;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #ff1493, #ff69b4);
+      border-radius: 25px;
+      text-shadow: 
+        0 0 20px rgba(255, 255, 0, 0.9),
+        0 0 40px rgba(255, 255, 0, 0.6);
+      box-shadow: 
+        0 0 40px rgba(255, 20, 147, 1),
+        0 0 80px rgba(255, 20, 147, 0.7);
+      animation: recordPopup 3s ease-in-out;
+      z-index: 200;
+    }
+
+    #newRecordBadge.show {
+      display: block;
+    }
+
+    @keyframes recordPopup {
+      0% { 
+        opacity: 0;
+        transform: translateX(-50%) translateY(-100px) scale(0.5);
+      }
+      15% { 
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%) scale(1.2);
+      }
+      25% {
+        transform: translateX(-50%) translateY(-50%) scale(1);
+      }
+      75% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+      }
+      100% { 
+        opacity: 0;
+        transform: translateX(-50%) translateY(-100px) scale(0.8);
+      }
+    }
+
+    #shareBtn {
+      position: relative;
+      margin-top: 30px;
+      margin-bottom: 0;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #00ff88, #00cc66);
+      border: 2px solid #00ff88;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 
+        0 0 20px rgba(0, 255, 136, 0.6),
+        0 4px 15px rgba(0, 255, 136, 0.4);
+      transition: all 0.3s;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+    }
+
+    #shareBtn:hover {
+      background: linear-gradient(135deg, #00ffaa, #00dd77);
+      box-shadow: 
+        0 0 30px rgba(0, 255, 136, 0.8),
+        0 4px 20px rgba(0, 255, 136, 0.6);
+      transform: translateY(-2px);
+    }
+
+    #shareBtn:active {
+      transform: scale(0.95);
     }
 
     #gameOverOverlay .instruction {
@@ -223,9 +294,15 @@
     <h1>GAME OVER</h1>
     <div class="score">🏆 Pontuação: <span id="finalScore">0</span></div>
     <div class="coins">🪙 Moedas: <span id="finalCoins">0</span></div>
+    <div class="record">⭐ Recorde: <span id="bestScore">0</span></div>
+    
+    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 30px; align-items: center;">
+      <button id="shareBtn">📤 COMPARTILHAR</button>
+      <button id="restartBtn">REINICIAR</button>
+    </div>
   </div>
 
-  <button id="restartBtn">REINICIAR</button>
+  <div id="newRecordBadge">🎉 NOVO RECORDE! 🎉</div>
 </div>
 
 <script>
@@ -254,6 +331,38 @@ let score = 0;
 let coins = 0;
 let gameOver = false;
 let gameStarted = false;
+
+// Sistema de Recordes
+let bestScore = 0;
+let isNewRecord = false;
+
+// Carregar recorde salvo
+function loadBestScore() {
+  const saved = localStorage.getItem('runnerBestScore');
+  if (saved) {
+    bestScore = parseInt(saved);
+  }
+  return bestScore;
+}
+
+// Salvar novo recorde
+function saveBestScore(newScore) {
+  localStorage.setItem('runnerBestScore', newScore.toString());
+  bestScore = newScore;
+}
+
+// Verificar se é novo recorde
+function checkNewRecord() {
+  if (score > bestScore) {
+    isNewRecord = true;
+    saveBestScore(score);
+    return true;
+  }
+  return false;
+}
+
+// Inicializar recorde ao carregar a página
+loadBestScore();
 
 // Carregar imagem do personagem da mesma pasta
 const playerImage = new Image();
@@ -310,9 +419,9 @@ const player = {
   height: 100, // Aumentado de 80 para 100
   velocityY: 0,
   velocityX: 0,
-  speedX: 7, // Velocidade de movimento lateral
-  maxSpeed: 12,
-  friction: 0.85,
+  speedX: 8, // Aumentado de 7 para 8 (movimento mais rápido)
+  maxSpeed: 15, // Aumentado de 12 para 15 (mais responsivo)
+  friction: 0.88, // Aumentado de 0.85 para 0.88 (desacelera mais suave)
   onGround: true,
   movingLeft: false,
   movingRight: false,
@@ -331,17 +440,22 @@ const player = {
   },
 
   update() {
-    // Movimento lateral contínuo
+    // Movimento lateral - sistema híbrido (teclado + touch)
     if (this.movingLeft) {
-      this.velocityX -= this.speedX * 0.15;
+      this.velocityX -= this.speedX * 0.2; // Aumentado de 0.15 para 0.2
     }
     if (this.movingRight) {
-      this.velocityX += this.speedX * 0.15;
+      this.velocityX += this.speedX * 0.2; // Aumentado de 0.15 para 0.2
     }
 
-    // Aplicar fricção quando não está se movendo
-    if (!this.movingLeft && !this.movingRight) {
+    // Aplicar fricção quando não está se movendo (apenas para teclado)
+    if (!this.movingLeft && !this.movingRight && !isTouching) {
       this.velocityX *= this.friction;
+    }
+    
+    // Fricção reduzida durante toque (para controle mais direto)
+    if (isTouching) {
+      this.velocityX *= 0.95;
     }
 
     // Limitar velocidade máxima
@@ -352,7 +466,7 @@ const player = {
     this.x += this.velocityX;
 
     // Limites da tela com margem
-    const margin = 50;
+    const margin = 30; // Reduzido de 50 para 30
     if (this.x < margin) {
       this.x = margin;
       this.velocityX = 0;
@@ -430,14 +544,14 @@ function drawRoad() {
 
   // Linha lateral esquerda
   ctx.beginPath();
-  ctx.moveTo(50, 0);
-  ctx.lineTo(50, canvas.height);
+  ctx.moveTo(30, 0);
+  ctx.lineTo(30, canvas.height);
   ctx.stroke();
 
   // Linha lateral direita
   ctx.beginPath();
-  ctx.moveTo(canvas.width - 50, 0);
-  ctx.lineTo(canvas.width - 50, canvas.height);
+  ctx.moveTo(canvas.width - 30, 0);
+  ctx.lineTo(canvas.width - 30, canvas.height);
   ctx.stroke();
 
   ctx.shadowBlur = 0;
@@ -470,7 +584,7 @@ function createObject() {
   }
 
   // Posição aleatória horizontal com margem
-  const margin = 60;
+  const margin = 40; // Reduzido de 60 para 40
   const randomX = margin + Math.random() * (canvas.width - margin * 2);
 
   objects.push({
@@ -631,16 +745,14 @@ function drawObjects() {
 }
 
 /* =====================================================
-   CONTROLES MOBILE - DUPLO CLIQUE PARA PULAR + DESLIZAR PARA MOVER
+   CONTROLES MOBILE - DUPLO CLIQUE PARA PULAR + TOQUE PARA MOVER
 ===================================================== */
 let lastTapTime = 0;
 const doubleTapDelay = 300; // 300ms para detectar duplo clique
 
-// Variáveis para controle de deslize
+// Variáveis para controle de toque melhorado
 let touchStartX = 0;
-let touchCurrentX = 0;
 let isTouching = false;
-const swipeSensitivity = 0.5; // Sensibilidade do movimento
 
 // Detectar início do toque
 canvas.addEventListener("touchstart", (e) => {
@@ -650,7 +762,6 @@ canvas.addEventListener("touchstart", (e) => {
   
   // Pegar posição inicial do toque
   touchStartX = e.touches[0].clientX;
-  touchCurrentX = touchStartX;
   isTouching = true;
   
   // Detectar duplo clique para pular
@@ -667,30 +778,26 @@ canvas.addEventListener("touchstart", (e) => {
   lastTapTime = currentTime;
 });
 
-// Detectar movimento do dedo
+// Detectar movimento do dedo - SISTEMA MELHORADO
 canvas.addEventListener("touchmove", (e) => {
   e.preventDefault();
   
   if (!gameStarted || gameOver || !isTouching) return;
   
-  touchCurrentX = e.touches[0].clientX;
+  const touchCurrentX = e.touches[0].clientX;
   
-  // Calcular diferença entre posição inicial e atual
-  const deltaX = (touchCurrentX - touchStartX) * swipeSensitivity;
+  // Calcular diferença da posição atual do toque
+  const deltaX = touchCurrentX - touchStartX;
   
-  // Aplicar movimento baseado na direção do deslize
-  if (deltaX < -10) {
-    // Deslizando para esquerda
-    player.movingLeft = true;
-    player.movingRight = false;
-  } else if (deltaX > 10) {
-    // Deslizando para direita
-    player.movingRight = true;
-    player.movingLeft = false;
+  // Movimento proporcional e mais responsivo
+  // Quanto mais longe o dedo está do ponto inicial, mais rápido move
+  if (Math.abs(deltaX) > 5) { // Zona morta menor (5px)
+    // Movimento direto e proporcional
+    const moveSpeed = deltaX / 15; // Divisor menor = mais responsivo
+    player.velocityX = Math.max(-player.maxSpeed, Math.min(player.maxSpeed, moveSpeed));
   } else {
-    // Parado ou movimento mínimo
-    player.movingLeft = false;
-    player.movingRight = false;
+    // Aplicar desaceleração suave quando está na zona morta
+    player.velocityX *= 0.9;
   }
 });
 
@@ -699,8 +806,8 @@ canvas.addEventListener("touchend", (e) => {
   e.preventDefault();
   
   isTouching = false;
-  player.movingLeft = false;
-  player.movingRight = false;
+  // Não zerar completamente, deixar desacelerar naturalmente
+  player.velocityX *= 0.7;
 });
 
 // Mouse para testar no computador (duplo clique)
@@ -759,22 +866,29 @@ document.addEventListener("keyup", (e) => {
    HUD
 ===================================================== */
 function drawHUD() {
-  // Painel de pontuação
-  ctx.fillStyle = "rgba(0,0,0,0.7)";
-  ctx.fillRect(15, 15, 180, 85);
+  // Painel de pontuação - mais compacto e moderno
+  ctx.fillStyle = "rgba(0,0,0,0.75)";
+  ctx.fillRect(10, 10, 200, 95);
   
-  ctx.fillStyle = "#FFD700";
-  ctx.font = "bold 22px Arial";
-  ctx.fillText("🏆 " + score, 30, 48);
+  // Borda neon sutil
+  ctx.strokeStyle = "rgba(0, 191, 255, 0.5)";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(10, 10, 200, 95);
   
+  // Linha 1: Pontuação
+  ctx.fillStyle = "#00ffff";
+  ctx.font = "bold 20px Arial";
+  ctx.fillText("🏆 " + score, 25, 38);
+  
+  // Linha 2: Moedas
   ctx.fillStyle = "#FFD700";
-  ctx.font = "bold 22px Arial";
-  ctx.fillText("🪙 " + coins, 30, 80);
+  ctx.font = "bold 20px Arial";
+  ctx.fillText("🪙 " + coins, 25, 65);
 
-  // Velocidade (menor)
-  ctx.fillStyle = "rgba(255,255,255,0.6)";
-  ctx.font = "12px Arial";
-  ctx.fillText("Vel: " + gameSpeed.toFixed(1), 30, 95);
+  // Linha 3: Recorde (mesmo tamanho)
+  ctx.fillStyle = "#ff1493";
+  ctx.font = "bold 20px Arial";
+  ctx.fillText("⭐ " + bestScore, 25, 92);
 }
 
 /* =====================================================
@@ -797,12 +911,54 @@ restartBtn.addEventListener("click", () => {
   resetGame();
 });
 
+// Botão de compartilhar
+const shareBtn = document.getElementById('shareBtn');
+shareBtn.addEventListener("click", () => {
+  shareResults();
+});
+
+function shareResults() {
+  const shareText = `🏃 Runner 3D - Meus Resultados!\n\n🏆 Pontuação: ${score}\n🪙 Moedas: ${coins}\n\nConsegue me superar? 🚀`;
+  
+  // Tentar usar Web Share API (funciona em mobile)
+  if (navigator.share) {
+    navigator.share({
+      title: 'Runner 3D - Meus Resultados',
+      text: shareText,
+    })
+    .then(() => console.log('Compartilhamento bem-sucedido'))
+    .catch((error) => console.log('Erro ao compartilhar:', error));
+  } 
+  // Fallback: copiar para clipboard
+  else {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareText)
+        .then(() => {
+          // Feedback visual
+          shareBtn.textContent = '✓ COPIADO!';
+          shareBtn.style.background = 'linear-gradient(135deg, #00dd77, #00aa55)';
+          setTimeout(() => {
+            shareBtn.textContent = '📤 COMPARTILHAR';
+            shareBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc66)';
+          }, 2000);
+        })
+        .catch(() => {
+          alert(shareText);
+        });
+    } else {
+      // Último recurso: mostrar alert
+      alert(shareText);
+    }
+  }
+}
+
 function resetGame() {
   score = 0;
   coins = 0;
   gameSpeed = 3;
   objects.length = 0;
   gameOver = false;
+  isNewRecord = false; // Resetar flag de novo recorde
   player.init();
   player.velocityY = 0;
   player.velocityX = 0;
@@ -817,6 +973,8 @@ function resetGame() {
 const gameOverOverlay = document.getElementById('gameOverOverlay');
 const finalScoreElement = document.getElementById('finalScore');
 const finalCoinsElement = document.getElementById('finalCoins');
+const bestScoreElement = document.getElementById('bestScore');
+const newRecordBadge = document.getElementById('newRecordBadge');
 
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -829,17 +987,28 @@ function gameLoop() {
   }
 
   if (gameOver) {
+    // Verificar novo recorde (apenas uma vez)
+    if (!gameOverOverlay.classList.contains('show')) {
+      checkNewRecord();
+      
+      // Se for novo recorde, mostrar pop-up temporário
+      if (isNewRecord) {
+        newRecordBadge.classList.add('show');
+        // Remover após 3 segundos (duração da animação)
+        setTimeout(() => {
+          newRecordBadge.classList.remove('show');
+        }, 3000);
+      }
+    }
+    
     // Mostrar overlay de Game Over
     gameOverOverlay.classList.add('show');
     finalScoreElement.textContent = score;
     finalCoinsElement.textContent = coins;
-    
-    // Mostrar botão de reiniciar
-    restartBtn.classList.add('show');
+    bestScoreElement.textContent = bestScore;
   } else {
-    // Esconder overlay e botão de reiniciar
+    // Esconder overlay
     gameOverOverlay.classList.remove('show');
-    restartBtn.classList.remove('show');
   }
 
   drawObjects();
