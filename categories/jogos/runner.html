@@ -302,7 +302,7 @@
     </div>
   </div>
 
-  <div id="newRecordBadge">🎉 NOVO RECORDE! 🎉</div>
+  <div id="newRecordBadge"> NOVO RECORDE! </div>
 </div>
 
 <script>
@@ -918,7 +918,7 @@ shareBtn.addEventListener("click", () => {
 });
 
 function shareResults() {
-  const shareText = `🏃 Runner 3D - Meus Resultados!
+  const shareText = `🏃 Runner Tech!
 
 🏆 Pontuação: ${score}
 🪙 Moedas: ${coins}
@@ -931,7 +931,7 @@ Jogue agora: https://techsync.net.br/categories/jogos/runner.html`;
   // Tentar usar Web Share API (funciona em mobile)
   if (navigator.share) {
     navigator.share({
-      title: 'Runner 3D - Meus Resultados',
+      title: 'Runner Tech',
       text: shareText,
     })
     .then(() => console.log('Compartilhamento bem-sucedido'))
