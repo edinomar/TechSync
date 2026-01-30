@@ -793,11 +793,29 @@ canvas.addEventListener("touchmove", (e) => {
   const touchCurrentX = e.touches[0].clientX;
   const deltaX = touchCurrentX - touchStartX;
 
-  if (Math.abs(deltaX) > 5) {
-    const moveSpeed = deltaX / 15;
-    player.velocityX = Math.max(-player.maxSpeed, Math.min(player.maxSpeed, moveSpeed));
+  // CORREÇÃO: Movimento lateral mais suave e controlado
+  // Não afeta a velocidade vertical dos obstáculos
+  if (Math.abs(deltaX) > 10) {
+    // Normalizar força do movimento (0 a 1)
+    const moveStrength = Math.min(Math.abs(deltaX) / 60, 1);
+    const direction = deltaX > 0 ? 1 : -1;
+    
+    // Definir direção do movimento
+    if (direction > 0) {
+      player.movingRight = true;
+      player.movingLeft = false;
+    } else {
+      player.movingLeft = true;
+      player.movingRight = false;
+    }
+    
+    // Aplicar velocidade de forma suave (60% da velocidade máxima)
+    player.velocityX = direction * moveStrength * player.maxSpeed * 0.6;
   } else {
-    player.velocityX *= 0.9;
+    // Desacelerar quando não há movimento significativo
+    player.movingLeft = false;
+    player.movingRight = false;
+    player.velocityX *= 0.85;
   }
 });
 
