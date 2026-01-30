@@ -377,6 +377,16 @@ googletag.cmd.push(function () {
         googletag.pubads().refresh([rewardedSlot]); // Pré-carrega o próximo
       });
 
+            googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+      if (event.slot === rewardedSlot) {
+          if (event.isEmpty) {
+            console.warn('⚠️ O Google enviou um anúncio VAZIO (No Fill).');
+          } else {
+            console.log('🎬 O Google enviou um anúncio COM CONTEÚDO! Preparando para exibir...');
+          }
+        }
+      });
+
       googletag.enableServices();
       googletag.display(rewardedSlot); 
       adManagerReady = true;
