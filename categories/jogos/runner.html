@@ -7,72 +7,6 @@
 
   <!-- Google Ad Manager (GPT) -->
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-  <script>
-    window.googletag = window.googletag || { cmd: [] };
-    
-    // Variáveis globais para o anúncio recompensado
-    let rewardedSlot = null;
-    let onRewardGranted = null;
-    let adManagerReady = false;
-    let lastAdTime = 0; // Controle de cooldown
-
-    // IMPORTANTE: Substitua '/23338423029/runner_anuncio' pelo seu Ad Unit Path correto
-    googletag.cmd.push(function () {
-      try {
-        // Define o slot de anúncio recompensado
-        rewardedSlot = googletag.defineOutOfPageSlot(
-         '/23338423029/runner_anuncio',
-          googletag.enums.OutOfPageFormat.REWARDED
-        );
-
-        if (rewardedSlot) {
-          rewardedSlot.addService(googletag.pubads());
-
-          // Evento: slot está pronto para ser exibido
-          googletag.pubads().addEventListener('rewardedSlotReady', function (event) {
-            console.log('✅ Anúncio recompensado pronto');
-            event.makeRewardedVisible();
-          });
-
-          // Evento: recompensa foi concedida
-          googletag.pubads().addEventListener('rewardedSlotGranted', function (event) {
-            console.log('🎁 Recompensa concedida!');
-            if (typeof onRewardGranted === 'function') {
-              onRewardGranted();
-              onRewardGranted = null;
-            }
-          });
-
-          // Evento: usuário fechou o anúncio
-          googletag.pubads().addEventListener('rewardedSlotClosed', function () {
-            console.log('❌ Anúncio fechado pelo usuário');
-            // Resetar callback se o usuário fechou sem ver
-            if (typeof onRewardGranted === 'function') {
-              alert('Você precisa assistir o anúncio completo para ganhar a vida extra!');
-              onRewardGranted = null;
-            }
-          });
-
-          // Evento: slot renderizado (útil para debug)
-          googletag.pubads().addEventListener('slotRenderEnded', function (event) {
-            console.log('📺 Slot renderizado:', event);
-          });
-
-          // Habilita serviços do GPT
-          googletag.enableServices();
-          
-          googletag.display(rewardedSlot); 
-
-          adManagerReady = true;
-          console.log('✅ Google Ad Manager inicializado');
-        } else {
-          console.error('❌ Falha ao criar rewardedSlot');
-        }
-      } catch (err) {
-        console.error('❌ Erro ao configurar Google Ad Manager:', err);
-      }
-    });
-  </script>
 
   <style>
     * {
@@ -396,6 +330,62 @@ const finalCoinsElement = document.getElementById('finalCoins');
 const bestScoreElement = document.getElementById('bestScore');
 const newRecordBadge = document.getElementById('newRecordBadge');
 const adStatus = document.getElementById('adStatus');
+
+window.googletag = window.googletag || { cmd: [] };
+    
+    // --- VARIÁVEIS DO ANÚNCIO (CORRIGIDAS) ---
+    window.googletag = window.googletag || { cmd: [] };
+    let rewardedSlot = null;
+    let onRewardGranted = null;
+    let adManagerReady = false;
+    let lastAdTime = 0; 
+    let adReadyEvent = null; // ✅ CORREÇÃO 1: Variável declarada globalmente
+
+    // IMPORTANTE: Substitua '/23338423029/runner_anuncio' pelo seu Ad Unit Path correto
+googletag.cmd.push(function () {
+  try {
+    rewardedSlot = googletag.defineOutOfPageSlot(
+      '/23338423029/runner_anuncio',
+      googletag.enums.OutOfPageFormat.REWARDED
+    );
+
+    if (rewardedSlot) {
+      rewardedSlot.addService(googletag.pubads());
+
+      // ✅ CORREÇÃO 2: Listener modificado para "guardar" o anúncio
+      googletag.pubads().addEventListener('rewardedSlotReady', function (event) {
+        console.log('✅ Anúncio recompensado pronto e guardado');
+        adReadyEvent = event; 
+        
+        // Se o jogador já clicou no botão e estava esperando, mostra agora
+        if (rewardBtn.classList.contains('loading')) {
+          exibirAnuncioAgora();
+        }
+      });
+
+      googletag.pubads().addEventListener('rewardedSlotGranted', function (event) {
+        console.log('🎁 Recompensa concedida!');
+        if (typeof onRewardGranted === 'function') {
+          onRewardGranted();
+          onRewardGranted = null;
+        }
+      });
+
+      googletag.pubads().addEventListener('rewardedSlotClosed', function () {
+        console.log('❌ Anúncio fechado');
+        adReadyEvent = null; // Limpa o cache
+        googletag.pubads().refresh([rewardedSlot]); // Pré-carrega o próximo
+      });
+
+      googletag.enableServices();
+      googletag.display(rewardedSlot); 
+      adManagerReady = true;
+    }
+  } catch (err) {
+    console.error('❌ Erro GAM:', err);
+  }
+});
+
 
 // Ajustar canvas para tela cheia
 function resizeCanvas() {
@@ -1000,8 +990,7 @@ function mostrarAnuncioRecompensado(callback) {
 
   const now = Date.now();
   if (now - lastAdTime < AD_COOLDOWN) {
-    const tempoRestante = Math.ceil((AD_COOLDOWN - (now - lastAdTime)) / 1000);
-    alert(`⏳ Aguarde ${tempoRestante} segundos.`);
+    alert(`⏳ Aguarde um pouco para ver outro anúncio.`);
     return;
   }
 
@@ -1011,30 +1000,31 @@ function mostrarAnuncioRecompensado(callback) {
   rewardBtn.textContent = '⏳ CARREGANDO...';
 
   if (adReadyEvent) {
-    // SE JÁ TIVER UM ANÚNCIO CARREGADO (como mostrou o seu log)
+    // Se o log disse "Renderização concluída", o adReadyEvent já existe!
     exibirAnuncioAgora();
   } else {
-    // SE NÃO TIVER, PEDE UM NOVO
-    console.log('📡 Buscando novo anúncio...');
+    console.log('📡 Buscando anúncio no servidor...');
     googletag.pubads().refresh([rewardedSlot]);
     
-    // Timeout para caso o Google não mande nada (No Fill)
+    // Timeout para não travar o botão se o Google não responder
     setTimeout(() => {
       if (!adReadyEvent && rewardBtn.classList.contains('loading')) {
-        console.warn('⏱️ Sem anúncios disponíveis no momento.');
+        console.warn('⏱️ Timeout ou No Fill. Usando fallback.');
         usarFallbackSimulado(callback);
       }
-    }, 8000);
+    }, 10000);
   }
 }
+
 
 // Função auxiliar para mostrar o anúncio
 function exibirAnuncioAgora() {
   if (adReadyEvent) {
+    console.log('📺 Exibindo anúncio recompensado...');
     adReadyEvent.makeRewardedVisible();
     rewardBtn.classList.remove('loading');
-    rewardBtn.textContent = '🎁 CONTINUAR';
     rewardBtn.disabled = false;
+    rewardBtn.textContent = '🎁 CONTINUAR (ASSISTIR ANÚNCIO)';
     hideAdStatus();
   }
 }
