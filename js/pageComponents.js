@@ -321,6 +321,15 @@ const searchIndex = [
         content: "reviews analises avaliações produtos gadgets tecnologia opiniao testes benchmark",
         tags: ["reviews", "analises", "produtos"]
     }
+    ,
+    {
+        id: 13,
+        title: "Jogos",
+        url: "/categories/jogos/runner.html",
+        description: "Tudo sobre jogos eletrônicos",
+        content: "jogos video game consoles pc games desenvolvimento desenvolvedores",
+        tags: ["jogos", "video-game", "desenvolvimento"]
+    }
 ];
 
 // ========================================
