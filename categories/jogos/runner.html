@@ -13,6 +13,8 @@
       gtag('config', 'G-NFY6RYBJZJ');
   </script>
 
+  <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+
   <title>Runner Tech - Jogo de Corrida Infinita Online Grátis</title>
   <meta name="description" content="Desafie seus reflexos no Runner Tech! Um jogo de corrida futurista grátis. Desvie de drones, colete moedas e bata recordes no seu navegador mobile ou PC.">
   <meta name="keywords" content="runner tech, jogo de corrida, infinite runner, jogo de navegador, jogo grátis, jogo mobile online, jogo de desvio, jogo de coleta de moedas, jogo futurista, jogo de reflexos, jogo de obstáculos, jogo arcade, jogo casual, jogo para celular, jogo para PC">
@@ -52,9 +54,6 @@
     "featureList": "Corrida infinita, coleta de moedas, recordes locais, otimizado para mobile"
   }
   </script>
-
-  <!-- Google Ad Manager (GPT) -->
-  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
 
   <style>
     * {
@@ -190,18 +189,6 @@
       box-shadow: 0 0 20px rgba(255, 0, 255, 0.6), 0 4px 15px rgba(255, 0, 255, 0.4);
     }
 
-    #rewardBtn {
-      background: linear-gradient(135deg, #ffd700, #ff9900);
-      border-color: #ffd700;
-      color: #000;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 4px 15px rgba(255, 153, 0, 0.4);
-    }
-
-    #rewardBtn.loading {
-      background: linear-gradient(135deg, #888, #666);
-      animation: pulse 1.5s infinite;
-    }
-
     #shareBtn {
       background: linear-gradient(135deg, #00ff88, #00cc66);
       border-color: #00ff88;
@@ -312,23 +299,6 @@
       }
     }
 
-    #adStatus {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: #ffd700;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 14px;
-      display: none;
-      z-index: 300;
-    }
-
-    #adStatus.show {
-      display: block;
-    }
   </style>
 </head>
 <body>
@@ -351,7 +321,6 @@
     <div class="record">⭐ Recorde: <span id="bestScore">0</span></div>
     
     <div class="buttons">
-      <button id="rewardBtn" class="btn-game">🎁 CONTINUAR (ASSISTIR ANÚNCIO)</button>
       <button id="restartBtn" class="btn-game">🔄 REINICIAR</button>
       <button id="shareBtn" class="btn-game">📤 COMPARTILHAR</button>
     </div>
@@ -360,8 +329,6 @@
   <!-- Badge de novo recorde -->
   <div id="newRecordBadge">🎉 NOVO RECORDE! 🎉</div>
 
-  <!-- Status do anúncio -->
-  <div id="adStatus">⏳ Carregando anúncio...</div>
 </div>
 
 <script>
@@ -370,79 +337,12 @@ const ctx = canvas.getContext('2d');
 const instructions = document.getElementById('instructions');
 const startBtn = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restartBtn');
-const rewardBtn = document.getElementById('rewardBtn');
 const shareBtn = document.getElementById('shareBtn');
 const gameOverOverlay = document.getElementById('gameOverOverlay');
 const finalScoreElement = document.getElementById('finalScore');
 const finalCoinsElement = document.getElementById('finalCoins');
 const bestScoreElement = document.getElementById('bestScore');
 const newRecordBadge = document.getElementById('newRecordBadge');
-const adStatus = document.getElementById('adStatus');
-
-window.googletag = window.googletag || { cmd: [] };
-    
-    // --- VARIÁVEIS DO ANÚNCIO (CORRIGIDAS) ---
-    window.googletag = window.googletag || { cmd: [] };
-    let rewardedSlot = null;
-    let onRewardGranted = null;
-    let adManagerReady = false;
-    let lastAdTime = 0; 
-    let adReadyEvent = null; // ✅ CORREÇÃO 1: Variável declarada globalmente
-
-    // IMPORTANTE: Substitua '/23338423029/runner_anuncio' pelo seu Ad Unit Path correto
-googletag.cmd.push(function () {
-  try {
-    rewardedSlot = googletag.defineOutOfPageSlot(
-      '/23338423029/runner_anuncio',
-      googletag.enums.OutOfPageFormat.REWARDED
-    );
-
-    if (rewardedSlot) {
-      rewardedSlot.addService(googletag.pubads());
-
-      // ✅ CORREÇÃO 2: Listener modificado para "guardar" o anúncio
-      googletag.pubads().addEventListener('rewardedSlotReady', function (event) {
-        console.log('✅ Anúncio recompensado pronto e guardado');
-        adReadyEvent = event; 
-        
-        // Se o jogador já clicou no botão e estava esperando, mostra agora
-        if (rewardBtn.classList.contains('loading')) {
-          exibirAnuncioAgora();
-        }
-      });
-
-      googletag.pubads().addEventListener('rewardedSlotGranted', function (event) {
-        console.log('🎁 Recompensa concedida!');
-        if (typeof onRewardGranted === 'function') {
-          onRewardGranted();
-          onRewardGranted = null;
-        }
-      });
-
-      googletag.pubads().addEventListener('rewardedSlotClosed', function () {
-        console.log('❌ Anúncio fechado');
-        adReadyEvent = null; // Limpa o cache
-        googletag.pubads().refresh([rewardedSlot]); // Pré-carrega o próximo
-      });
-
-            googletag.pubads().addEventListener('slotRenderEnded', function (event) {
-      if (event.slot === rewardedSlot) {
-          if (event.isEmpty) {
-            console.warn('⚠️ O Google enviou um anúncio VAZIO (No Fill).');
-          } else {
-            console.log('🎬 O Google enviou um anúncio COM CONTEÚDO! Preparando para exibir...');
-          }
-        }
-      });
-
-      googletag.enableServices();
-      googletag.display(rewardedSlot); 
-      adManagerReady = true;
-    }
-  } catch (err) {
-    console.error('❌ Erro GAM:', err);
-  }
-});
 
 
 // Ajustar canvas para tela cheia
@@ -465,13 +365,6 @@ let bestScore = parseInt(localStorage.getItem('runnerBestScore')) || 0;
 let isNewRecord = false;
 let roadOffset = 0;
 let objectTimer = 0;
-
-// Proteção após continuar com anúncio
-let protectionTime = 0;
-const PROTECTION_DURATION = 180; // 3 segundos de proteção (60 frames por segundo)
-
-// Cooldown de anúncios (30 segundos)
-const AD_COOLDOWN = 30000;
 
 // Carregar imagens
 const playerImage = new Image();
@@ -674,16 +567,12 @@ function createObject() {
 function updateObjects() {
   objectTimer++;
 
-  // Só criar novos obstáculos após o tempo de proteção
-  if (protectionTime <= 0 && objectTimer > 50 - (gameSpeed * 2)) {
+  if (objectTimer > 50 - (gameSpeed * 2)) {
     createObject();
     objectTimer = 0;
   }
 
-  // Decrementar tempo de proteção
-  if (protectionTime > 0) {
-    protectionTime--;
-  }
+
 
   objects.forEach((obj, index) => {
     obj.y += gameSpeed;
@@ -867,32 +756,7 @@ function drawHUD() {
   ctx.font = "bold 20px Arial";
   ctx.fillText("⭐ " + bestScore, 25, 92);
 
-  // Indicador de proteção
-  if (protectionTime > 0) {
-    ctx.save();
-    ctx.fillStyle = "rgba(0, 255, 0, 0.2)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    ctx.fillStyle = "rgba(0, 0, 0, 0.85)";
-    ctx.fillRect(canvas.width / 2 - 120, canvas.height / 2 - 40, 240, 80);
-    
-    ctx.strokeStyle = "#00ff00";
-    ctx.lineWidth = 3;
-    ctx.strokeRect(canvas.width / 2 - 120, canvas.height / 2 - 40, 240, 80);
-    
-    ctx.fillStyle = "#00ff00";
-    ctx.font = "bold 24px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText("🛡️ PROTEÇÃO ATIVA", canvas.width / 2, canvas.height / 2 - 5);
-    
-    ctx.font = "bold 18px Arial";
-    ctx.fillStyle = "#88ff88";
-    const timeLeft = (protectionTime / 60).toFixed(1);
-    ctx.fillText(`${timeLeft}s`, canvas.width / 2, canvas.height / 2 + 25);
-    
-    ctx.textAlign = "left";
-    ctx.restore();
-  }
+
 }
 
 // Controles
@@ -999,10 +863,6 @@ function resetGame() {
   player.init();
   gameOverOverlay.classList.remove('show');
   
-  // Resetar estado do botão de anúncio
-  rewardBtn.disabled = false;
-  rewardBtn.classList.remove('loading');
-  rewardBtn.textContent = '🎁 CONTINUAR (ASSISTIR ANÚNCIO)';
 }
 
 function checkNewRecord() {
@@ -1039,133 +899,6 @@ function shareResults() {
   }
 }
 
-// =====================================================
-// ANÚNCIO RECOMPENSADO - VERSÃO CORRIGIDA
-// =====================================================
-
-function mostrarAnuncioRecompensado(callback) {
-  if (!gameOver) return;
-
-  const now = Date.now();
-  if (now - lastAdTime < AD_COOLDOWN) {
-    alert(`⏳ Aguarde um pouco para ver outro anúncio.`);
-    return;
-  }
-
-  onRewardGranted = callback;
-  rewardBtn.disabled = true;
-  rewardBtn.classList.add('loading');
-  rewardBtn.textContent = '⏳ CARREGANDO...';
-
-  if (adReadyEvent) {
-    // Se o log disse "Renderização concluída", o adReadyEvent já existe!
-    exibirAnuncioAgora();
-  } else {
-    console.log('📡 Buscando anúncio no servidor...');
-    googletag.pubads().refresh([rewardedSlot]);
-    
-    // Timeout para não travar o botão se o Google não responder
-    setTimeout(() => {
-      if (!adReadyEvent && rewardBtn.classList.contains('loading')) {
-        console.warn('⏱️ Timeout ou No Fill. Usando fallback.');
-        usarFallbackSimulado(callback);
-      }
-    }, 10000);
-  }
-}
-
-
-// Função auxiliar para mostrar o anúncio
-function exibirAnuncioAgora() {
-  if (adReadyEvent) {
-    console.log('📺 Exibindo anúncio recompensado...');
-    adReadyEvent.makeRewardedVisible();
-    rewardBtn.classList.remove('loading');
-    rewardBtn.disabled = false;
-    rewardBtn.textContent = '🎁 CONTINUAR (ASSISTIR ANÚNCIO)';
-    hideAdStatus();
-  }
-}
-
-function usarFallbackSimulado(callback) {
-  console.log('🔄 Usando fallback simulado (modo de teste)');
-  
-  rewardBtn.textContent = '⏳ ASSISTINDO...';
-  showAdStatus('🎬 Simulando anúncio (modo teste)', 0);
-  
-  setTimeout(() => {
-    hideAdStatus();
-    rewardBtn.textContent = '💎 VIDA EXTRA';
-    rewardBtn.disabled = false;
-    rewardBtn.classList.remove('loading');
-    
-    // Conceder recompensa
-    if (typeof callback === 'function') {
-      callback();
-      lastAdTime = Date.now();
-    }
-    
-    onRewardGranted = null;
-  }, 3000);
-}
-
-function continuarJogo() {
-  console.log('✅ Recompensa concedida - continuando jogo');
-  
-  // IMPORTANTE: Manter score e coins (os ganhos da partida anterior)
-  // NÃO resetar: score, coins
-  
-  // Resetar apenas o estado do jogo
-  gameOver = false;
-  gameOverOverlay.classList.remove('show');
-  
-  // Limpar TODOS os obstáculos da tela (começar com tela limpa)
-  objects.length = 0;
-  objectTimer = 0;
-  
-  // Ativar tempo de proteção (3 segundos sem obstáculos)
-  protectionTime = PROTECTION_DURATION;
-  
-  // Resetar velocidade do jogo para dar uma chance ao jogador
-  gameSpeed = 3;
-  
-  // Reposicionar player no chão
-  player.x = canvas.width / 2;
-  player.y = canvas.height - 120;
-  player.velocityY = 0;
-  player.velocityX = 0;
-  player.onGround = true;
-  player.movingLeft = false;
-  player.movingRight = false;
-  
-  // Resetar botão
-  rewardBtn.disabled = false;
-  rewardBtn.classList.remove('loading');
-  rewardBtn.textContent = '🎁 CONTINUAR (ASSISTIR ANÚNCIO)';
-  
-  // Feedback visual
-  showAdStatus('🎁 Vida extra concedida! Continue de onde parou!', 3000);
-  
-  console.log(`💰 Mantidos: ${Math.floor(score)} pontos e ${coins} moedas`);
-}
-
-function showAdStatus(message, duration) {
-  adStatus.textContent = message;
-  adStatus.classList.add('show');
-  
-  if (duration > 0) {
-    setTimeout(() => hideAdStatus(), duration);
-  }
-}
-
-function hideAdStatus() {
-  adStatus.classList.remove('show');
-}
-
-// =====================================================
-// EVENT LISTENERS
-// =====================================================
-
 startBtn.addEventListener("click", () => {
   instructions.classList.add('hide');
   gameStarted = true;
@@ -1180,13 +913,6 @@ startBtn.addEventListener("keydown", (e) => {
 
 restartBtn.addEventListener("click", resetGame);
 shareBtn.addEventListener("click", shareResults);
-
-rewardBtn.addEventListener('click', () => {
-  if (!gameOver) return;
-  mostrarAnuncioRecompensado(() => {
-    continuarJogo();
-  });
-});
 
 // =====================================================
 // GAME LOOP
@@ -1244,8 +970,11 @@ canvas.addEventListener('contextmenu', (e) => {
 });
 
 console.log('🎮 Runner Tech inicializado!');
-console.log('📱 Google Ad Manager:', adManagerReady ? '✅ Pronto' : '⏳ Carregando...');
+
 </script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>
