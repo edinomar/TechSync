@@ -996,59 +996,47 @@ function shareResults() {
 // =====================================================
 
 function mostrarAnuncioRecompensado(callback) {
-  // Validações
-  if (!gameOver) {
-    console.warn('⚠️ Anúncio só pode ser exibido durante Game Over');
-    return;
-  }
+  if (!gameOver) return;
 
-  // Verificar cooldown
   const now = Date.now();
   if (now - lastAdTime < AD_COOLDOWN) {
     const tempoRestante = Math.ceil((AD_COOLDOWN - (now - lastAdTime)) / 1000);
-    alert(`⏳ Aguarde ${tempoRestante} segundos para assistir outro anúncio`);
+    alert(`⏳ Aguarde ${tempoRestante} segundos.`);
     return;
   }
 
-  // Verificar se Ad Manager está pronto
-  if (!adManagerReady || !rewardedSlot) {
-    console.warn('⚠️ Google Ad Manager não está pronto');
-    showAdStatus('❌ Anúncio não disponível no momento', 3000);
-    usarFallbackSimulado(callback);
-    return;
-  }
-
-  // Definir callback global
   onRewardGranted = callback;
-
-  // Feedback visual
   rewardBtn.disabled = true;
   rewardBtn.classList.add('loading');
   rewardBtn.textContent = '⏳ CARREGANDO...';
-  showAdStatus('⏳ Carregando anúncio...', 0);
 
-  // Exibir anúncio usando o método correto
-  googletag.cmd.push(function () {
-    try {
-      // CORREÇÃO PRINCIPAL: usar refresh() ao invés de display()
-      googletag.pubads().refresh([rewardedSlot]);
-      console.log('📺 Solicitando exibição do anúncio recompensado');
-      
-      // Timeout de segurança (10 segundos)
-      setTimeout(() => {
-        if (rewardBtn.disabled && rewardBtn.classList.contains('loading')) {
-          console.warn('⏱️ Timeout: anúncio não carregou a tempo');
-          hideAdStatus();
-          usarFallbackSimulado(callback);
-        }
-      }, 10000);
-      
-    } catch (err) {
-      console.error('❌ Erro ao exibir anúncio:', err);
-      hideAdStatus();
-      usarFallbackSimulado(callback);
-    }
-  });
+  if (adReadyEvent) {
+    // SE JÁ TIVER UM ANÚNCIO CARREGADO (como mostrou o seu log)
+    exibirAnuncioAgora();
+  } else {
+    // SE NÃO TIVER, PEDE UM NOVO
+    console.log('📡 Buscando novo anúncio...');
+    googletag.pubads().refresh([rewardedSlot]);
+    
+    // Timeout para caso o Google não mande nada (No Fill)
+    setTimeout(() => {
+      if (!adReadyEvent && rewardBtn.classList.contains('loading')) {
+        console.warn('⏱️ Sem anúncios disponíveis no momento.');
+        usarFallbackSimulado(callback);
+      }
+    }, 8000);
+  }
+}
+
+// Função auxiliar para mostrar o anúncio
+function exibirAnuncioAgora() {
+  if (adReadyEvent) {
+    adReadyEvent.makeRewardedVisible();
+    rewardBtn.classList.remove('loading');
+    rewardBtn.textContent = '🎁 CONTINUAR';
+    rewardBtn.disabled = false;
+    hideAdStatus();
+  }
 }
 
 function usarFallbackSimulado(callback) {
