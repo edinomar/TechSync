@@ -21,7 +21,7 @@
       try {
         // Define o slot de anúncio recompensado
         rewardedSlot = googletag.defineOutOfPageSlot(
-          '/23338423029/runner_anuncio',
+          '/22490333/fullscreen_interstitial_ad',
           googletag.enums.OutOfPageFormat.REWARDED
         );
 
@@ -60,6 +60,9 @@
 
           // Habilita serviços do GPT
           googletag.enableServices();
+          
+          googletag.display(rewardedSlot); 
+
           adManagerReady = true;
           console.log('✅ Google Ad Manager inicializado');
         } else {
