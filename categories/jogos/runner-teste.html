@@ -301,10 +301,10 @@
       left: 50%;
       transform: translate(-50%, -50%);
       display: none;
-      font-size: 48px;
+      font-size: 33.6px;
       font-weight: bold;
       color: #00ffff;
-      padding: 30px 60px;
+      padding: 21px 42px;
       background: rgba(0, 128, 255, 0.5);
       border-radius: 20px;
       text-shadow: 0 0 20px rgba(0, 255, 255, 0.9);
@@ -727,8 +727,8 @@ function createObject() {
     type = 'high';
     height = 95;
     width = 95;
-    // A partir do nível 2, alguns obstáculos grandes são mais rápidos
-    if (currentLevel >= 2 && Math.random() < 0.4) {
+    // A partir do nível 3, alguns obstáculos grandes são mais rápidos
+    if (currentLevel >= 3 && Math.random() < 0.4) {
       speedMultiplier = 1.5 + (currentLevel * 0.2); // Aumenta com o nível
     }
   }
