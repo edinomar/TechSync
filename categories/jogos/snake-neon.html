@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Snake Neon - Jogo Clássico Futurista</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a2535 0%, #2a3f5a 50%, #1f2f42 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    #gameWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      width: 100%;
+      max-width: 650px;
+    }
+
+    #welcomeScreen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 40px 30px;
+      background: linear-gradient(180deg, #1a2332 0%, #2a3f5f 30%, #1e2f45 60%, #1a2332 100%);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 20px;
+      box-shadow:
+        0 0 30px rgba(0, 191, 255, 0.5),
+        0 0 60px rgba(0, 191, 255, 0.3),
+        0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    #welcomeScreen.hide {
+      display: none;
+    }
+
+    #welcomeScreen h1 {
+      color: #00ffff;
+      font-size: 48px;
+      margin-bottom: 40px;
+      text-shadow:
+        0 0 20px rgba(0, 255, 255, 0.8),
+        0 0 40px rgba(0, 191, 255, 0.6);
+    }
+
+    /* Dropdown Styles */
+    .dropdown-container {
+      width: 100%;
+      max-width: 450px;
+      margin: 20px 0;
+      padding: 20px;
+      background: rgba(0, 191, 255, 0.05);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s;
+    }
+
+    .dropdown-container:hover {
+      border-color: rgba(0, 255, 255, 0.4);
+      box-shadow: 0 4px 30px rgba(0, 191, 255, 0.2);
+      background: rgba(0, 191, 255, 0.08);
+    }
+
+    .dropdown-label {
+      display: block;
+      color: #00ffff;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.3);
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .dropdown-select {
+      width: 100%;
+      padding: 16px 50px 16px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(135deg, rgba(0, 191, 255, 0.15), rgba(0, 128, 255, 0.15));
+      border: 2px solid rgba(0, 255, 255, 0.4);
+      border-radius: 12px;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      outline: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%2300ffff' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      box-shadow: 
+        0 0 15px rgba(0, 191, 255, 0.3),
+        inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .dropdown-select:hover {
+      background: linear-gradient(135deg, rgba(0, 191, 255, 0.25), rgba(0, 128, 255, 0.25));
+      border-color: #00ffff;
+      box-shadow: 
+        0 0 25px rgba(0, 255, 255, 0.5),
+        inset 0 2px 5px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .dropdown-select:focus {
+      border-color: #00ffff;
+      box-shadow: 
+        0 0 35px rgba(0, 255, 255, 0.7),
+        0 0 50px rgba(0, 255, 255, 0.4),
+        inset 0 2px 5px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .dropdown-select:active {
+      transform: translateY(0);
+    }
+
+    .dropdown-select option {
+      background: #1a2332;
+      color: #ffffff;
+      padding: 15px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .dropdown-description {
+      font-size: 13px;
+      color: #aaddff;
+      margin-top: 10px;
+      text-align: center;
+      line-height: 1.6;
+      font-style: italic;
+      text-shadow: 0 0 5px rgba(170, 221, 255, 0.3);
+    }
+
+    #gamePlayArea {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+    }
+
+    #gamePlayArea.show {
+      display: flex;
+    }
+
+    #topBar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 600px;
+      max-width: 90vw;
+      gap: 15px;
+    }
+
+    #menuTopBtn {
+      padding: 10px 25px;
+      font-size: 15px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #ff00ff, #8800ff);
+      border: 2px solid #ff00ff;
+      border-radius: 25px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(255, 0, 255, 0.3), 0 4px 8px rgba(255, 0, 255, 0.2);
+      transition: all 0.3s;
+      text-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+    }
+
+    #menuTopBtn:hover {
+      box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    #menuTopBtn:active {
+      transform: scale(0.95);
+    }
+
+    #gameContainer {
+      position: relative;
+      width: 600px;
+      height: 600px;
+      box-shadow:
+        0 0 30px rgba(0, 191, 255, 0.5),
+        0 0 60px rgba(0, 191, 255, 0.3),
+        0 20px 60px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      border: 2px solid rgba(0, 255, 255, 0.3);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #1a2332 0%, #2a3f5f 30%, #1e2f45 60%, #1a2332 100%);
+    }
+
+    #hud {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex: 1;
+      padding: 12px 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    }
+
+    #score {
+      color: #00ffff;
+    }
+
+    #bestScore {
+      color: #ff1493;
+    }
+
+    #startBtn {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 14px 35px;
+      font-size: 17px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #00bfff, #0080ff);
+      border: 2px solid #00ffff;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      box-shadow:
+        0 0 20px rgba(0, 191, 255, 0.6),
+        0 4px 15px rgba(0, 191, 255, 0.4);
+      transition: all 0.3s;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+      width: 100%;
+      max-width: 300px;
+    }
+
+    #startBtn:hover {
+      background: linear-gradient(135deg, #00d4ff, #0099ff);
+      box-shadow:
+        0 0 30px rgba(0, 255, 255, 0.8),
+        0 4px 20px rgba(0, 191, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    #startBtn:active {
+      transform: scale(0.95);
+    }
+
+    .btn-game {
+      width: 100%;
+      padding: 14px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      border: 2px solid;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2), 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      text-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .btn-game:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0,0,0,0.3), 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn-game:active {
+      transform: scale(0.95);
+    }
+
+    #restartBtn {
+      background: linear-gradient(135deg, #00bfff, #0080ff);
+      border-color: #00ffff;
+      box-shadow: 0 0 8px rgba(0, 191, 255, 0.3), 0 4px 8px rgba(0, 191, 255, 0.2);
+    }
+
+    #menuBtn {
+      background: linear-gradient(135deg, #ff00ff, #8800ff);
+      border-color: #ff00ff;
+      box-shadow: 0 0 8px rgba(255, 0, 255, 0.3), 0 4px 8px rgba(255, 0, 255, 0.2);
+    }
+
+    #shareBtn {
+      background: linear-gradient(135deg, #00ff88, #00cc66);
+      border-color: #00ff88;
+      box-shadow: 0 0 8px rgba(0, 255, 136, 0.3), 0 4px 8px rgba(0, 255, 136, 0.2);
+    }
+
+    #gameOverOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    #gameOverOverlay.show {
+      display: flex;
+    }
+
+    #gameOverOverlay h1 {
+      font-size: 42px;
+      color: #ff0080;
+      margin-bottom: 25px;
+      text-shadow:
+        0 0 15px rgba(255, 0, 128, 0.6),
+        0 0 30px rgba(255, 0, 128, 0.4);
+    }
+
+    #gameOverOverlay p {
+      font-size: 22px;
+      color: white;
+      margin: 10px 0;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .score-highlight {
+      color: #00ffff;
+      font-weight: bold;
+      font-size: 28px;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+    }
+
+    #newRecordBadge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ff9500 100%);
+      color: #000;
+      font-size: 28px;
+      font-weight: 900;
+      padding: 35px 60px;
+      border-radius: 25px;
+      border: 4px solid #fff;
+      box-shadow: 
+        0 0 60px rgba(255, 215, 0, 1),
+        0 0 100px rgba(255, 215, 0, 0.6),
+        0 10px 40px rgba(0, 0, 0, 0.5),
+        inset 0 2px 15px rgba(255, 255, 255, 0.5);
+      z-index: 200;
+      pointer-events: none;
+      transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      text-shadow: 
+        2px 2px 4px rgba(255, 149, 0, 0.5),
+        -1px -1px 2px rgba(255, 255, 255, 0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: recordPulse 1.5s infinite;
+    }
+
+    @keyframes recordPulse {
+      0%, 100% {
+        box-shadow: 
+          0 0 60px rgba(255, 215, 0, 1),
+          0 0 100px rgba(255, 215, 0, 0.6),
+          0 10px 40px rgba(0, 0, 0, 0.5),
+          inset 0 2px 15px rgba(255, 255, 255, 0.5);
+      }
+      50% {
+        box-shadow: 
+          0 0 80px rgba(255, 215, 0, 1),
+          0 0 120px rgba(255, 215, 0, 0.8),
+          0 15px 50px rgba(0, 0, 0, 0.6),
+          inset 0 2px 20px rgba(255, 255, 255, 0.7);
+      }
+    }
+
+    #newRecordBadge.show {
+      transform: translate(-50%, -50%) scale(1);
+      animation: recordPulse 1.5s infinite, recordBounce 0.6s ease-out;
+    }
+
+    @keyframes recordBounce {
+      0% {
+        transform: translate(-50%, -50%) scale(0) rotate(-5deg);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(2deg);
+      }
+      70% {
+        transform: translate(-50%, -50%) scale(0.95) rotate(-1deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+    }
+
+    #newRecordBadge::before {
+      content: '⭐';
+      position: absolute;
+      left: 15px;
+      font-size: 35px;
+      animation: starSpin 2s linear infinite;
+    }
+
+    #newRecordBadge::after {
+      content: '⭐';
+      position: absolute;
+      right: 15px;
+      font-size: 35px;
+      animation: starSpin 2s linear infinite reverse;
+    }
+
+    @keyframes starSpin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .game-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 300px;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    #touchControls {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 200px;
+      z-index: 50;
+    }
+
+    #touchControls.show {
+      display: grid;
+      grid-template-areas:
+        ". up ."
+        "left . right"
+        ". down .";
+      grid-template-columns: 60px 60px 60px;
+      grid-template-rows: 60px 60px 60px;
+      gap: 5px;
+    }
+
+    .touch-btn {
+      background: rgba(0, 191, 255, 0.3);
+      border: 2px solid rgba(0, 255, 255, 0.5);
+      border-radius: 12px;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      user-select: none;
+      box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
+    }
+
+    .touch-btn:active {
+      background: rgba(0, 191, 255, 0.6);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
+      transform: scale(0.95);
+    }
+
+    #btnUp { grid-area: up; }
+    #btnDown { grid-area: down; }
+    #btnLeft { grid-area: left; }
+    #btnRight { grid-area: right; }
+
+    @media (max-width: 650px) {
+      #gameContainer {
+        width: 90vw;
+        height: 90vw;
+        max-width: 500px;
+        max-height: 500px;
+      }
+      
+      #topBar {
+        width: 90vw;
+      }
+      
+      #welcomeScreen h1 {
+        font-size: 36px;
+      }
+      
+      .dropdown-container {
+        max-width: 90%;
+      }
+    }
+
+    @media (max-width: 450px) {
+      #welcomeScreen {
+        padding: 30px 20px;
+      }
+      
+      #welcomeScreen h1 {
+        font-size: 28px;
+        margin-bottom: 30px;
+      }
+      
+      .dropdown-label {
+        font-size: 14px;
+      }
+      
+      .dropdown-select {
+        font-size: 14px;
+        padding: 12px 15px;
+      }
+      
+      #startBtn {
+        font-size: 15px;
+        padding: 12px 30px;
+      }
+      
+      #gameOverOverlay h1 {
+        font-size: 32px;
+      }
+      
+      #gameOverOverlay p {
+        font-size: 18px;
+      }
+      
+      .score-highlight {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="gameWrapper">
+    <!-- Tela de Boas-Vindas -->
+    <div id="welcomeScreen">
+      <h1>🐍 SNAKE NEON</h1>
+      
+      <!-- Dropdown de Velocidade -->
+      <div class="dropdown-container">
+        <label class="dropdown-label">⚡ Velocidade</label>
+        <select id="speedSelect" class="dropdown-select">
+          <option value="150">🐌 Easy (Fácil)</option>
+          <option value="100" selected>⚡ Normal (Médio)</option>
+          <option value="60">🚀 Hard (Rápido)</option>
+        </select>
+        <p class="dropdown-description" id="speedDescription">Velocidade média - perfeita para começar!</p>
+      </div>
+
+      <!-- Dropdown de Dificuldade -->
+      <div class="dropdown-container">
+        <label class="dropdown-label">🎯 Nível de Dificuldade</label>
+        <select id="difficultySelect" class="dropdown-select">
+          <option value="1" selected>🌀 Nível 1: Atravessa Paredes</option>
+          <option value="2">🧱 Nível 2: Paredes Mortais</option>
+          <option value="3">⚠️ Nível 3: Obstáculos no Tabuleiro</option>
+        </select>
+        <p class="dropdown-description" id="difficultyDescription">A cobra atravessa as paredes e aparece do outro lado - perfeito para iniciantes!</p>
+      </div>
+
+      <button id="startBtn">🎮 INICIAR JOGO</button>
+    </div>
+
+    <!-- Área de Jogo -->
+    <div id="gamePlayArea">
+      <div id="topBar">
+        <button id="menuTopBtn">← MENU</button>
+        <div id="hud">
+          <span>Pontos: <span id="score">0</span></span>
+          <span>Recorde: <span id="bestScore">0</span></span>
+        </div>
+      </div>
+
+      <div id="gameContainer">
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+        
+        <!-- Game Over Overlay -->
+        <div id="gameOverOverlay">
+          <h1>💀 GAME OVER</h1>
+          <p>Pontuação: <span class="score-highlight" id="finalScore">0</span></p>
+          <p>Recorde: <span class="score-highlight" id="finalBestScore">0</span></p>
+          
+          <div class="game-buttons">
+            <button id="restartBtn" class="btn-game">🔄 JOGAR NOVAMENTE</button>
+            <button id="menuBtn" class="btn-game">🏠 MENU INICIAL</button>
+            <button id="shareBtn" class="btn-game">📤 COMPARTILHAR</button>
+          </div>
+        </div>
+
+        <!-- Badge de Novo Recorde -->
+        <div id="newRecordBadge">🏆 NOVO RECORDE!</div>
+      </div>
+    </div>
+
+    <!-- Controles Touch -->
+    <div id="touchControls">
+      <button id="btnUp" class="touch-btn">▲</button>
+      <button id="btnDown" class="touch-btn">▼</button>
+      <button id="btnLeft" class="touch-btn">◄</button>
+      <button id="btnRight" class="touch-btn">►</button>
+    </div>
+  </div>
+
+<script>
+// Elementos DOM
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const welcomeScreen = document.getElementById('welcomeScreen');
+const gamePlayArea = document.getElementById('gamePlayArea');
+const startBtn = document.getElementById('startBtn');
+const restartBtn = document.getElementById('restartBtn');
+const menuBtn = document.getElementById('menuBtn');
+const menuTopBtn = document.getElementById('menuTopBtn');
+const shareBtn = document.getElementById('shareBtn');
+const gameOverOverlay = document.getElementById('gameOverOverlay');
+const scoreValue = document.getElementById('score');
+const bestScoreValue = document.getElementById('bestScore');
+const finalScore = document.getElementById('finalScore');
+const finalBestScore = document.getElementById('finalBestScore');
+const newRecordBadge = document.getElementById('newRecordBadge');
+const touchControls = document.getElementById('touchControls');
+const speedSelect = document.getElementById('speedSelect');
+const difficultySelect = document.getElementById('difficultySelect');
+const speedDescription = document.getElementById('speedDescription');
+const difficultyDescription = document.getElementById('difficultyDescription');
+
+// Variáveis do jogo
+const gridSize = 20;
+const tileCount = 30;
+let snake = [];
+let snakeLength = 3;
+let velocityX = 1;
+let velocityY = 0;
+let food = { x: 15, y: 15 };
+let obstacles = [];
+let score = 0;
+let bestScore = parseInt(localStorage.getItem('snakeBestScore')) || 0;
+let gameLoop = null;
+let gameOver = false;
+let gameStarted = false;
+let isNewRecord = false;
+let selectedSpeed = 100; // Velocidade padrão (Normal)
+let selectedDifficulty = 1; // Dificuldade padrão (Atravessa paredes)
+
+bestScoreValue.textContent = bestScore;
+
+// Descrições dos dropdowns
+const speedDescriptions = {
+  '150': 'Velocidade lenta - ideal para iniciantes e prática!',
+  '100': 'Velocidade média - perfeita para começar!',
+  '60': 'Velocidade rápida - desafio para jogadores experientes!'
+};
+
+const difficultyDescriptions = {
+  '1': 'Atravessa as paredes e aparece do outro lado - perfeito para iniciantes!',
+  '2': 'Colisões com as paredes encerram o jogo - requer mais atenção!',
+  '3': 'Obstáculos aleatórios no tabuleiro tornam o jogo ainda mais desafiador!'
+};
+
+// Event listeners para os dropdowns
+speedSelect.addEventListener('change', (e) => {
+  selectedSpeed = parseInt(e.target.value);
+  speedDescription.textContent = speedDescriptions[e.target.value];
+});
+
+difficultySelect.addEventListener('change', (e) => {
+  selectedDifficulty = parseInt(e.target.value);
+  difficultyDescription.textContent = difficultyDescriptions[e.target.value];
+});
+
+// Inicializar snake
+function initSnake() {
+  snake = [];
+  snakeLength = 3;
+  velocityX = 1;
+  velocityY = 0;
+  
+  for (let i = 0; i < snakeLength; i++) {
+    snake.push({ x: 10 - i, y: 10 });
+  }
+}
+
+// Gerar comida
+function generateFood() {
+  let validPosition = false;
+  
+  while (!validPosition) {
+    food.x = Math.floor(Math.random() * tileCount);
+    food.y = Math.floor(Math.random() * tileCount);
+    
+    validPosition = true;
+    
+    // Verificar se a comida não está na cobra
+    for (let segment of snake) {
+      if (segment.x === food.x && segment.y === food.y) {
+        validPosition = false;
+        break;
+      }
+    }
+    
+    // Verificar se a comida não está em um obstáculo (nível 3)
+    if (selectedDifficulty === 3) {
+      for (let obstacle of obstacles) {
+        if (obstacle.x === food.x && obstacle.y === food.y) {
+          validPosition = false;
+          break;
+        }
+      }
+    }
+  }
+}
+
+// Gerar obstáculos (apenas para nível 3)
+function generateObstacles() {
+  obstacles = [];
+  const obstacleCount = 15;
+  
+  for (let i = 0; i < obstacleCount; i++) {
+    let validPosition = false;
+    let obstacle;
+    
+    while (!validPosition) {
+      obstacle = {
+        x: Math.floor(Math.random() * tileCount),
+        y: Math.floor(Math.random() * tileCount)
+      };
+      
+      validPosition = true;
+      
+      // Verificar se não está na cobra
+      for (let segment of snake) {
+        if (segment.x === obstacle.x && segment.y === obstacle.y) {
+          validPosition = false;
+          break;
+        }
+      }
+      
+      // Verificar se não está na comida
+      if (obstacle.x === food.x && obstacle.y === food.y) {
+        validPosition = false;
+      }
+      
+      // Verificar se não está em outro obstáculo
+      for (let obs of obstacles) {
+        if (obs.x === obstacle.x && obs.y === obstacle.y) {
+          validPosition = false;
+          break;
+        }
+      }
+    }
+    
+    obstacles.push(obstacle);
+  }
+}
+
+// Desenhar grade
+function drawGrid() {
+  ctx.strokeStyle = 'rgba(0, 255, 255, 0.1)';
+  ctx.lineWidth = 1;
+  
+  for (let i = 0; i <= tileCount; i++) {
+    ctx.beginPath();
+    ctx.moveTo(i * gridSize, 0);
+    ctx.lineTo(i * gridSize, canvas.height);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(0, i * gridSize);
+    ctx.lineTo(canvas.width, i * gridSize);
+    ctx.stroke();
+  }
+}
+
+// Desenhar snake
+function drawSnake() {
+  for (let i = 0; i < snake.length; i++) {
+    const segment = snake[i];
+    const isHead = i === 0;
+    
+    if (isHead) {
+      const gradient = ctx.createLinearGradient(
+        segment.x * gridSize,
+        segment.y * gridSize,
+        (segment.x + 1) * gridSize,
+        (segment.y + 1) * gridSize
+      );
+      gradient.addColorStop(0, '#00ffff');
+      gradient.addColorStop(1, '#0080ff');
+      ctx.fillStyle = gradient;
+    } else {
+      const intensity = 1 - (i / snake.length) * 0.5;
+      ctx.fillStyle = `rgba(0, 191, 255, ${intensity})`;
+    }
+    
+    ctx.shadowBlur = isHead ? 15 : 10;
+    ctx.shadowColor = '#00ffff';
+    
+    ctx.fillRect(
+      segment.x * gridSize + 2,
+      segment.y * gridSize + 2,
+      gridSize - 4,
+      gridSize - 4
+    );
+    
+    if (isHead) {
+      ctx.fillStyle = 'white';
+      ctx.shadowBlur = 5;
+      ctx.fillRect(
+        segment.x * gridSize + 8,
+        segment.y * gridSize + 6,
+        4,
+        4
+      );
+      ctx.fillRect(
+        segment.x * gridSize + 8,
+        segment.y * gridSize + 10,
+        4,
+        4
+      );
+    }
+  }
+  
+  ctx.shadowBlur = 0;
+}
+
+// Desenhar comida
+function drawFood() {
+  const pulse = 1 + Math.sin(Date.now() / 200) * 0.1;
+  
+  ctx.shadowBlur = 20;
+  ctx.shadowColor = '#ff00ff';
+  
+  const gradient = ctx.createRadialGradient(
+    food.x * gridSize + gridSize / 2,
+    food.y * gridSize + gridSize / 2,
+    0,
+    food.x * gridSize + gridSize / 2,
+    food.y * gridSize + gridSize / 2,
+    gridSize / 2
+  );
+  gradient.addColorStop(0, '#ff00ff');
+  gradient.addColorStop(0.5, '#ff00ff');
+  gradient.addColorStop(1, '#8800ff');
+  
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.arc(
+    food.x * gridSize + gridSize / 2,
+    food.y * gridSize + gridSize / 2,
+    (gridSize / 2 - 2) * pulse,
+    0,
+    Math.PI * 2
+  );
+  ctx.fill();
+  
+  ctx.shadowBlur = 0;
+}
+
+// Desenhar obstáculos
+function drawObstacles() {
+  for (let obstacle of obstacles) {
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = '#ff0080';
+    
+    ctx.fillStyle = '#ff0080';
+    ctx.fillRect(
+      obstacle.x * gridSize + 2,
+      obstacle.y * gridSize + 2,
+      gridSize - 4,
+      gridSize - 4
+    );
+    
+    ctx.strokeStyle = '#ff1493';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(
+      obstacle.x * gridSize + 2,
+      obstacle.y * gridSize + 2,
+      gridSize - 4,
+      gridSize - 4
+    );
+  }
+  
+  ctx.shadowBlur = 0;
+}
+
+// Atualizar jogo
+function update() {
+  if (gameOver) return;
+  
+  let head = {
+    x: snake[0].x + velocityX,
+    y: snake[0].y + velocityY
+  };
+  
+  // NÍVEL 1: Atravessa paredes (teleporte)
+  if (selectedDifficulty === 1) {
+    if (head.x < 0) head.x = tileCount - 1;
+    if (head.x >= tileCount) head.x = 0;
+    if (head.y < 0) head.y = tileCount - 1;
+    if (head.y >= tileCount) head.y = 0;
+  }
+  
+  // NÍVEL 2 e 3: Verificar colisão com paredes
+  if (selectedDifficulty >= 2) {
+    if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+      endGame();
+      return;
+    }
+  }
+  
+  // NÍVEL 3: Verificar colisão com obstáculos
+  if (selectedDifficulty === 3) {
+    for (let obstacle of obstacles) {
+      if (head.x === obstacle.x && head.y === obstacle.y) {
+        endGame();
+        return;
+      }
+    }
+  }
+  
+  // Verificar colisão consigo mesmo
+  for (let segment of snake) {
+    if (head.x === segment.x && head.y === segment.y) {
+      endGame();
+      return;
+    }
+  }
+  
+  snake.unshift(head);
+  
+  // Verificar se comeu a comida
+  if (head.x === food.x && head.y === food.y) {
+    score += 10;
+    scoreValue.textContent = score;
+    snakeLength++;
+    generateFood();
+  }
+  
+  while (snake.length > snakeLength) {
+    snake.pop();
+  }
+}
+
+// Renderizar jogo
+function render() {
+  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  gradient.addColorStop(0, '#1a2332');
+  gradient.addColorStop(0.3, '#2a3f5f');
+  gradient.addColorStop(0.6, '#1e2f45');
+  gradient.addColorStop(1, '#1a2332');
+  
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  drawGrid();
+  if (selectedDifficulty === 3) {
+    drawObstacles();
+  }
+  drawFood();
+  drawSnake();
+}
+
+// Loop principal
+function mainLoop() {
+  render();
+  requestAnimationFrame(mainLoop);
+}
+
+// Iniciar jogo
+function startGame() {
+  score = 0;
+  gameOver = false;
+  isNewRecord = false;
+  scoreValue.textContent = score;
+  initSnake();
+  generateFood();
+  
+  if (selectedDifficulty === 3) {
+    generateObstacles();
+  } else {
+    obstacles = [];
+  }
+  
+  welcomeScreen.classList.add('hide');
+  gamePlayArea.classList.add('show');
+  gameOverOverlay.classList.remove('show');
+  gameStarted = true;
+  
+  if (gameLoop) clearInterval(gameLoop);
+  gameLoop = setInterval(update, selectedSpeed);
+  
+  if ('ontouchstart' in window) {
+    touchControls.classList.add('show');
+  }
+}
+
+// Terminar jogo
+function endGame() {
+  gameOver = true;
+  gameStarted = false;
+  clearInterval(gameLoop);
+  
+  if (score > bestScore) {
+    bestScore = score;
+    localStorage.setItem('snakeBestScore', bestScore);
+    bestScoreValue.textContent = bestScore;
+    isNewRecord = true;
+    
+    newRecordBadge.classList.add('show');
+    setTimeout(() => {
+      newRecordBadge.classList.remove('show');
+    }, 3000);
+  }
+  
+  finalScore.textContent = score;
+  finalBestScore.textContent = bestScore;
+  gameOverOverlay.classList.add('show');
+}
+
+// Voltar ao menu inicial
+function backToMenu() {
+  gameOver = false;
+  gameStarted = false;
+  if (gameLoop) clearInterval(gameLoop);
+  
+  welcomeScreen.classList.remove('hide');
+  gamePlayArea.classList.remove('show');
+  gameOverOverlay.classList.remove('show');
+  touchControls.classList.remove('show');
+  
+  score = 0;
+  scoreValue.textContent = score;
+  initSnake();
+  generateFood();
+  obstacles = [];
+}
+
+// Controlar direção
+function changeDirection(newVelocityX, newVelocityY) {
+  if (velocityX === -newVelocityX && velocityY === -newVelocityY) {
+    return;
+  }
+  
+  velocityX = newVelocityX;
+  velocityY = newVelocityY;
+}
+
+// Event Listeners
+startBtn.addEventListener('click', startGame);
+restartBtn.addEventListener('click', startGame);
+menuBtn.addEventListener('click', backToMenu);
+menuTopBtn.addEventListener('click', backToMenu);
+
+shareBtn.addEventListener('click', () => {
+  const shareText = `🐍 Snake Neon!\n\n🏆 Pontuação: ${score}\n⭐ Recorde: ${bestScore}\n\nJogue agora!`;
+  
+  if (navigator.share) {
+    navigator.share({
+      title: 'Snake Neon',
+      text: shareText,
+    }).catch(() => {});
+  } else {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareText)
+        .then(() => {
+          shareBtn.textContent = '✓ COPIADO!';
+          shareBtn.style.background = 'linear-gradient(135deg, #00dd77, #00aa55)';
+          setTimeout(() => {
+            shareBtn.textContent = '📤 COMPARTILHAR';
+            shareBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc66)';
+          }, 2000);
+        })
+        .catch(() => alert(shareText));
+    } else {
+      alert(shareText);
+    }
+  }
+});
+
+// Controles de teclado
+document.addEventListener('keydown', (e) => {
+  if (!gameStarted && (e.key === 'Enter' || e.key === ' ')) {
+    e.preventDefault();
+    if (!welcomeScreen.classList.contains('hide')) {
+      startGame();
+    }
+    return;
+  }
+  
+  if (gameOver && (e.key === 'Enter' || e.key === ' ')) {
+    e.preventDefault();
+    startGame();
+    return;
+  }
+  
+  if (!gameStarted || gameOver) return;
+  
+  switch(e.key) {
+    case 'ArrowUp':
+    case 'w':
+    case 'W':
+      e.preventDefault();
+      changeDirection(0, -1);
+      break;
+    case 'ArrowDown':
+    case 's':
+    case 'S':
+      e.preventDefault();
+      changeDirection(0, 1);
+      break;
+    case 'ArrowLeft':
+    case 'a':
+    case 'A':
+      e.preventDefault();
+      changeDirection(-1, 0);
+      break;
+    case 'ArrowRight':
+    case 'd':
+    case 'D':
+      e.preventDefault();
+      changeDirection(1, 0);
+      break;
+  }
+});
+
+// Controles touch
+document.getElementById('btnUp').addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  if (gameStarted && !gameOver) changeDirection(0, -1);
+});
+
+document.getElementById('btnDown').addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  if (gameStarted && !gameOver) changeDirection(0, 1);
+});
+
+document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  if (gameStarted && !gameOver) changeDirection(-1, 0);
+});
+
+document.getElementById('btnRight').addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  if (gameStarted && !gameOver) changeDirection(1, 0);
+});
+
+// Inicializar
+initSnake();
+generateFood();
+mainLoop();
+
+console.log('🐍 Snake Neon inicializado com sucesso!');
+</script>
+</body>
+</html>
