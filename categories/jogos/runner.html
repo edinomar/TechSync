@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <!-- SEO BÁSICO -->
-  <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
   <script>
       window.dataLayer = window.dataLayer || [];
@@ -15,7 +13,8 @@
 
   <meta name="google-adsense-account" content="ca-pub-9409384061040545">
 
-  <title>Runner Tech - Jogo de Corrida Infinita Online Grátis</title>
+  <meta charset="UTF-8">
+  <title>Runner Tech - Jogo de Corrida Online</title>
   <meta name="description" content="Desafie seus reflexos no Runner Tech! Um jogo de corrida futurista grátis. Desvie de drones, colete moedas e bata recordes no seu navegador mobile ou PC.">
   <meta name="keywords" content="runner tech, jogo de corrida, infinite runner, jogo de navegador, jogo grátis, jogo mobile online, jogo de desvio, jogo de coleta de moedas, jogo futurista, jogo de reflexos, jogo de obstáculos, jogo arcade, jogo casual, jogo para celular, jogo para PC">
   <meta name="author" content="TechSync">
@@ -29,7 +28,7 @@
   <meta property="og:url" content="https://techsync.net.br/categories/jogos/runner.html">
   <meta property="og:title" content="Runner Tech - Jogo Online">
   <meta property="og:description" content="Você consegue bater o recorde? Jogue Runner Tech agora, desvie dos obstáculos e colete moedas neste jogo!">
-  <meta property="og:image" content="https://techsync.net.br/categories/jogos/img/og-image.png"> <!-- RECOMENDADO: Criar esta imagem de 1200x630px -->
+  <meta property="og:image" content="https://techsync.net.br/categories/jogos/img/og-image.png">
 
   <!-- TWITTER -->
   <meta property="twitter:card" content="summary_large_image">
@@ -231,7 +230,8 @@
 
     #gameOverOverlay .score,
     #gameOverOverlay .coins,
-    #gameOverOverlay .record {
+    #gameOverOverlay .record,
+    #gameOverOverlay .level {
       font-size: 28px;
       margin: 8px 0;
     }
@@ -249,6 +249,11 @@
     #gameOverOverlay .record {
       color: #ff1493;
       text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+    }
+
+    #gameOverOverlay .level {
+      color: #00ff88;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
     }
 
     #gameOverOverlay .buttons {
@@ -274,6 +279,8 @@
       box-shadow: 0 0 30px rgba(255, 20, 147, 0.7);
       animation: recordPopup 3s ease-in-out;
       z-index: 200;
+      text-align: center;
+      white-space: nowrap;
     }
 
     #newRecordBadge.show {
@@ -295,10 +302,145 @@
       }
       100% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-100px) scale(0.5);
+        transform: translateX(-50%) translateY(-50%) scale(1);
       }
     }
 
+    /* Notificação de Nível */
+    #levelNotification {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      font-size: 33.6px;
+      font-weight: bold;
+      color: #00ffff;
+      padding: 21px 42px;
+      background: rgba(0, 128, 255, 0.5);
+      border-radius: 20px;
+      text-shadow: 0 0 20px rgba(0, 255, 255, 0.9);
+      box-shadow: 0 0 50px rgba(0, 191, 255, 0.8);
+      border: 3px solid #00ffff;
+      backdrop-filter: blur(5px);
+      z-index: 300;
+      animation: levelPopup 2s ease-in-out;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    #levelNotification.show {
+      display: block;
+    }
+
+    @keyframes levelPopup {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.3);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+      80% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+    }
+
+    /* Indicador de Nível (círculo azul) */
+    #levelIndicator {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 90px;
+      height: 90px;
+      background: rgba(0, 128, 255, 0.3);
+      border-radius: 50%;
+      border: 3px solid rgba(0, 255, 255, 0.5);
+      box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      backdrop-filter: blur(5px);
+    }
+
+    #levelIndicator.show {
+      display: flex;
+    }
+
+    #levelNumber {
+      font-size: 32px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+      margin-bottom: -5px;
+    }
+
+    #levelLabel {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Indicador de Power-up ativo com barra de progresso */
+    #powerUpIndicator {
+      position: absolute;
+      top: 145px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      display: none;
+      border: 2px solid;
+      box-shadow: 0 0 20px;
+      z-index: 50;
+      min-width: 180px;
+    }
+
+    #powerUpIndicator.magnet {
+      border-color: #ffd700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+      color: #ffd700;
+    }
+
+    #powerUpIndicator.shield {
+      border-color: #00ffff;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+      color: #00ffff;
+    }
+
+    #powerUpIndicator.show {
+      display: block;
+    }
+
+    /* Barra de progresso do power-up */
+    #powerUpProgressBar {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    #powerUpProgress {
+      height: 100%;
+      background: linear-gradient(90deg, #00ff00, #ffff00, #ff0000);
+      border-radius: 4px;
+      transition: width 0.1s linear;
+    }
   </style>
 </head>
 <body>
@@ -309,17 +451,15 @@
   <!-- Instruções iniciais -->
   <div id="instructions">
     <h2>RUNNER TECH</h2>
-
     <button id="startBtn">COMEÇAR</button>
   </div>
 
-  <!-- Tela de Game Over -->
   <div id="gameOverOverlay">
     <h1>GAME OVER</h1>
-    <div class="score">🏆 Pontos: <span id="finalScore">0</span></div>
-    <div class="coins">🪙 Moedas: <span id="finalCoins">0</span></div>
-    <div class="record">⭐ Recorde: <span id="bestScore">0</span></div>
-    
+    <p class="score">🏆 Pontuação: <span id="finalScore">0</span></p>
+    <p class="coins">🪙 Moedas: <span id="finalCoins">0</span></p>
+    <p class="record">⭐ Recorde: <span id="bestScore">0</span></p>
+    <p class="level">📊 Nível Alcançado: <span id="finalLevel">1</span></p>
     <div class="buttons">
       <button id="restartBtn" class="btn-game">🔄 REINICIAR</button>
       <button id="shareBtn" class="btn-game">📤 COMPARTILHAR</button>
@@ -329,23 +469,44 @@
   <!-- Badge de novo recorde -->
   <div id="newRecordBadge">🎉 NOVO RECORDE! 🎉</div>
 
+  <!-- Notificação de Nível -->
+  <div id="levelNotification">NÍVEL 1</div>
+
+  <!-- Indicador de Nível (círculo azul) -->
+  <div id="levelIndicator">
+    <div id="levelNumber">1</div>
+    <div id="levelLabel">Level</div>
+  </div>
+
+  <!-- Indicador de Power-up -->
+  <div id="powerUpIndicator">
+    <span id="powerUpText">🧲 IMÃ ATIVO</span>
+    <div id="powerUpProgressBar">
+      <div id="powerUpProgress"></div>
+    </div>
+  </div>
 </div>
 
 <script>
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
-const instructions = document.getElementById('instructions');
-const startBtn = document.getElementById('startBtn');
-const restartBtn = document.getElementById('restartBtn');
-const shareBtn = document.getElementById('shareBtn');
-const gameOverOverlay = document.getElementById('gameOverOverlay');
-const finalScoreElement = document.getElementById('finalScore');
-const finalCoinsElement = document.getElementById('finalCoins');
-const bestScoreElement = document.getElementById('bestScore');
-const newRecordBadge = document.getElementById('newRecordBadge');
+const instructions = document.getElementById("instructions");
+const startBtn = document.getElementById("startBtn");
+const gameOverOverlay = document.getElementById("gameOverOverlay");
+const restartBtn = document.getElementById("restartBtn");
+const shareBtn = document.getElementById("shareBtn");
+const finalScoreElement = document.getElementById("finalScore");
+const finalCoinsElement = document.getElementById("finalCoins");
+const bestScoreElement = document.getElementById("bestScore");
+const finalLevelElement = document.getElementById("finalLevel");
+const newRecordBadge = document.getElementById("newRecordBadge");
+const levelNotification = document.getElementById("levelNotification");
+const levelIndicator = document.getElementById("levelIndicator");
+const levelNumber = document.getElementById("levelNumber");
+const powerUpIndicator = document.getElementById("powerUpIndicator");
+const powerUpText = document.getElementById("powerUpText");
+const powerUpProgress = document.getElementById("powerUpProgress");
 
-
-// Ajustar canvas para tela cheia
 function resizeCanvas() {
   const container = document.getElementById("gameContainer");
   canvas.width = container.clientWidth;
@@ -353,18 +514,31 @@ function resizeCanvas() {
 }
 
 resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+window.addEventListener("resize", resizeCanvas);
 
-// Variáveis do jogo
 let gameStarted = false;
 let gameOver = false;
 let score = 0;
 let coins = 0;
 let gameSpeed = 3;
-let bestScore = parseInt(localStorage.getItem('runnerBestScore')) || 0;
-let isNewRecord = false;
-let roadOffset = 0;
+let objects = [];
 let objectTimer = 0;
+let roadOffset = 0;
+let isNewRecord = false;
+
+// Sistema de Níveis
+let currentLevel = 1;
+let levelThresholds = [0, 20, 50, 100, 150]; // Pontos necessários para cada nível
+
+// Sistema de Power-ups
+let powerUpTimer = 0;
+let nextPowerUpScore = Math.floor(Math.random() * 11) + 10; // Entre 10 e 20 pontos
+let activePowerUp = null; // 'magnet' ou 'shield'
+let powerUpDuration = 0;
+const POWER_UP_TIME = 5000; // 5 segundos em ms
+let powerUpStartTime = 0;
+
+let bestScore = parseInt(localStorage.getItem('runnerBestScore')) || 0;
 
 // Carregar imagens
 const playerImage = new Image();
@@ -411,7 +585,6 @@ droneMaiorImage.onerror = () => {
   droneMaiorImageLoaded = false;
 };
 
-// Player
 const player = {
   x: 200,
   y: 580,
@@ -424,10 +597,10 @@ const player = {
   movingRight: false,
   jumpForce: -19.5,
   gravity: 0.75,
-  maxSpeed: 15,
+  maxSpeed: 10.5,
   speedX: 8,
   friction: 0.88,
-  
+
   init() {
     this.x = canvas.width / 2;
     this.y = canvas.height - 120;
@@ -530,11 +703,27 @@ const player = {
 };
 
 // Objetos (obstáculos e moedas)
-const objects = [];
-
 function createObject() {
   const rand = Math.random();
-  let type, height, width;
+  let type, height, width, speedMultiplier = 1;
+
+  // Verificar se deve criar um power-up
+  if (score >= nextPowerUpScore && !activePowerUp) {
+    const powerUpType = Math.random() < 0.5 ? 'magnet' : 'shield';
+    nextPowerUpScore = score + Math.floor(Math.random() * 11) + 10; // Próximo em 10-20 pontos
+    
+    objects.push({
+      x: 40 + Math.random() * (canvas.width - 80),
+      y: -40,
+      width: 40,
+      height: 40,
+      type: powerUpType,
+      rotation: 0,
+      collected: false,
+      speedMultiplier: 1
+    });
+    return; // Criar apenas o power-up nesta iteração
+  }
 
   if (rand < 0.25) {
     type = 'coin';
@@ -544,10 +733,16 @@ function createObject() {
     type = 'low';
     height = 50;
     width = 70;
+    // Obstáculos baixos normais
+    speedMultiplier = 1;
   } else {
     type = 'high';
     height = 95;
     width = 95;
+    // A partir do nível 3, alguns obstáculos grandes são mais rápidos
+    if (currentLevel >= 3 && Math.random() < 0.4) {
+      speedMultiplier = 1.5 + (currentLevel * 0.2); // Aumenta com o nível
+    }
   }
 
   const margin = 40;
@@ -560,7 +755,8 @@ function createObject() {
     height: height,
     type: type,
     rotation: 0,
-    collected: false
+    collected: false,
+    speedMultiplier: speedMultiplier
   });
 }
 
@@ -572,13 +768,40 @@ function updateObjects() {
     objectTimer = 0;
   }
 
+  // Atualizar timer do power-up
+  if (activePowerUp) {
+    const elapsed = Date.now() - powerUpStartTime;
+    if (elapsed >= POWER_UP_TIME) {
+      deactivatePowerUp();
+    }
+  }
 
+  // Verificar mudança de nível
+  checkLevelUp();
 
   objects.forEach((obj, index) => {
-    obj.y += gameSpeed;
+    // Aplicar velocidade com multiplicador
+    const objSpeed = gameSpeed * (obj.speedMultiplier || 1);
+    obj.y += objSpeed;
 
     if (obj.type === 'coin') {
       obj.rotation += 0.15;
+      
+      // Efeito magnético para moedas
+      if (activePowerUp === 'magnet') {
+        const dx = player.x - obj.x;
+        const dy = player.y - obj.height/2 - obj.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const magnetRange = 150;
+        
+        if (distance < magnetRange) {
+          const attractionStrength = 0.15;
+          obj.x += dx * attractionStrength;
+          obj.y += dy * attractionStrength;
+        }
+      }
+    } else if (obj.type === 'magnet' || obj.type === 'shield') {
+      obj.rotation += 0.1;
     }
 
     // Hitbox com escala
@@ -591,7 +814,7 @@ function updateObjects() {
     const playerLeft = player.x - playerHitWidth / 2;
     const playerRight = player.x + playerHitWidth / 2;
 
-    const objHitboxScale = obj.type === 'coin' ? 1.0 : 0.7;
+    const objHitboxScale = (obj.type === 'coin' || obj.type === 'magnet' || obj.type === 'shield') ? 1.0 : 0.7;
     const objHitWidth = obj.width * objHitboxScale;
     const objHitHeight = obj.height * objHitboxScale;
 
@@ -610,18 +833,36 @@ function updateObjects() {
       if (obj.type === 'coin' && !obj.collected) {
         obj.collected = true;
         coins++;
-        // Moeda NÃO adiciona pontos, apenas incrementa o contador de moedas
         objects.splice(index, 1);
         return;
-      } else if (obj.type !== 'coin') {
-        gameOver = true;
+      } else if (obj.type === 'magnet' && !obj.collected) {
+        obj.collected = true;
+        activatePowerUp('magnet');
+        objects.splice(index, 1);
+        return;
+      } else if (obj.type === 'shield' && !obj.collected) {
+        obj.collected = true;
+        activatePowerUp('shield');
+        objects.splice(index, 1);
+        return;
+      } else if (obj.type !== 'coin' && obj.type !== 'magnet' && obj.type !== 'shield') {
+        // Colisão com obstáculo
+        if (activePowerUp === 'shield') {
+          // Escudo protege: remove o obstáculo e desativa o escudo
+          objects.splice(index, 1);
+          deactivatePowerUp();
+          return;
+        } else {
+          gameOver = true;
+          levelIndicator.classList.remove('show');
+        }
       }
     }
 
     // Remover objetos fora da tela
     if (obj.y > canvas.height + 50) {
       objects.splice(index, 1);
-      if (obj.type !== 'coin') {
+      if (obj.type !== 'coin' && obj.type !== 'magnet' && obj.type !== 'shield') {
         score++;
         if (score % 8 === 0 && gameSpeed < 8) {
           gameSpeed += 0.3;
@@ -629,6 +870,61 @@ function updateObjects() {
       }
     }
   });
+}
+
+function checkLevelUp() {
+  for (let i = levelThresholds.length - 1; i >= 0; i--) {
+    if (score >= levelThresholds[i]) {
+      const newLevel = i + 1;
+      if (newLevel > currentLevel) {
+        currentLevel = newLevel;
+        showLevelNotification(currentLevel);
+      }
+      // Atualizar indicador circular
+      levelNumber.textContent = newLevel;
+      break;
+    }
+  }
+}
+
+function showLevelNotification(level) {
+  levelNotification.textContent = `NÍVEL ${level}`;
+  levelNotification.classList.add('show');
+  setTimeout(() => {
+    levelNotification.classList.remove('show');
+  }, 2000);
+}
+
+function activatePowerUp(type) {
+  activePowerUp = type;
+  powerUpStartTime = Date.now();
+  
+  powerUpIndicator.classList.remove('magnet', 'shield');
+  powerUpIndicator.classList.add(type, 'show');
+  
+  if (type === 'magnet') {
+    powerUpText.textContent = '🧲 IMÃ ATIVO';
+  } else if (type === 'shield') {
+    powerUpText.textContent = '🛡️ ESCUDO ATIVO';
+  }
+  
+  // Iniciar barra de progresso
+  powerUpProgress.style.width = '100%';
+}
+
+function deactivatePowerUp() {
+  activePowerUp = null;
+  powerUpIndicator.classList.remove('show', 'magnet', 'shield');
+  powerUpProgress.style.width = '100%';
+}
+
+function updatePowerUpProgress() {
+  if (activePowerUp) {
+    const elapsed = Date.now() - powerUpStartTime;
+    const remaining = POWER_UP_TIME - elapsed;
+    const percentage = Math.max(0, (remaining / POWER_UP_TIME) * 100);
+    powerUpProgress.style.width = percentage + '%';
+  }
 }
 
 function drawObjects() {
@@ -655,6 +951,58 @@ function drawObjects() {
       ctx.strokeStyle = '#CC8800';
       ctx.lineWidth = 3;
       ctx.stroke();
+
+    } else if (obj.type === 'magnet') {
+      // Power-up Imã
+      ctx.translate(obj.x, obj.y - obj.height/2);
+      ctx.rotate(obj.rotation);
+
+      const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, obj.width/2);
+      gradient.addColorStop(0, '#FFD700');
+      gradient.addColorStop(0.5, '#FFA500');
+      gradient.addColorStop(1, '#FF6347');
+
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(0, 0, obj.width/2, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = '#FFD700';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // Desenhar símbolo do imã
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 24px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🧲', 0, 0);
+
+    } else if (obj.type === 'shield') {
+      // Power-up Escudo
+      ctx.translate(obj.x, obj.y - obj.height/2);
+      ctx.rotate(obj.rotation);
+
+      const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, obj.width/2);
+      gradient.addColorStop(0, '#00FFFF');
+      gradient.addColorStop(0.5, '#00BFFF');
+      gradient.addColorStop(1, '#0080FF');
+
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(0, 0, obj.width/2, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = '#00FFFF';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // Desenhar símbolo do escudo
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 24px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🛡️', 0, 0);
 
     } else if (obj.type === 'low' && droneImageLoaded) {
       // Drone pequeno (obstáculo baixo)
@@ -713,7 +1061,6 @@ function drawObjects() {
   });
 }
 
-// Desenhar pista com perspectiva
 function drawRoad() {
   ctx.strokeStyle = "rgba(0, 191, 255, 0.9)";
   ctx.lineWidth = 4;
@@ -735,7 +1082,6 @@ function drawRoad() {
   if (roadOffset > 60) roadOffset = 0;
 }
 
-// HUD
 function drawHUD() {
   ctx.fillStyle = "rgba(0,0,0,0.75)";
   ctx.fillRect(10, 10, 200, 95);
@@ -746,7 +1092,7 @@ function drawHUD() {
 
   ctx.fillStyle = "#00ffff";
   ctx.font = "bold 20px Arial";
-  ctx.fillText("🏆 " + Math.floor(score), 25, 38);
+  ctx.fillText("🏆 " + score, 25, 38);
 
   ctx.fillStyle = "#FFD700";
   ctx.font = "bold 20px Arial";
@@ -755,24 +1101,39 @@ function drawHUD() {
   ctx.fillStyle = "#ff1493";
   ctx.font = "bold 20px Arial";
   ctx.fillText("⭐ " + bestScore, 25, 92);
-
-
 }
 
-// Controles
+// =====================================================
+// CONTROLES MOBILE MELHORADOS
+// =====================================================
+
 let isTouching = false;
 let touchStartX = 0;
+let touchStartY = 0;
 let lastTapTime = 0;
 const doubleTapDelay = 300;
+
+// Configurações de sensibilidade melhoradas
+const TOUCH_SENSITIVITY = {
+  deadZone: 5,              // Zona morta reduzida de 10 para 5 pixels
+  moveThreshold: 3,         // Threshold menor para resposta mais rápida
+  speedMultiplier: 0.12,    // Multiplicador de velocidade ajustado
+  maxSpeed: 0.595,          // Velocidade máxima reduzida em 30% (de 0.85 para 0.595)
+  dampingRelease: 0.5,      // Amortecimento ao soltar reduzido de 0.7 para 0.5
+  dampingMove: 0.75         // Amortecimento durante movimento reduzido de 0.85 para 0.75
+};
 
 canvas.addEventListener("touchstart", (e) => {
   e.preventDefault();
 
   if (!gameStarted || gameOver) return;
 
-  touchStartX = e.touches[0].clientX;
+  const touch = e.touches[0];
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
   isTouching = true;
 
+  // Detecção de duplo toque para pulo
   const currentTime = new Date().getTime();
   const tapTimeDiff = currentTime - lastTapTime;
 
@@ -783,21 +1144,28 @@ canvas.addEventListener("touchstart", (e) => {
   }
 
   lastTapTime = currentTime;
-});
+}, { passive: false });
 
 canvas.addEventListener("touchmove", (e) => {
   e.preventDefault();
 
   if (!gameStarted || gameOver || !isTouching) return;
 
-  const touchCurrentX = e.touches[0].clientX;
+  const touch = e.touches[0];
+  const touchCurrentX = touch.clientX;
+  const touchCurrentY = touch.clientY;
+  
+  // Calcular delta desde o início do toque
   const deltaX = touchCurrentX - touchStartX;
+  const deltaY = touchCurrentY - touchStartY;
 
-  // CORREÇÃO: Movimento lateral mais suave e controlado
-  // Não afeta a velocidade vertical dos obstáculos
-  if (Math.abs(deltaX) > 10) {
-    // Normalizar força do movimento (0 a 1)
-    const moveStrength = Math.min(Math.abs(deltaX) / 60, 1);
+  // Ignorar movimentos verticais acidentais
+  if (Math.abs(deltaY) > Math.abs(deltaX) * 1.5) {
+    return;
+  }
+
+  // Zona morta reduzida para maior precisão
+  if (Math.abs(deltaX) > TOUCH_SENSITIVITY.deadZone) {
     const direction = deltaX > 0 ? 1 : -1;
     
     // Definir direção do movimento
@@ -809,25 +1177,39 @@ canvas.addEventListener("touchmove", (e) => {
       player.movingRight = false;
     }
     
-    // Aplicar velocidade de forma suave (60% da velocidade máxima)
-    player.velocityX = direction * moveStrength * player.maxSpeed * 0.6;
+    // Aplicar velocidade direta e responsiva (sem curva de aceleração)
+    player.velocityX = direction * player.maxSpeed * TOUCH_SENSITIVITY.maxSpeed;
   } else {
-    // Desacelerar quando não há movimento significativo
+    // Parar instantaneamente quando na zona morta
     player.movingLeft = false;
     player.movingRight = false;
-    player.velocityX *= 0.85;
+    player.velocityX = 0;
   }
-});
+}, { passive: false });
 
 canvas.addEventListener("touchend", (e) => {
   e.preventDefault();
   isTouching = false;
-  player.velocityX *= 0.7;
+  
+  // Parar instantaneamente ao soltar o dedo
+  player.velocityX = 0;
   player.movingLeft = false;
   player.movingRight = false;
-});
+}, { passive: false });
 
-// Teclado
+// Prevenir scroll indesejado
+canvas.addEventListener("touchcancel", (e) => {
+  e.preventDefault();
+  isTouching = false;
+  player.velocityX = 0;
+  player.movingLeft = false;
+  player.movingRight = false;
+}, { passive: false });
+
+// =====================================================
+// CONTROLES DE TECLADO (PC)
+// =====================================================
+
 document.addEventListener("keydown", (e) => {
   if (gameOver && (e.key === "Enter" || e.key === " ")) {
     e.preventDefault();
@@ -839,7 +1221,12 @@ document.addEventListener("keydown", (e) => {
     e.preventDefault();
     instructions.classList.add('hide');
     gameStarted = true;
+    levelIndicator.classList.add('show');
     player.init();
+    // Mostrar notificação de Nível 1 ao iniciar
+    setTimeout(() => {
+      showLevelNotification(1);
+    }, 500);
     return;
   }
 
@@ -868,9 +1255,11 @@ document.addEventListener("keyup", (e) => {
   }
 });
 
-// Funções do jogo
+// =====================================================
+// FUNÇÕES DO JOGO
+// =====================================================
+
 function resetGame() {
-  // REINICIAR: Zera TUDO e começa do zero (sem recompensas)
   score = 0;
   coins = 0;
   gameSpeed = 3;
@@ -878,21 +1267,31 @@ function resetGame() {
   objectTimer = 0;
   gameOver = false;
   isNewRecord = false;
+  currentLevel = 1;
+  activePowerUp = null;
+  powerUpDuration = 0;
+  nextPowerUpScore = Math.floor(Math.random() * 11) + 10;
   player.init();
   gameOverOverlay.classList.remove('show');
-  
+  powerUpIndicator.classList.remove('show', 'magnet', 'shield');
+  levelIndicator.classList.add('show');
+  levelNumber.textContent = '1'; // Resetar indicador circular
+  // Mostrar notificação de Nível 1 ao reiniciar
+  setTimeout(() => {
+    showLevelNotification(1);
+  }, 500);
 }
 
 function checkNewRecord() {
-  if (Math.floor(score) > bestScore) {
-    bestScore = Math.floor(score);
+  if (score > bestScore) {
+    bestScore = score;
     localStorage.setItem('runnerBestScore', bestScore);
     isNewRecord = true;
   }
 }
 
 function shareResults() {
-  const shareText = `🏃 Runner Tech!\n\n🏆 Pontuação: ${Math.floor(score)}\n🪙 Moedas: ${coins}\n⭐ Recorde: ${bestScore}\n\nJogue agora: https://techsync.net.br/categories/jogos/runner.html`;
+  const shareText = `🏃 Runner Tech!\n\n🏆 Pontuação: ${score}\n🪙 Moedas: ${coins}\n📊 Nível: ${currentLevel}\n⭐ Recorde: ${bestScore}\n\nJogue agora: https://techsync.net.br/categories/jogos/runner.html`;
 
   if (navigator.share) {
     navigator.share({
@@ -920,7 +1319,12 @@ function shareResults() {
 startBtn.addEventListener("click", () => {
   instructions.classList.add('hide');
   gameStarted = true;
+  levelIndicator.classList.add('show');
   player.init();
+  // Mostrar notificação de Nível 1 ao iniciar
+  setTimeout(() => {
+    showLevelNotification(1);
+  }, 500);
 });
 
 startBtn.addEventListener("keydown", (e) => {
@@ -944,6 +1348,7 @@ function gameLoop() {
   if (gameStarted && !gameOver) {
     player.update();
     updateObjects();
+    updatePowerUpProgress(); // Atualizar barra de progresso
   }
 
   if (gameOver) {
@@ -959,8 +1364,9 @@ function gameLoop() {
     }
 
     gameOverOverlay.classList.add('show');
-    finalScoreElement.textContent = Math.floor(score);
+    finalScoreElement.textContent = score;
     finalCoinsElement.textContent = coins;
+    finalLevelElement.textContent = currentLevel;
     bestScoreElement.textContent = bestScore;
   }
 
@@ -983,16 +1389,15 @@ canvas.addEventListener('contextmenu', (e) => {
   e.preventDefault();
   if (gameStarted && !gameOver) {
     gameOver = true;
+    levelIndicator.classList.remove('show');
     console.log('🐛 DEBUG: Game Over forçado');
   }
 });
 
-console.log('🎮 Runner Tech inicializado!');
+console.log('🎮 Runner Tech inicializado com controles mobile otimizados!');
 
 </script>
-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
-        crossorigin="anonymous"></script>
-
+    crossorigin="anonymous"></script>
 </body>
 </html>
