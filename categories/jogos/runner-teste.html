@@ -585,7 +585,7 @@ const player = {
   movingRight: false,
   jumpForce: -19.5,
   gravity: 0.75,
-  maxSpeed: 15,
+  maxSpeed: 10.5,
   speedX: 8,
   friction: 0.88,
 
@@ -1106,7 +1106,7 @@ const TOUCH_SENSITIVITY = {
   deadZone: 5,              // Zona morta reduzida de 10 para 5 pixels
   moveThreshold: 3,         // Threshold menor para resposta mais rápida
   speedMultiplier: 0.12,    // Multiplicador de velocidade ajustado
-  maxSpeed: 0.85,           // Velocidade máxima aumentada de 0.6 para 0.85
+  maxSpeed: 0.595,          // Velocidade máxima reduzida em 30% (de 0.85 para 0.595)
   dampingRelease: 0.5,      // Amortecimento ao soltar reduzido de 0.7 para 0.5
   dampingMove: 0.75         // Amortecimento durante movimento reduzido de 0.85 para 0.75
 };
