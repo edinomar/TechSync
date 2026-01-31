@@ -173,26 +173,31 @@
       align-items: center;
       width: 600px;
       max-width: 90vw;
-      gap: 15px;
+      gap: 12px;
+      padding: 8px 0;
     }
 
     #menuTopBtn {
-      padding: 10px 25px;
-      font-size: 15px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #ff00ff, #8800ff);
-      border: 2px solid #ff00ff;
-      border-radius: 25px;
-      color: white;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(138, 43, 226, 0.3);
+      border: 1px solid rgba(138, 43, 226, 0.5);
+      border-radius: 20px;
+      color: rgba(255, 255, 255, 0.8);
       cursor: pointer;
-      box-shadow: 0 0 8px rgba(255, 0, 255, 0.3), 0 4px 8px rgba(255, 0, 255, 0.2);
+      box-shadow: none;
       transition: all 0.3s;
-      text-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+      text-shadow: none;
+      opacity: 0.7;
     }
 
     #menuTopBtn:hover {
-      box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
-      transform: translateY(-2px);
+      background: rgba(138, 43, 226, 0.5);
+      border-color: rgba(138, 43, 226, 0.7);
+      opacity: 1;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
     }
 
     #menuTopBtn:active {
@@ -223,11 +228,11 @@
       justify-content: space-around;
       align-items: center;
       flex: 1;
-      padding: 12px 20px;
+      padding: 10px 18px;
       background: rgba(0, 0, 0, 0.5);
       border: 2px solid rgba(0, 255, 255, 0.3);
       border-radius: 10px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       color: white;
       text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
@@ -275,8 +280,8 @@
 
     .btn-game {
       width: 100%;
-      padding: 14px 30px;
-      font-size: 16px;
+      padding: 16px 35px;
+      font-size: 18px;
       font-weight: bold;
       border-radius: 30px;
       color: white;
@@ -285,47 +290,85 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.2), 0 4px 15px rgba(0,0,0,0.1);
       transition: all 0.3s;
       text-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .btn-game:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 30px rgba(0,0,0,0.3), 0 6px 20px rgba(0,0,0,0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(0,0,0,0.3), 0 8px 25px rgba(0,0,0,0.2);
     }
 
     .btn-game:active {
-      transform: scale(0.95);
+      transform: translateY(-1px) scale(0.98);
     }
 
     #restartBtn {
       background: linear-gradient(135deg, #00bfff, #0080ff);
       border-color: #00ffff;
-      box-shadow: 0 0 8px rgba(0, 191, 255, 0.3), 0 4px 8px rgba(0, 191, 255, 0.2);
+      box-shadow: 
+        0 0 20px rgba(0, 191, 255, 0.4), 
+        0 4px 15px rgba(0, 191, 255, 0.3);
+    }
+
+    #restartBtn:hover {
+      box-shadow: 
+        0 0 35px rgba(0, 191, 255, 0.6), 
+        0 8px 25px rgba(0, 191, 255, 0.4);
     }
 
     #menuBtn {
       background: linear-gradient(135deg, #ff00ff, #8800ff);
       border-color: #ff00ff;
-      box-shadow: 0 0 8px rgba(255, 0, 255, 0.3), 0 4px 8px rgba(255, 0, 255, 0.2);
+      box-shadow: 
+        0 0 20px rgba(255, 0, 255, 0.4), 
+        0 4px 15px rgba(255, 0, 255, 0.3);
+    }
+
+    #menuBtn:hover {
+      box-shadow: 
+        0 0 35px rgba(255, 0, 255, 0.6), 
+        0 8px 25px rgba(255, 0, 255, 0.4);
     }
 
     #shareBtn {
       background: linear-gradient(135deg, #00ff88, #00cc66);
       border-color: #00ff88;
-      box-shadow: 0 0 8px rgba(0, 255, 136, 0.3), 0 4px 8px rgba(0, 255, 136, 0.2);
+      box-shadow: 
+        0 0 20px rgba(0, 255, 136, 0.4), 
+        0 4px 15px rgba(0, 255, 136, 0.3);
+    }
+
+    #shareBtn:hover {
+      box-shadow: 
+        0 0 35px rgba(0, 255, 136, 0.6), 
+        0 8px 25px rgba(0, 255, 136, 0.4);
     }
 
     #gameOverOverlay {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.92);
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, rgba(10, 15, 30, 0.98) 0%, rgba(20, 25, 45, 0.98) 100%);
+      backdrop-filter: blur(10px);
       display: none;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 100;
+      z-index: 1000;
+      padding: 20px;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
     #gameOverOverlay.show {
@@ -333,26 +376,100 @@
     }
 
     #gameOverOverlay h1 {
-      font-size: 42px;
+      font-size: 56px;
       color: #ff0080;
-      margin-bottom: 25px;
+      margin-bottom: 40px;
       text-shadow:
-        0 0 15px rgba(255, 0, 128, 0.6),
-        0 0 30px rgba(255, 0, 128, 0.4);
+        0 0 20px rgba(255, 0, 128, 0.8),
+        0 0 40px rgba(255, 0, 128, 0.5),
+        0 0 60px rgba(255, 0, 128, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    #gameOverOverlay h1::before {
+      content: '💀';
+      font-size: 50px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #gameOverOverlay h1 span {
+      display: block;
+      width: 100%;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        text-shadow:
+          0 0 20px rgba(255, 0, 128, 0.8),
+          0 0 40px rgba(255, 0, 128, 0.5),
+          0 0 60px rgba(255, 0, 128, 0.3);
+      }
+      50% {
+        transform: scale(1.05);
+        text-shadow:
+          0 0 30px rgba(255, 0, 128, 1),
+          0 0 60px rgba(255, 0, 128, 0.7),
+          0 0 90px rgba(255, 0, 128, 0.5);
+      }
+    }
+
+    .game-over-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(26, 35, 50, 0.9), rgba(42, 63, 95, 0.9));
+      padding: 50px 60px;
+      border-radius: 25px;
+      border: 3px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 
+        0 0 40px rgba(0, 191, 255, 0.4),
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      max-width: 500px;
+      width: 90%;
     }
 
     #gameOverOverlay p {
-      font-size: 22px;
+      font-size: 24px;
       color: white;
-      margin: 10px 0;
+      margin: 15px 0;
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      font-weight: 600;
     }
 
     .score-highlight {
       color: #00ffff;
       font-weight: bold;
-      font-size: 28px;
-      text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+      font-size: 36px;
+      text-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.8),
+        0 0 40px rgba(0, 255, 255, 0.4);
+      display: inline-block;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 
+          0 0 20px rgba(0, 255, 255, 0.8),
+          0 0 40px rgba(0, 255, 255, 0.4);
+      }
+      50% {
+        text-shadow: 
+          0 0 30px rgba(0, 255, 255, 1),
+          0 0 60px rgba(0, 255, 255, 0.6);
+      }
     }
 
     #newRecordBadge {
@@ -450,69 +567,49 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      max-width: 300px;
-      gap: 15px;
-      margin-top: 30px;
+      max-width: 350px;
+      gap: 18px;
+      margin-top: 40px;
     }
 
     #touchControls {
       display: none;
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 200px;
-      height: 200px;
-      z-index: 50;
     }
-
-    #touchControls.show {
-      display: grid;
-      grid-template-areas:
-        ". up ."
-        "left . right"
-        ". down .";
-      grid-template-columns: 60px 60px 60px;
-      grid-template-rows: 60px 60px 60px;
-      gap: 5px;
-    }
-
-    .touch-btn {
-      background: rgba(0, 191, 255, 0.3);
-      border: 2px solid rgba(0, 255, 255, 0.5);
-      border-radius: 12px;
-      color: white;
-      font-size: 24px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      user-select: none;
-      box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
-    }
-
-    .touch-btn:active {
-      background: rgba(0, 191, 255, 0.6);
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
-      transform: scale(0.95);
-    }
-
-    #btnUp { grid-area: up; }
-    #btnDown { grid-area: down; }
-    #btnLeft { grid-area: left; }
-    #btnRight { grid-area: right; }
 
     @media (max-width: 650px) {
+      body {
+        align-items: flex-start;
+      }
+
+      #gameWrapper {
+        padding: 10px;
+        gap: 10px;
+        justify-content: flex-start;
+      }
+
+      #gamePlayArea {
+        gap: 10px;
+      }
+
       #gameContainer {
-        width: 90vw;
-        height: 90vw;
+        width: 95vw;
+        height: 95vw;
         max-width: 500px;
         max-height: 500px;
       }
       
       #topBar {
-        width: 90vw;
+        width: 95vw;
+      }
+
+      #hud {
+        font-size: 14px;
+        padding: 8px 15px;
+      }
+
+      #menuTopBtn {
+        font-size: 12px;
+        padding: 6px 14px;
       }
       
       #welcomeScreen h1 {
@@ -549,15 +646,33 @@
       }
       
       #gameOverOverlay h1 {
-        font-size: 32px;
+        font-size: 38px;
+        margin-bottom: 30px;
+      }
+
+      .game-over-content {
+        padding: 40px 30px;
+        width: 95%;
       }
       
       #gameOverOverlay p {
-        font-size: 18px;
+        font-size: 20px;
+        margin: 12px 0;
       }
       
       .score-highlight {
-        font-size: 24px;
+        font-size: 32px;
+      }
+
+      .btn-game {
+        font-size: 16px;
+        padding: 14px 30px;
+      }
+
+      .game-buttons {
+        max-width: 100%;
+        gap: 15px;
+        margin-top: 35px;
       }
     }
   </style>
@@ -608,28 +723,22 @@
         
         <!-- Game Over Overlay -->
         <div id="gameOverOverlay">
-          <h1>💀 GAME OVER</h1>
-          <p>Pontuação: <span class="score-highlight" id="finalScore">0</span></p>
-          <p>Recorde: <span class="score-highlight" id="finalBestScore">0</span></p>
-          
-          <div class="game-buttons">
-            <button id="restartBtn" class="btn-game">🔄 JOGAR NOVAMENTE</button>
-            <button id="menuBtn" class="btn-game">🏠 MENU INICIAL</button>
-            <button id="shareBtn" class="btn-game">📤 COMPARTILHAR</button>
+          <div class="game-over-content">
+            <h1><span>GAME</span><span>OVER</span></h1>
+            <p>Pontuação: <span class="score-highlight" id="finalScore">0</span></p>
+            <p>Recorde: <span class="score-highlight" id="finalBestScore">0</span></p>
+            
+            <div class="game-buttons">
+              <button id="restartBtn" class="btn-game">🔄 JOGAR NOVAMENTE</button>
+              <button id="menuBtn" class="btn-game">🏠 MENU INICIAL</button>
+              <button id="shareBtn" class="btn-game">📤 COMPARTILHAR</button>
+            </div>
           </div>
         </div>
 
         <!-- Badge de Novo Recorde -->
         <div id="newRecordBadge">🏆 NOVO RECORDE!</div>
       </div>
-    </div>
-
-    <!-- Controles Touch -->
-    <div id="touchControls">
-      <button id="btnUp" class="touch-btn">▲</button>
-      <button id="btnDown" class="touch-btn">▼</button>
-      <button id="btnLeft" class="touch-btn">◄</button>
-      <button id="btnRight" class="touch-btn">►</button>
     </div>
   </div>
 
@@ -650,7 +759,6 @@ const bestScoreValue = document.getElementById('bestScore');
 const finalScore = document.getElementById('finalScore');
 const finalBestScore = document.getElementById('finalBestScore');
 const newRecordBadge = document.getElementById('newRecordBadge');
-const touchControls = document.getElementById('touchControls');
 const speedSelect = document.getElementById('speedSelect');
 const difficultySelect = document.getElementById('difficultySelect');
 const speedDescription = document.getElementById('speedDescription');
@@ -1020,10 +1128,6 @@ function startGame() {
   
   if (gameLoop) clearInterval(gameLoop);
   gameLoop = setInterval(update, selectedSpeed);
-  
-  if ('ontouchstart' in window) {
-    touchControls.classList.add('show');
-  }
 }
 
 // Terminar jogo
@@ -1058,7 +1162,6 @@ function backToMenu() {
   welcomeScreen.classList.remove('hide');
   gamePlayArea.classList.remove('show');
   gameOverOverlay.classList.remove('show');
-  touchControls.classList.remove('show');
   
   score = 0;
   scoreValue.textContent = score;
@@ -1155,26 +1258,57 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Controles touch
-document.getElementById('btnUp').addEventListener('touchstart', (e) => {
-  e.preventDefault();
-  if (gameStarted && !gameOver) changeDirection(0, -1);
-});
+// Controles touch/swipe no canvas
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
 
-document.getElementById('btnDown').addEventListener('touchstart', (e) => {
-  e.preventDefault();
-  if (gameStarted && !gameOver) changeDirection(0, 1);
-});
+const minSwipeDistance = 30; // Distância mínima para reconhecer swipe
 
-document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
+canvas.addEventListener('touchstart', (e) => {
   e.preventDefault();
-  if (gameStarted && !gameOver) changeDirection(-1, 0);
-});
+  const touch = e.touches[0];
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
+}, { passive: false });
 
-document.getElementById('btnRight').addEventListener('touchstart', (e) => {
+canvas.addEventListener('touchmove', (e) => {
   e.preventDefault();
-  if (gameStarted && !gameOver) changeDirection(1, 0);
-});
+}, { passive: false });
+
+canvas.addEventListener('touchend', (e) => {
+  if (!gameStarted || gameOver) return;
+  e.preventDefault();
+  
+  const touch = e.changedTouches[0];
+  touchEndX = touch.clientX;
+  touchEndY = touch.clientY;
+  
+  const deltaX = touchEndX - touchStartX;
+  const deltaY = touchEndY - touchStartY;
+  
+  // Determinar se o swipe é horizontal ou vertical
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    // Movimento horizontal
+    if (Math.abs(deltaX) > minSwipeDistance) {
+      if (deltaX > 0) {
+        changeDirection(1, 0); // Direita
+      } else {
+        changeDirection(-1, 0); // Esquerda
+      }
+    }
+  } else {
+    // Movimento vertical
+    if (Math.abs(deltaY) > minSwipeDistance) {
+      if (deltaY > 0) {
+        changeDirection(0, 1); // Baixo
+      } else {
+        changeDirection(0, -1); // Cima
+      }
+    }
+  }
+}, { passive: false });
 
 // Inicializar
 initSnake();
