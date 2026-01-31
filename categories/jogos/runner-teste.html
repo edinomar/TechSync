@@ -218,7 +218,8 @@
 
     #gameOverOverlay .score,
     #gameOverOverlay .coins,
-    #gameOverOverlay .record {
+    #gameOverOverlay .record,
+    #gameOverOverlay .level {
       font-size: 28px;
       margin: 8px 0;
     }
@@ -236,6 +237,11 @@
     #gameOverOverlay .record {
       color: #ff1493;
       text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+    }
+
+    #gameOverOverlay .level {
+      color: #00ff88;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
     }
 
     #gameOverOverlay .buttons {
@@ -261,6 +267,8 @@
       box-shadow: 0 0 30px rgba(255, 20, 147, 0.7);
       animation: recordPopup 3s ease-in-out;
       z-index: 200;
+      text-align: center;
+      white-space: nowrap;
     }
 
     #newRecordBadge.show {
@@ -305,6 +313,8 @@
       backdrop-filter: blur(5px);
       z-index: 300;
       animation: levelPopup 2s ease-in-out;
+      text-align: center;
+      white-space: nowrap;
     }
 
     #levelNotification.show {
@@ -337,15 +347,20 @@
       right: 10px;
       width: 90px;
       height: 90px;
-      background: linear-gradient(135deg, #0080ff, #00bfff);
+      background: rgba(0, 128, 255, 0.3);
       border-radius: 50%;
-      border: 3px solid #00ffff;
-      box-shadow: 0 0 20px rgba(0, 191, 255, 0.6);
-      display: flex;
+      border: 3px solid rgba(0, 255, 255, 0.5);
+      box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 50;
+      backdrop-filter: blur(5px);
+    }
+
+    #levelIndicator.show {
+      display: flex;
     }
 
     #levelNumber {
@@ -423,7 +438,7 @@
 
   <!-- Instruções iniciais -->
   <div id="instructions">
-    <h2>🚀 RUNNER TECH</h2>
+    <h2>RUNNER TECH</h2>
     <button id="startBtn">COMEÇAR</button>
   </div>
 
@@ -432,7 +447,7 @@
     <p class="score">🏆 Pontuação: <span id="finalScore">0</span></p>
     <p class="coins">🪙 Moedas: <span id="finalCoins">0</span></p>
     <p class="record">⭐ Recorde: <span id="bestScore">0</span></p>
-    <p class="record">📊 Nível Alcançado: <span id="finalLevel">1</span></p>
+    <p class="level">📊 Nível Alcançado: <span id="finalLevel">1</span></p>
     <div class="buttons">
       <button id="restartBtn" class="btn-game">🔄 REINICIAR</button>
       <button id="shareBtn" class="btn-game">📤 COMPARTILHAR</button>
@@ -827,6 +842,7 @@ function updateObjects() {
           return;
         } else {
           gameOver = true;
+          levelIndicator.classList.remove('show');
         }
       }
     }
@@ -1136,15 +1152,8 @@ canvas.addEventListener("touchmove", (e) => {
     return;
   }
 
-  // Zona morta menor para maior responsividade
+  // Zona morta reduzida para maior precisão
   if (Math.abs(deltaX) > TOUCH_SENSITIVITY.deadZone) {
-    // Calcular força do movimento com curva suave
-    const rawStrength = Math.abs(deltaX) * TOUCH_SENSITIVITY.speedMultiplier;
-    const moveStrength = Math.min(rawStrength, 1);
-    
-    // Aplicar curva de aceleração (ease-out para controle mais preciso)
-    const easedStrength = 1 - Math.pow(1 - moveStrength, 2);
-    
     const direction = deltaX > 0 ? 1 : -1;
     
     // Definir direção do movimento
@@ -1156,13 +1165,13 @@ canvas.addEventListener("touchmove", (e) => {
       player.movingRight = false;
     }
     
-    // Aplicar velocidade com sensibilidade melhorada
-    player.velocityX = direction * easedStrength * player.maxSpeed * TOUCH_SENSITIVITY.maxSpeed;
+    // Aplicar velocidade direta e responsiva (sem curva de aceleração)
+    player.velocityX = direction * player.maxSpeed * TOUCH_SENSITIVITY.maxSpeed;
   } else {
-    // Desacelerar suavemente quando na zona morta
+    // Parar instantaneamente quando na zona morta
     player.movingLeft = false;
     player.movingRight = false;
-    player.velocityX *= TOUCH_SENSITIVITY.dampingMove;
+    player.velocityX = 0;
   }
 }, { passive: false });
 
@@ -1170,8 +1179,8 @@ canvas.addEventListener("touchend", (e) => {
   e.preventDefault();
   isTouching = false;
   
-  // Desaceleração mais suave ao soltar o dedo
-  player.velocityX *= TOUCH_SENSITIVITY.dampingRelease;
+  // Parar instantaneamente ao soltar o dedo
+  player.velocityX = 0;
   player.movingLeft = false;
   player.movingRight = false;
 }, { passive: false });
@@ -1180,7 +1189,7 @@ canvas.addEventListener("touchend", (e) => {
 canvas.addEventListener("touchcancel", (e) => {
   e.preventDefault();
   isTouching = false;
-  player.velocityX *= TOUCH_SENSITIVITY.dampingRelease;
+  player.velocityX = 0;
   player.movingLeft = false;
   player.movingRight = false;
 }, { passive: false });
@@ -1200,6 +1209,7 @@ document.addEventListener("keydown", (e) => {
     e.preventDefault();
     instructions.classList.add('hide');
     gameStarted = true;
+    levelIndicator.classList.add('show');
     player.init();
     // Mostrar notificação de Nível 1 ao iniciar
     setTimeout(() => {
@@ -1252,6 +1262,7 @@ function resetGame() {
   player.init();
   gameOverOverlay.classList.remove('show');
   powerUpIndicator.classList.remove('show', 'magnet', 'shield');
+  levelIndicator.classList.add('show');
   levelNumber.textContent = '1'; // Resetar indicador circular
   // Mostrar notificação de Nível 1 ao reiniciar
   setTimeout(() => {
@@ -1296,6 +1307,7 @@ function shareResults() {
 startBtn.addEventListener("click", () => {
   instructions.classList.add('hide');
   gameStarted = true;
+  levelIndicator.classList.add('show');
   player.init();
   // Mostrar notificação de Nível 1 ao iniciar
   setTimeout(() => {
@@ -1365,6 +1377,7 @@ canvas.addEventListener('contextmenu', (e) => {
   e.preventDefault();
   if (gameStarted && !gameOver) {
     gameOver = true;
+    levelIndicator.classList.remove('show');
     console.log('🐛 DEBUG: Game Over forçado');
   }
 });
