@@ -531,35 +531,48 @@
       width: 100%;
       max-width: 500px;
       flex-shrink: 0;
+      padding: 0 4px;
     }
 
-    #touchControls.show { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    #touchControls.show {
+      display: flex;
+      flex-direction: row;          /* D-pad LEFT, actions RIGHT */
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
 
-    /* D-pad uses a 3×3 CSS grid; only 4 cells occupied */
+    /* ---- D-pad (3×3 grid, 4 cells used) ---- */
     .dpad {
       display: grid;
-      grid-template-columns: repeat(3, 52px);
-      grid-template-rows: repeat(3, 52px);
-      gap: 4px;
+      grid-template-columns: repeat(3, 64px);
+      grid-template-rows: repeat(3, 64px);
+      gap: 5px;
     }
 
-    .dpad .touch-btn { width: 52px; height: 52px; }
+    .dpad .touch-btn { width: 64px; height: 64px; }
     .dpad .btn-up    { grid-column: 2; grid-row: 1; }
     .dpad .btn-left  { grid-column: 1; grid-row: 2; }
     .dpad .btn-down  { grid-column: 2; grid-row: 2; }
     .dpad .btn-right { grid-column: 3; grid-row: 2; }
 
-    /* Action row beneath the D-pad */
-    .action-row {
+    /* ---- Action column (Hold on top, Drop below) ---- */
+    .action-col {
       display: flex;
-      gap: 6px;
-      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
     }
 
+    .action-btn {
+      width: 88px;
+      height: 64px;
+    }
+
+    /* ---- Shared button styles ---- */
     .touch-btn {
-      background: rgba(0, 191, 255, 0.12);
-      border: 2px solid rgba(0, 255, 255, 0.25);
-      border-radius: 12px;
+      background: rgba(0, 191, 255, 0.14);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -567,25 +580,20 @@
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
-      transition: all 0.1s;
+      transition: background 0.08s, transform 0.08s, box-shadow 0.08s;
       color: #00ffff;
-      filter: drop-shadow(0 0 6px rgba(0,255,255,0.4));
-      gap: 1px;
+      filter: drop-shadow(0 0 6px rgba(0,255,255,0.35));
+      gap: 2px;
     }
 
-    .touch-btn .btn-icon { font-size: 20px; line-height: 1; }
-    .touch-btn .btn-label { font-size: 8px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.5px; }
+    .touch-btn .btn-icon  { font-size: 26px; line-height: 1; }
+    .touch-btn .btn-label { font-size: 9px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
 
     .touch-btn:active, .touch-btn.pressed {
-      background: rgba(0, 191, 255, 0.3);
+      background: rgba(0, 191, 255, 0.32);
       border-color: #00ffff;
-      box-shadow: 0 0 16px rgba(0,255,255,0.4);
-      transform: scale(0.91);
-    }
-
-    .action-btn {
-      width: 78px;
-      height: 52px;
+      box-shadow: 0 0 18px rgba(0,255,255,0.45);
+      transform: scale(0.9);
     }
 
     /* ===== LINE CLEAR FLASH ===== */
@@ -597,42 +605,51 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 650px) {
-      #gameWrapper { padding: 4px; gap: 5px; }
-      #gamePlayArea { gap: 5px; }
+      #gameWrapper { padding: 4px; gap: 4px; }
+      #gamePlayArea { gap: 4px; }
 
+      /* Board shrinks so controls have room */
       #gameContainer {
-        width: 58vw;
-        height: 116vw;
-        max-width: 280px;
-        max-height: 560px;
+        width: 52vw;
+        height: 104vw;
+        max-width: 260px;
+        max-height: 520px;
       }
 
-      .side-col { width: 15vw; max-width: 72px; }
-      #nextCanvas, #holdCanvas { width: 58px; height: 58px; }
-      .side-box { padding: 6px 4px; }
+      /* Side panels go narrow */
+      .side-col { width: 12vw; max-width: 56px; }
+      #nextCanvas, #holdCanvas { width: 44px; height: 44px; }
+      .side-box { padding: 5px 3px; }
+      .side-box-label { font-size: 9px; margin-bottom: 4px; }
 
-      #hud { padding: 6px 8px; }
-      .hud-value { font-size: 17px; }
-      .hud-label { font-size: 8px; }
+      /* HUD tighter */
+      #hud { padding: 5px 6px; }
+      .hud-value { font-size: 16px; }
+      .hud-label { font-size: 7px; }
 
-      .dpad { grid-template-columns: repeat(3, 46px); grid-template-rows: repeat(3, 46px); }
-      .dpad .touch-btn { width: 46px; height: 46px; }
-      .action-btn { width: 70px; height: 46px; }
-      .touch-btn .btn-icon { font-size: 18px; }
+      /* Controls scale down slightly but stay big */
+      .dpad { grid-template-columns: repeat(3, 58px); grid-template-rows: repeat(3, 58px); gap: 4px; }
+      .dpad .touch-btn { width: 58px; height: 58px; }
+      .action-btn { width: 80px; height: 58px; }
+      .touch-btn .btn-icon { font-size: 24px; }
+      .touch-btn .btn-label { font-size: 8px; }
 
       #welcomeScreen h1 { font-size: 36px; }
       .dropdown-container { max-width: 90%; }
     }
 
     @media (max-width: 400px) {
-      #gameContainer { width: 56vw; height: 112vw; max-width: 240px; max-height: 480px; }
-      .side-col { width: 14vw; max-width: 60px; }
-      #nextCanvas, #holdCanvas { width: 48px; height: 48px; }
+      #gameContainer { width: 50vw; height: 100vw; max-width: 220px; max-height: 440px; }
+      .side-col { width: 11vw; max-width: 48px; }
+      #nextCanvas, #holdCanvas { width: 38px; height: 38px; }
+      .side-box { padding: 4px 2px; }
 
-      .dpad { grid-template-columns: repeat(3, 42px); grid-template-rows: repeat(3, 42px); gap: 3px; }
-      .dpad .touch-btn { width: 42px; height: 42px; }
-      .action-btn { width: 64px; height: 42px; }
-      .touch-btn .btn-icon { font-size: 16px; }
+      /* Controls stay touchable */
+      .dpad { grid-template-columns: repeat(3, 54px); grid-template-rows: repeat(3, 54px); gap: 3px; }
+      .dpad .touch-btn { width: 54px; height: 54px; }
+      .action-btn { width: 74px; height: 54px; }
+      .touch-btn .btn-icon { font-size: 22px; }
+      .touch-btn .btn-label { font-size: 7px; }
 
       #welcomeScreen { padding: 30px 18px; }
       #welcomeScreen h1 { font-size: 30px; margin-bottom: 6px; }
@@ -731,7 +748,7 @@
         <div class="hud-item"><span class="hud-label">Lines</span><span class="hud-value" id="linesVal">0</span></div>
       </div>
 
-      <!-- Touch controls: D-pad + action row -->
+      <!-- Touch controls: D-pad LEFT | Actions RIGHT -->
       <div id="touchControls">
         <div class="dpad">
           <button class="touch-btn btn-up"    data-action="up"><span class="btn-icon">↺</span><span class="btn-label">Rotate</span></button>
@@ -739,7 +756,7 @@
           <button class="touch-btn btn-down"  data-action="down"><span class="btn-icon">↓</span></button>
           <button class="touch-btn btn-right" data-action="right"><span class="btn-icon">→</span></button>
         </div>
-        <div class="action-row">
+        <div class="action-col">
           <button class="touch-btn action-btn" data-action="hold"><span class="btn-icon">⬛</span><span class="btn-label">Hold</span></button>
           <button class="touch-btn action-btn" data-action="drop"><span class="btn-icon">⬇</span><span class="btn-label">Drop</span></button>
         </div>
@@ -1039,7 +1056,7 @@ function lockPiece() {
   holdUsed = false;
   holdBox.classList.remove('hold-used');
   lockDelay = false;
-  
+
   // Tentar mover a peça para baixo 1 linha
   if (!isValidPosition(currentPiece, 0, 1)) {
     // Peça nasceu mas não consegue descer - game over
