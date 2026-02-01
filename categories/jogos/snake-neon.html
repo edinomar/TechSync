@@ -580,35 +580,23 @@
       display: none;
       width: 100%;
       height: 200px;
-      background: rgba(0, 191, 255, 0.05);
-      border: 2px dashed rgba(0, 255, 255, 0.2);
+      background: rgba(0, 191, 255, 0.03);
+      border: 2px solid rgba(0, 255, 255, 0.15);
       border-radius: 15px;
       position: relative;
       touch-action: none;
       user-select: none;
+      transition: all 0.2s;
     }
 
     #touchControlArea.show {
       display: block;
     }
 
-    #touchControlArea::before {
-      content: '👆 Deslize aqui para controlar';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: rgba(0, 255, 255, 0.4);
-      font-size: 16px;
-      font-weight: 600;
-      text-align: center;
-      pointer-events: none;
-      text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-    }
-
-    #touchControlArea.active::before {
-      content: '👆 Controlando...';
-      color: rgba(0, 255, 255, 0.7);
+    #touchControlArea.active {
+      background: rgba(0, 191, 255, 0.08);
+      border-color: rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
     }
 
     @media (max-width: 650px) {
@@ -651,10 +639,6 @@
         width: 95vw;
         height: 180px;
         margin-top: 10px;
-      }
-
-      #touchControlArea::before {
-        font-size: 14px;
       }
       
       #welcomeScreen h1 {
@@ -1313,59 +1297,94 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Controles touch/swipe na área de controle
+// Controles touch contínuos - mantém o dedo pressionado e arrasta
 let touchStartX = 0;
 let touchStartY = 0;
-let touchEndX = 0;
-let touchEndY = 0;
+let lastDirection = null;
+let isTouching = false;
 
-const minSwipeDistance = 30; // Distância mínima para reconhecer swipe
+const minSwipeDistance = 40; // Distância mínima para reconhecer mudança de direção
 
 touchControlArea.addEventListener('touchstart', (e) => {
   e.preventDefault();
   const touch = e.touches[0];
   touchStartX = touch.clientX;
   touchStartY = touch.clientY;
+  isTouching = true;
   touchControlArea.classList.add('active');
 }, { passive: false });
 
 touchControlArea.addEventListener('touchmove', (e) => {
-  e.preventDefault();
-}, { passive: false });
-
-touchControlArea.addEventListener('touchend', (e) => {
-  if (!gameStarted || gameOver) return;
+  if (!gameStarted || gameOver || !isTouching) return;
   e.preventDefault();
   
-  touchControlArea.classList.remove('active');
+  const touch = e.touches[0];
+  const currentX = touch.clientX;
+  const currentY = touch.clientY;
   
-  const touch = e.changedTouches[0];
-  touchEndX = touch.clientX;
-  touchEndY = touch.clientY;
+  const deltaX = currentX - touchStartX;
+  const deltaY = currentY - touchStartY;
   
-  const deltaX = touchEndX - touchStartX;
-  const deltaY = touchEndY - touchStartY;
+  // Determinar direção baseada na posição atual do toque
+  let newDirection = null;
   
-  // Determinar se o swipe é horizontal ou vertical
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
     // Movimento horizontal
     if (Math.abs(deltaX) > minSwipeDistance) {
       if (deltaX > 0) {
-        changeDirection(1, 0); // Direita
+        newDirection = 'right';
       } else {
-        changeDirection(-1, 0); // Esquerda
+        newDirection = 'left';
       }
     }
   } else {
     // Movimento vertical
     if (Math.abs(deltaY) > minSwipeDistance) {
       if (deltaY > 0) {
-        changeDirection(0, 1); // Baixo
+        newDirection = 'down';
       } else {
-        changeDirection(0, -1); // Cima
+        newDirection = 'up';
       }
     }
   }
+  
+  // Aplicar nova direção apenas se mudou
+  if (newDirection && newDirection !== lastDirection) {
+    lastDirection = newDirection;
+    
+    switch(newDirection) {
+      case 'up':
+        changeDirection(0, -1);
+        break;
+      case 'down':
+        changeDirection(0, 1);
+        break;
+      case 'left':
+        changeDirection(-1, 0);
+        break;
+      case 'right':
+        changeDirection(1, 0);
+        break;
+    }
+    
+    // Atualizar ponto de referência para próxima mudança de direção
+    touchStartX = currentX;
+    touchStartY = currentY;
+  }
+}, { passive: false });
+
+touchControlArea.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  isTouching = false;
+  lastDirection = null;
+  touchControlArea.classList.remove('active');
+}, { passive: false });
+
+touchControlArea.addEventListener('touchcancel', (e) => {
+  e.preventDefault();
+  isTouching = false;
+  lastDirection = null;
+  touchControlArea.classList.remove('active');
 }, { passive: false });
 
 // Inicializar
