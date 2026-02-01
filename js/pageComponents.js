@@ -325,10 +325,10 @@ const searchIndex = [
     {
         id: 13,
         title: "Jogos",
-        url: "/categories/jogos/runner.html",
+        url: "/categories/jogos.html",
         description: "Tudo sobre jogos eletrônicos",
         content: "jogos video game consoles pc games desenvolvimento desenvolvedores",
-        tags: ["jogos", "video-game", "desenvolvimento"]
+        tags: ["jogos", "video-game", "games","Runner Tech","Snake Neon"]
     }
 ];
 
