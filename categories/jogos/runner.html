@@ -542,7 +542,7 @@ let bestScore = parseInt(localStorage.getItem('runnerBestScore')) || 0;
 
 // Carregar imagens
 const playerImage = new Image();
-playerImage.src = 'categories/jogos/img/personagem.png';
+playerImage.src = '/categories/jogos/img/personagem.png';
 let imageLoaded = false;
 
 playerImage.onload = () => {
@@ -557,7 +557,7 @@ playerImage.onerror = () => {
 
 // Carregar imagem do drone (obstáculo baixo)
 const droneImage = new Image();
-droneImage.src = 'categories/jogos/img/drone_futurista_menor.png';
+droneImage.src = '/categories/jogos/img/drone_futurista_menor.png';
 let droneImageLoaded = false;
 
 droneImage.onload = () => {
@@ -572,7 +572,7 @@ droneImage.onerror = () => {
 
 // Carregar imagem do drone maior (obstáculo alto)
 const droneMaiorImage = new Image();
-droneMaiorImage.src = 'categories/jogos/img/drone_futurista_maior.png';
+droneMaiorImage.src = '/categories/jogos/img/drone_futurista_maior.png';
 let droneMaiorImageLoaded = false;
 
 droneMaiorImage.onload = () => {
@@ -1399,5 +1399,6 @@ console.log('🎮 Runner Tech inicializado com controles mobile otimizados!');
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545"
     crossorigin="anonymous"></script>
+
 </body>
 </html>
