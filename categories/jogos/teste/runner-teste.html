@@ -530,7 +530,7 @@ let bestScore = parseInt(localStorage.getItem('runnerBestScore')) || 0;
 
 // Carregar imagens
 const playerImage = new Image();
-playerImage.src = '/categories/jogos/img/personagem.png.png';
+playerImage.src = '/categories/jogos/img/personagem.png';
 let imageLoaded = false;
 
 playerImage.onload = () => {
@@ -545,7 +545,7 @@ playerImage.onerror = () => {
 
 // Carregar imagem do drone (obstáculo baixo)
 const droneImage = new Image();
-droneImage.src = '/categories/jogos/img/drone_futurista_menor.png.png';
+droneImage.src = '/categories/jogos/img/drone_futurista_menor.png';
 let droneImageLoaded = false;
 
 droneImage.onload = () => {
