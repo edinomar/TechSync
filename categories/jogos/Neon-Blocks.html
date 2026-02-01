@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Tetris Neon - Jogo Clássico Futurista</title>
+  <title>Neon Blocks</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <style>
     * {
@@ -1582,7 +1582,7 @@ menuTopBtn.addEventListener('click', backToMenu);
 shareBtn.addEventListener('click', () => {
   const txt = `⬜ Neon Bolocks!\n\n🏆 Pontuação: ${score}\n📊 Nível: ${level} | Linhas: ${totalLines}\n⭐ Recorde: ${bestScore}\n\nJogue agora!`;
   if (navigator.share) {
-    navigator.share({ title: 'Tetris Neon', text: txt }).catch(() => {});
+    navigator.share({ title: 'Neon Blocks', text: txt }).catch(() => {});
   } else if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(txt).then(() => {
       shareBtn.textContent = '✓ COPIADO!';
