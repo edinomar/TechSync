@@ -1,9 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-NFY6RYBJZJ');
+  </script>
+
+  <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+
   <meta charset="UTF-8">
   <title>Snake Neon - Jogo Clássico Futurista</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <meta name="description" content="Jogue Snake Neon online grátis! 🐍✨ Versão futurista do jogo com níveis, obstáculos, recordes e visual neon incrível.">
+
+  <meta name="keywords" content="snake neon, jogo da cobrinha, snake online, jogo snake grátis, snake futurista, jogo online mobile, snake html5">
+
+  <link rel="canonical" href="https://techsync.net.br/categories/jogos/snake-neon.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Snake Neon 🐍">
+  <meta property="og:description" content="Desafie seus reflexos no Snake Neon! Jogo da cobrinha online com visual neon, obstáculos e recordes. Jogue agora!">
+  <meta property="og:url" content="https://techsync.net.br/categories/jogos/snake-neon.html">
+  <meta property="og:locale" content="pt_BR">
+  <!--<meta property="og:image" content="https://techsync.net.br/assets/images/snake-neon-og.jpg">-->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Snake Neon 🐍 Jogo Online Futurista">
+  <meta name="twitter:description" content="O clássico jogo da cobrinha em versão neon futurista. Grátis, rápido e viciante!">
+  <!--<meta name="twitter:image" content="https://techsync.net.br/assets/images/snake-neon-og.jpg">-->
+
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#00ffff">
+  <!--<link rel="preload" as="image" href="/assets/images/snake-neon-og.jpg">-->
+
+  <meta name="theme-color" content="#667eea">
+
   <style>
     * {
       margin: 0;
@@ -906,7 +944,7 @@
     <!-- Área de Jogo -->
     <div id="gamePlayArea">
       <div id="topBar">
-        <button id="menuTopBtn">← MENU</button>
+        <button id="menuTopBtn">MENU</button>
         <div id="hud">
           <span>Pontos: <span id="score">0</span></span>
           <span>Recorde: <span id="bestScore">0</span></span>
@@ -1112,8 +1150,8 @@ function generateFood() {
       }
     }
     
-    // Verificar se a comida não está em um obstáculo (nível 3)
-    if (selectedDifficulty === 3) {
+    // Verificar se a comida não está em um obstáculo (níveis 3 e 4)
+    if (selectedDifficulty === 3 || selectedDifficulty === 4) {
       for (let obstacle of obstacles) {
         if (obstacle.x === food.x && obstacle.y === food.y) {
           validPosition = false;
