@@ -18,9 +18,12 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      height: 100vh;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow: hidden;
       touch-action: none;
+      margin: 0;
+      padding: 0;
     }
 
     #gameWrapper {
@@ -31,6 +34,8 @@
       padding: 20px;
       width: 100%;
       max-width: 650px;
+      height: 100%;
+      max-height: 100vh;
     }
 
     #welcomeScreen {
@@ -63,7 +68,7 @@
         0 0 40px rgba(0, 191, 255, 0.6);
     }
 
-    /* Dropdown Styles */
+    /* Dropdown Customizado */
     .dropdown-container {
       width: 100%;
       max-width: 450px;
@@ -87,72 +92,123 @@
       color: #00ffff;
       font-size: 18px;
       font-weight: bold;
-      margin-bottom: 12px;
+      margin-bottom: 15px;
       text-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.3);
       text-align: center;
       letter-spacing: 1px;
     }
 
-    .dropdown-select {
-      width: 100%;
-      padding: 16px 50px 16px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      background: linear-gradient(135deg, rgba(0, 191, 255, 0.15), rgba(0, 128, 255, 0.15));
-      border: 2px solid rgba(0, 255, 255, 0.4);
-      border-radius: 12px;
-      color: #ffffff;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      outline: none;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%2300ffff' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      box-shadow: 
-        0 0 15px rgba(0, 191, 255, 0.3),
-        inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    .custom-select-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .dropdown-select:hover {
-      background: linear-gradient(135deg, rgba(0, 191, 255, 0.25), rgba(0, 128, 255, 0.25));
+    .custom-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 20px;
+      background: rgba(0, 50, 80, 0.5);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .custom-option:hover {
+      background: rgba(0, 100, 150, 0.6);
+      border-color: rgba(0, 255, 255, 0.4);
+      transform: translateX(5px);
+      box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+    }
+
+    .custom-option.selected {
+      background: linear-gradient(135deg, rgba(0, 191, 255, 0.3), rgba(0, 128, 255, 0.3));
       border-color: #00ffff;
       box-shadow: 
         0 0 25px rgba(0, 255, 255, 0.5),
-        inset 0 2px 5px rgba(0, 0, 0, 0.2);
-      transform: translateY(-2px);
+        inset 0 0 20px rgba(0, 255, 255, 0.2);
     }
 
-    .dropdown-select:focus {
-      border-color: #00ffff;
-      box-shadow: 
-        0 0 35px rgba(0, 255, 255, 0.7),
-        0 0 50px rgba(0, 255, 255, 0.4),
-        inset 0 2px 5px rgba(0, 0, 0, 0.2);
-      transform: translateY(-2px);
+    .custom-option.selected::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #00ffff, #00bfff);
+      box-shadow: 0 0 10px #00ffff;
     }
 
-    .dropdown-select:active {
-      transform: translateY(0);
+    .option-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 5px currentColor);
     }
 
-    .dropdown-select option {
-      background: #1a2332;
+    .option-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .option-title {
       color: #ffffff;
-      padding: 15px;
+      font-size: 16px;
       font-weight: bold;
-      font-size: 15px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .custom-option.selected .option-title {
+      color: #00ffff;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    }
+
+    .option-description {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .custom-option.selected .option-description {
+      color: rgba(0, 255, 255, 0.9);
+    }
+
+    .option-check {
+      font-size: 20px;
+      color: transparent;
+      transition: all 0.3s;
+    }
+
+    .custom-option.selected .option-check {
+      color: #00ffff;
+      filter: drop-shadow(0 0 10px #00ffff);
+      animation: checkPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes checkPulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px #00ffff);
+      }
+      50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 15px #00ffff);
+      }
+    }
+
+    /* Esconder os selects nativos */
+    .dropdown-select {
+      display: none;
     }
 
     .dropdown-description {
-      font-size: 13px;
-      color: #aaddff;
-      margin-top: 10px;
-      text-align: center;
-      line-height: 1.6;
-      font-style: italic;
-      text-shadow: 0 0 5px rgba(170, 221, 255, 0.3);
+      display: none;
     }
 
     #gamePlayArea {
@@ -161,6 +217,8 @@
       align-items: center;
       gap: 20px;
       width: 100%;
+      height: 100%;
+      flex: 1;
     }
 
     #gamePlayArea.show {
@@ -579,7 +637,8 @@
     #touchControlArea {
       display: none;
       width: 100%;
-      height: 200px;
+      flex: 1;
+      min-height: 150px;
       background: rgba(0, 191, 255, 0.03);
       border: 2px solid rgba(0, 255, 255, 0.15);
       border-radius: 15px;
@@ -602,27 +661,36 @@
     @media (max-width: 650px) {
       body {
         align-items: flex-start;
+        height: 100vh;
+        max-height: 100vh;
       }
 
       #gameWrapper {
-        padding: 10px;
-        gap: 10px;
+        padding: 5px;
+        gap: 8px;
         justify-content: flex-start;
+        height: 100vh;
+        max-height: 100vh;
       }
 
       #gamePlayArea {
-        gap: 10px;
+        gap: 8px;
+        flex: 1;
+        height: 100%;
       }
 
       #gameContainer {
         width: 95vw;
-        height: 95vw;
+        height: auto;
+        aspect-ratio: 1;
         max-width: 500px;
         max-height: 500px;
+        flex-shrink: 0;
       }
       
       #topBar {
         width: 95vw;
+        flex-shrink: 0;
       }
 
       #hud {
@@ -637,8 +705,10 @@
 
       #touchControlArea {
         width: 95vw;
-        height: 180px;
-        margin-top: 10px;
+        flex: 1;
+        min-height: 120px;
+        max-height: calc(100vh - 600px);
+        margin-top: 0;
       }
       
       #welcomeScreen h1 {
@@ -651,6 +721,19 @@
     }
 
     @media (max-width: 450px) {
+      #gameWrapper {
+        padding: 3px;
+        gap: 5px;
+      }
+
+      #gamePlayArea {
+        gap: 5px;
+      }
+
+      #topBar {
+        padding: 5px 0;
+      }
+
       #welcomeScreen {
         padding: 30px 20px;
       }
@@ -703,6 +786,10 @@
         gap: 15px;
         margin-top: 35px;
       }
+
+      #touchControlArea {
+        min-height: 100px;
+      }
     }
   </style>
 </head>
@@ -712,26 +799,76 @@
     <div id="welcomeScreen">
       <h1>🐍 SNAKE NEON</h1>
       
-      <!-- Dropdown de Velocidade -->
+      <!-- Seleção de Velocidade Customizada -->
       <div class="dropdown-container">
         <label class="dropdown-label">⚡ Velocidade</label>
+        <div class="custom-select-options" id="speedOptions">
+          <div class="custom-option" data-value="150">
+            <span class="option-icon">🐌</span>
+            <div class="option-content">
+              <div class="option-title">Easy (Fácil)</div>
+              <div class="option-description">Velocidade lenta - ideal para iniciantes!</div>
+            </div>
+            <span class="option-check">●</span>
+          </div>
+          <div class="custom-option selected" data-value="100">
+            <span class="option-icon">⚡</span>
+            <div class="option-content">
+              <div class="option-title">Normal (Médio)</div>
+              <div class="option-description">Velocidade média - perfeita para começar!</div>
+            </div>
+            <span class="option-check">●</span>
+          </div>
+          <div class="custom-option" data-value="60">
+            <span class="option-icon">🚀</span>
+            <div class="option-content">
+              <div class="option-title">Hard (Rápido)</div>
+              <div class="option-description">Velocidade rápida - desafio para experientes!</div>
+            </div>
+            <span class="option-check">●</span>
+          </div>
+        </div>
         <select id="speedSelect" class="dropdown-select">
           <option value="150">🐌 Easy (Fácil)</option>
           <option value="100" selected>⚡ Normal (Médio)</option>
           <option value="60">🚀 Hard (Rápido)</option>
         </select>
-        <p class="dropdown-description" id="speedDescription">Velocidade média - perfeita para começar!</p>
       </div>
 
-      <!-- Dropdown de Dificuldade -->
+      <!-- Seleção de Dificuldade Customizada -->
       <div class="dropdown-container">
         <label class="dropdown-label">🎯 Nível de Dificuldade</label>
+        <div class="custom-select-options" id="difficultyOptions">
+          <div class="custom-option selected" data-value="1">
+            <span class="option-icon">🌀</span>
+            <div class="option-content">
+              <div class="option-title">Nível 1: Atravessa Paredes</div>
+              <div class="option-description">Atravessa as paredes e aparece do outro lado - perfeito para iniciantes!</div>
+            </div>
+            <span class="option-check">●</span>
+          </div>
+          <div class="custom-option" data-value="2">
+            <span class="option-icon">🧱</span>
+            <div class="option-content">
+              <div class="option-title">Nível 2: Paredes Mortais</div>
+              <div class="option-description">Colisões com as paredes encerram o jogo - requer mais atenção!</div>
+            </div>
+            <span class="option-check">●</span>
+          </div>
+          <div class="custom-option" data-value="3">
+            <span class="option-icon">⚠️</span>
+            <div class="option-content">
+              <div class="option-title">Nível 3: Obstáculos no Tabuleiro</div>
+              <div class="option-description">Obstáculos aleatórios tornam o jogo ainda mais desafiador!</div>
+            </div>
+            <span class="option-check">●</span>
+          </div>
+        </div>
         <select id="difficultySelect" class="dropdown-select">
           <option value="1" selected>🌀 Nível 1: Atravessa Paredes</option>
           <option value="2">🧱 Nível 2: Paredes Mortais</option>
           <option value="3">⚠️ Nível 3: Obstáculos no Tabuleiro</option>
         </select>
-        <p class="dropdown-description" id="difficultyDescription">A cobra atravessa as paredes e aparece do outro lado - perfeito para iniciantes!</p>
       </div>
 
       <button id="startBtn">🎮 INICIAR JOGO</button>
@@ -809,9 +946,11 @@ const finalBestScore = document.getElementById('finalBestScore');
 const newRecordBadge = document.getElementById('newRecordBadge');
 const speedSelect = document.getElementById('speedSelect');
 const difficultySelect = document.getElementById('difficultySelect');
-const speedDescription = document.getElementById('speedDescription');
-const difficultyDescription = document.getElementById('difficultyDescription');
 const touchControlArea = document.getElementById('touchControlArea');
+
+// Elementos das opções customizadas
+const speedOptions = document.getElementById('speedOptions');
+const difficultyOptions = document.getElementById('difficultyOptions');
 
 // Continuar com as outras variáveis do jogo
 let snake = [];
@@ -831,29 +970,43 @@ let selectedDifficulty = 1; // Dificuldade padrão (Atravessa paredes)
 
 bestScoreValue.textContent = bestScore;
 
-// Descrições dos dropdowns
-const speedDescriptions = {
-  '150': 'Velocidade lenta - ideal para iniciantes e prática!',
-  '100': 'Velocidade média - perfeita para começar!',
-  '60': 'Velocidade rápida - desafio para jogadores experientes!'
-};
-
-const difficultyDescriptions = {
-  '1': 'Atravessa as paredes e aparece do outro lado - perfeito para iniciantes!',
-  '2': 'Colisões com as paredes encerram o jogo - requer mais atenção!',
-  '3': 'Obstáculos aleatórios no tabuleiro tornam o jogo ainda mais desafiador!'
-};
-
-// Event listeners para os dropdowns
-speedSelect.addEventListener('change', (e) => {
-  selectedSpeed = parseInt(e.target.value);
-  speedDescription.textContent = speedDescriptions[e.target.value];
+// Gerenciar seleção customizada de velocidade
+speedOptions.addEventListener('click', (e) => {
+  const option = e.target.closest('.custom-option');
+  if (!option) return;
+  
+  // Remover seleção anterior
+  speedOptions.querySelectorAll('.custom-option').forEach(opt => {
+    opt.classList.remove('selected');
+  });
+  
+  // Adicionar seleção atual
+  option.classList.add('selected');
+  
+  // Atualizar valor
+  selectedSpeed = parseInt(option.dataset.value);
+  speedSelect.value = option.dataset.value;
 });
 
-difficultySelect.addEventListener('change', (e) => {
-  selectedDifficulty = parseInt(e.target.value);
-  difficultyDescription.textContent = difficultyDescriptions[e.target.value];
+// Gerenciar seleção customizada de dificuldade
+difficultyOptions.addEventListener('click', (e) => {
+  const option = e.target.closest('.custom-option');
+  if (!option) return;
+  
+  // Remover seleção anterior
+  difficultyOptions.querySelectorAll('.custom-option').forEach(opt => {
+    opt.classList.remove('selected');
+  });
+  
+  // Adicionar seleção atual
+  option.classList.add('selected');
+  
+  // Atualizar valor
+  selectedDifficulty = parseInt(option.dataset.value);
+  difficultySelect.value = option.dataset.value;
 });
+
+// Descrições (não são mais necessárias mas manter compatibilidade)
 
 // Inicializar snake
 function initSnake() {
