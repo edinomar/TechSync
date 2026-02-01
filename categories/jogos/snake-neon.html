@@ -73,18 +73,6 @@
       width: 100%;
       max-width: 450px;
       margin: 20px 0;
-      padding: 20px;
-      background: rgba(0, 191, 255, 0.05);
-      border: 2px solid rgba(0, 255, 255, 0.2);
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s;
-    }
-
-    .dropdown-container:hover {
-      border-color: rgba(0, 255, 255, 0.4);
-      box-shadow: 0 4px 30px rgba(0, 191, 255, 0.2);
-      background: rgba(0, 191, 255, 0.08);
     }
 
     .dropdown-label {
@@ -92,122 +80,143 @@
       color: #00ffff;
       font-size: 18px;
       font-weight: bold;
-      margin-bottom: 15px;
-      text-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.3);
-      text-align: center;
+      margin-bottom: 12px;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+      text-align: left;
       letter-spacing: 1px;
     }
 
-    .custom-select-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .custom-dropdown {
+      position: relative;
+      width: 100%;
     }
 
-    .custom-option {
+    .dropdown-selected {
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
       padding: 15px 20px;
-      background: rgba(0, 50, 80, 0.5);
-      border: 2px solid rgba(0, 255, 255, 0.2);
+      background: linear-gradient(135deg, rgba(0, 191, 255, 0.15), rgba(0, 128, 255, 0.15));
+      border: 2px solid rgba(0, 255, 255, 0.4);
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
-      overflow: hidden;
+      z-index: 10;
     }
 
-    .custom-option:hover {
-      background: rgba(0, 100, 150, 0.6);
-      border-color: rgba(0, 255, 255, 0.4);
-      transform: translateX(5px);
-      box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
-    }
-
-    .custom-option.selected {
-      background: linear-gradient(135deg, rgba(0, 191, 255, 0.3), rgba(0, 128, 255, 0.3));
+    .dropdown-selected:hover {
+      background: linear-gradient(135deg, rgba(0, 191, 255, 0.25), rgba(0, 128, 255, 0.25));
       border-color: #00ffff;
-      box-shadow: 
-        0 0 25px rgba(0, 255, 255, 0.5),
-        inset 0 0 20px rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
     }
 
-    .custom-option.selected::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: linear-gradient(180deg, #00ffff, #00bfff);
-      box-shadow: 0 0 10px #00ffff;
+    .dropdown-selected.active {
+      border-color: #00ffff;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
     }
 
-    .option-icon {
-      font-size: 24px;
-      flex-shrink: 0;
+    .selected-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .selected-icon {
+      font-size: 20px;
       filter: drop-shadow(0 0 5px currentColor);
     }
 
-    .option-content {
-      flex: 1;
+    .selected-text {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .dropdown-arrow {
+      font-size: 12px;
+      color: #00ffff;
+      transition: transform 0.3s;
+      filter: drop-shadow(0 0 5px #00ffff);
+    }
+
+    .dropdown-selected.active .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(26, 35, 50, 0.98);
+      border: 2px solid #00ffff;
+      border-top: none;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .dropdown-options.show {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .dropdown-option {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    .dropdown-option:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-option:hover {
+      background: rgba(0, 191, 255, 0.2);
+      padding-left: 25px;
+    }
+
+    .dropdown-option.selected {
+      background: rgba(0, 191, 255, 0.15);
+    }
+
+    .option-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .option-details {
+      flex: 1;
     }
 
     .option-title {
       color: #ffffff;
-      font-size: 16px;
-      font-weight: bold;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 3px;
     }
 
-    .custom-option.selected .option-title {
-      color: #00ffff;
-      text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-    }
-
-    .option-description {
-      color: rgba(255, 255, 255, 0.7);
+    .option-desc {
+      color: rgba(255, 255, 255, 0.6);
       font-size: 12px;
-      line-height: 1.4;
+      line-height: 1.3;
     }
 
-    .custom-option.selected .option-description {
-      color: rgba(0, 255, 255, 0.9);
-    }
-
-    .option-check {
-      font-size: 20px;
-      color: transparent;
-      transition: all 0.3s;
-    }
-
-    .custom-option.selected .option-check {
-      color: #00ffff;
-      filter: drop-shadow(0 0 10px #00ffff);
-      animation: checkPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes checkPulse {
-      0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 10px #00ffff);
-      }
-      50% {
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 15px #00ffff);
-      }
-    }
-
-    /* Esconder os selects nativos */
+    /* Esconder select nativo */
     .dropdown-select {
-      display: none;
-    }
-
-    .dropdown-description {
       display: none;
     }
 
@@ -799,75 +808,95 @@
     <div id="welcomeScreen">
       <h1>🐍 SNAKE NEON</h1>
       
-      <!-- Seleção de Velocidade Customizada -->
+      <!-- Dropdown de Velocidade Customizado -->
       <div class="dropdown-container">
         <label class="dropdown-label">⚡ Velocidade</label>
-        <div class="custom-select-options" id="speedOptions">
-          <div class="custom-option" data-value="150">
-            <span class="option-icon">🐌</span>
-            <div class="option-content">
-              <div class="option-title">Easy (Fácil)</div>
-              <div class="option-description">Velocidade lenta - ideal para iniciantes!</div>
+        <div class="custom-dropdown" id="speedDropdown">
+          <div class="dropdown-selected">
+            <div class="selected-content">
+              <span class="selected-icon">⚡</span>
+              <span class="selected-text">Normal (Médio)</span>
             </div>
-            <span class="option-check">●</span>
+            <span class="dropdown-arrow">▼</span>
           </div>
-          <div class="custom-option selected" data-value="100">
-            <span class="option-icon">⚡</span>
-            <div class="option-content">
-              <div class="option-title">Normal (Médio)</div>
-              <div class="option-description">Velocidade média - perfeita para começar!</div>
+          <div class="dropdown-options">
+            <div class="dropdown-option" data-value="150" data-icon="🐌" data-text="Easy (Fácil)">
+              <span class="option-icon">🐌</span>
+              <div class="option-details">
+                <div class="option-title">Easy (Fácil)</div>
+                <div class="option-desc">Velocidade lenta - ideal para iniciantes!</div>
+              </div>
             </div>
-            <span class="option-check">●</span>
-          </div>
-          <div class="custom-option" data-value="60">
-            <span class="option-icon">🚀</span>
-            <div class="option-content">
-              <div class="option-title">Hard (Rápido)</div>
-              <div class="option-description">Velocidade rápida - desafio para experientes!</div>
+            <div class="dropdown-option selected" data-value="100" data-icon="⚡" data-text="Normal (Médio)">
+              <span class="option-icon">⚡</span>
+              <div class="option-details">
+                <div class="option-title">Normal (Médio)</div>
+                <div class="option-desc">Velocidade média - perfeita para começar!</div>
+              </div>
             </div>
-            <span class="option-check">●</span>
+            <div class="dropdown-option" data-value="60" data-icon="🚀" data-text="Hard (Rápido)">
+              <span class="option-icon">🚀</span>
+              <div class="option-details">
+                <div class="option-title">Hard (Rápido)</div>
+                <div class="option-desc">Velocidade rápida - desafio para experientes!</div>
+              </div>
+            </div>
           </div>
         </div>
         <select id="speedSelect" class="dropdown-select">
-          <option value="150">🐌 Easy (Fácil)</option>
-          <option value="100" selected>⚡ Normal (Médio)</option>
-          <option value="60">🚀 Hard (Rápido)</option>
+          <option value="150">Easy (Fácil)</option>
+          <option value="100" selected>Normal (Médio)</option>
+          <option value="60">Hard (Rápido)</option>
         </select>
       </div>
 
-      <!-- Seleção de Dificuldade Customizada -->
+      <!-- Dropdown de Dificuldade Customizado -->
       <div class="dropdown-container">
         <label class="dropdown-label">🎯 Nível de Dificuldade</label>
-        <div class="custom-select-options" id="difficultyOptions">
-          <div class="custom-option selected" data-value="1">
-            <span class="option-icon">🌀</span>
-            <div class="option-content">
-              <div class="option-title">Nível 1: Atravessa Paredes</div>
-              <div class="option-description">Atravessa as paredes e aparece do outro lado - perfeito para iniciantes!</div>
+        <div class="custom-dropdown" id="difficultyDropdown">
+          <div class="dropdown-selected">
+            <div class="selected-content">
+              <span class="selected-icon">🌀</span>
+              <span class="selected-text">Nível 1: Atravessa Paredes</span>
             </div>
-            <span class="option-check">●</span>
+            <span class="dropdown-arrow">▼</span>
           </div>
-          <div class="custom-option" data-value="2">
-            <span class="option-icon">🧱</span>
-            <div class="option-content">
-              <div class="option-title">Nível 2: Paredes Mortais</div>
-              <div class="option-description">Colisões com as paredes encerram o jogo - requer mais atenção!</div>
+          <div class="dropdown-options">
+            <div class="dropdown-option selected" data-value="1" data-icon="🌀" data-text="Nível 1: Atravessa Paredes">
+              <span class="option-icon">🌀</span>
+              <div class="option-details">
+                <div class="option-title">Nível 1: Atravessa Paredes</div>
+                <div class="option-desc">Atravessa as paredes e aparece do outro lado - perfeito para iniciantes!</div>
+              </div>
             </div>
-            <span class="option-check">●</span>
-          </div>
-          <div class="custom-option" data-value="3">
-            <span class="option-icon">⚠️</span>
-            <div class="option-content">
-              <div class="option-title">Nível 3: Obstáculos no Tabuleiro</div>
-              <div class="option-description">Obstáculos aleatórios tornam o jogo ainda mais desafiador!</div>
+            <div class="dropdown-option" data-value="2" data-icon="🧱" data-text="Nível 2: Paredes Mortais">
+              <span class="option-icon">🧱</span>
+              <div class="option-details">
+                <div class="option-title">Nível 2: Paredes Mortais</div>
+                <div class="option-desc">Colisões com as paredes encerram o jogo - requer mais atenção!</div>
+              </div>
             </div>
-            <span class="option-check">●</span>
+            <div class="dropdown-option" data-value="3" data-icon="🎯" data-text="Nível 3: Obstáculos + Atravessa Paredes">
+              <span class="option-icon">🎯</span>
+              <div class="option-details">
+                <div class="option-title">Nível 3: Obstáculos + Atravessa Paredes</div>
+                <div class="option-desc">Obstáculos no tabuleiro mas você pode atravessar as paredes!</div>
+              </div>
+            </div>
+            <div class="dropdown-option" data-value="4" data-icon="💀" data-text="Nível 4: Obstáculos + Paredes Mortais">
+              <span class="option-icon">💀</span>
+              <div class="option-details">
+                <div class="option-title">Nível 4: Obstáculos + Paredes Mortais</div>
+                <div class="option-desc">Desafio máximo! Obstáculos E paredes mortais - apenas para experts!</div>
+              </div>
+            </div>
           </div>
         </div>
         <select id="difficultySelect" class="dropdown-select">
-          <option value="1" selected>🌀 Nível 1: Atravessa Paredes</option>
-          <option value="2">🧱 Nível 2: Paredes Mortais</option>
-          <option value="3">⚠️ Nível 3: Obstáculos no Tabuleiro</option>
+          <option value="1" selected>Nível 1: Atravessa Paredes</option>
+          <option value="2">Nível 2: Paredes Mortais</option>
+          <option value="3">Nível 3: Obstáculos + Atravessa Paredes</option>
+          <option value="4">Nível 4: Obstáculos + Paredes Mortais</option>
         </select>
       </div>
 
@@ -948,9 +977,9 @@ const speedSelect = document.getElementById('speedSelect');
 const difficultySelect = document.getElementById('difficultySelect');
 const touchControlArea = document.getElementById('touchControlArea');
 
-// Elementos das opções customizadas
-const speedOptions = document.getElementById('speedOptions');
-const difficultyOptions = document.getElementById('difficultyOptions');
+// Elementos dos dropdowns customizados
+const speedDropdown = document.getElementById('speedDropdown');
+const difficultyDropdown = document.getElementById('difficultyDropdown');
 
 // Continuar com as outras variáveis do jogo
 let snake = [];
@@ -965,48 +994,89 @@ let gameLoop = null;
 let gameOver = false;
 let gameStarted = false;
 let isNewRecord = false;
+let isPaused = false;
 let selectedSpeed = 100; // Velocidade padrão (Normal)
 let selectedDifficulty = 1; // Dificuldade padrão (Atravessa paredes)
 
 bestScoreValue.textContent = bestScore;
 
-// Gerenciar seleção customizada de velocidade
-speedOptions.addEventListener('click', (e) => {
-  const option = e.target.closest('.custom-option');
-  if (!option) return;
+// Função para inicializar dropdown customizado
+function initCustomDropdown(dropdownElement, selectElement, onSelect) {
+  const selectedDiv = dropdownElement.querySelector('.dropdown-selected');
+  const optionsDiv = dropdownElement.querySelector('.dropdown-options');
+  const options = dropdownElement.querySelectorAll('.dropdown-option');
+  const selectedIcon = selectedDiv.querySelector('.selected-icon');
+  const selectedText = selectedDiv.querySelector('.selected-text');
+  const arrow = selectedDiv.querySelector('.dropdown-arrow');
   
-  // Remover seleção anterior
-  speedOptions.querySelectorAll('.custom-option').forEach(opt => {
-    opt.classList.remove('selected');
+  // Toggle dropdown
+  selectedDiv.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isActive = selectedDiv.classList.contains('active');
+    
+    // Fechar todos os dropdowns
+    document.querySelectorAll('.dropdown-selected').forEach(d => {
+      d.classList.remove('active');
+    });
+    document.querySelectorAll('.dropdown-options').forEach(d => {
+      d.classList.remove('show');
+    });
+    
+    // Abrir este dropdown se não estava aberto
+    if (!isActive) {
+      selectedDiv.classList.add('active');
+      optionsDiv.classList.add('show');
+    }
   });
   
-  // Adicionar seleção atual
-  option.classList.add('selected');
-  
-  // Atualizar valor
-  selectedSpeed = parseInt(option.dataset.value);
-  speedSelect.value = option.dataset.value;
-});
-
-// Gerenciar seleção customizada de dificuldade
-difficultyOptions.addEventListener('click', (e) => {
-  const option = e.target.closest('.custom-option');
-  if (!option) return;
-  
-  // Remover seleção anterior
-  difficultyOptions.querySelectorAll('.custom-option').forEach(opt => {
-    opt.classList.remove('selected');
+  // Selecionar opção
+  options.forEach(option => {
+    option.addEventListener('click', (e) => {
+      e.stopPropagation();
+      
+      // Remover seleção anterior
+      options.forEach(opt => opt.classList.remove('selected'));
+      
+      // Adicionar seleção atual
+      option.classList.add('selected');
+      
+      // Atualizar visual
+      selectedIcon.textContent = option.dataset.icon;
+      selectedText.textContent = option.dataset.text;
+      
+      // Atualizar select nativo
+      selectElement.value = option.dataset.value;
+      
+      // Callback
+      if (onSelect) {
+        onSelect(parseInt(option.dataset.value));
+      }
+      
+      // Fechar dropdown
+      selectedDiv.classList.remove('active');
+      optionsDiv.classList.remove('show');
+    });
   });
-  
-  // Adicionar seleção atual
-  option.classList.add('selected');
-  
-  // Atualizar valor
-  selectedDifficulty = parseInt(option.dataset.value);
-  difficultySelect.value = option.dataset.value;
+}
+
+// Fechar dropdowns ao clicar fora
+document.addEventListener('click', () => {
+  document.querySelectorAll('.dropdown-selected').forEach(d => {
+    d.classList.remove('active');
+  });
+  document.querySelectorAll('.dropdown-options').forEach(d => {
+    d.classList.remove('show');
+  });
 });
 
-// Descrições (não são mais necessárias mas manter compatibilidade)
+// Inicializar dropdowns
+initCustomDropdown(speedDropdown, speedSelect, (value) => {
+  selectedSpeed = value;
+});
+
+initCustomDropdown(difficultyDropdown, difficultySelect, (value) => {
+  selectedDifficulty = value;
+});
 
 // Inicializar snake
 function initSnake() {
@@ -1118,6 +1188,80 @@ function drawGrid() {
   }
 }
 
+// Desenhar zona de perigo nas bordas (níveis com paredes mortais)
+function drawDangerZone() {
+  // Só desenhar nos níveis 2 e 4 (paredes mortais)
+  if (selectedDifficulty !== 2 && selectedDifficulty !== 4) return;
+  
+  const dangerWidth = 1; // 1 bloco de largura
+  
+  // Gradiente cinza com transparência
+  const createDangerGradient = (x1, y1, x2, y2) => {
+    const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+    gradient.addColorStop(0, 'rgba(80, 80, 80, 0.5)');
+    gradient.addColorStop(0.5, 'rgba(100, 100, 100, 0.4)');
+    gradient.addColorStop(1, 'rgba(120, 120, 120, 0.3)');
+    return gradient;
+  };
+  
+  // Borda superior
+  for (let x = 0; x < tileCount; x++) {
+    for (let y = 0; y < dangerWidth; y++) {
+      ctx.fillStyle = createDangerGradient(
+        x * gridSize, 
+        y * gridSize, 
+        x * gridSize, 
+        (y + 1) * gridSize
+      );
+      ctx.fillRect(x * gridSize + 1, y * gridSize + 1, gridSize - 2, gridSize - 2);
+    }
+  }
+  
+  // Borda inferior
+  for (let x = 0; x < tileCount; x++) {
+    for (let y = tileCount - dangerWidth; y < tileCount; y++) {
+      ctx.fillStyle = createDangerGradient(
+        x * gridSize, 
+        y * gridSize, 
+        x * gridSize, 
+        (y + 1) * gridSize
+      );
+      ctx.fillRect(x * gridSize + 1, y * gridSize + 1, gridSize - 2, gridSize - 2);
+    }
+  }
+  
+  // Borda esquerda
+  for (let y = 0; y < tileCount; y++) {
+    for (let x = 0; x < dangerWidth; x++) {
+      ctx.fillStyle = createDangerGradient(
+        x * gridSize, 
+        y * gridSize, 
+        (x + 1) * gridSize, 
+        y * gridSize
+      );
+      ctx.fillRect(x * gridSize + 1, y * gridSize + 1, gridSize - 2, gridSize - 2);
+    }
+  }
+  
+  // Borda direita
+  for (let y = 0; y < tileCount; y++) {
+    for (let x = tileCount - dangerWidth; x < tileCount; x++) {
+      ctx.fillStyle = createDangerGradient(
+        x * gridSize, 
+        y * gridSize, 
+        (x + 1) * gridSize, 
+        y * gridSize
+      );
+      ctx.fillRect(x * gridSize + 1, y * gridSize + 1, gridSize - 2, gridSize - 2);
+    }
+  }
+  
+  // Linha de aviso cinza nas bordas extremas
+  ctx.strokeStyle = 'rgba(150, 150, 150, 0.6)';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(1.5, 1.5, canvas.width - 3, canvas.height - 3);
+}
+
 // Desenhar snake
 function drawSnake() {
   for (let i = 0; i < snake.length; i++) {
@@ -1206,10 +1350,21 @@ function drawFood() {
 // Desenhar obstáculos
 function drawObstacles() {
   for (let obstacle of obstacles) {
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = '#ff0080';
+    // Gradiente laranja/amarelo para os obstáculos
+    const gradient = ctx.createLinearGradient(
+      obstacle.x * gridSize,
+      obstacle.y * gridSize,
+      (obstacle.x + 1) * gridSize,
+      (obstacle.y + 1) * gridSize
+    );
+    gradient.addColorStop(0, '#ff8800');
+    gradient.addColorStop(0.5, '#ffaa00');
+    gradient.addColorStop(1, '#ff6600');
     
-    ctx.fillStyle = '#ff0080';
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = '#ff8800';
+    
+    ctx.fillStyle = gradient;
     ctx.fillRect(
       obstacle.x * gridSize + 2,
       obstacle.y * gridSize + 2,
@@ -1217,7 +1372,8 @@ function drawObstacles() {
       gridSize - 4
     );
     
-    ctx.strokeStyle = '#ff1493';
+    // Borda laranja brilhante
+    ctx.strokeStyle = '#ffaa00';
     ctx.lineWidth = 2;
     ctx.strokeRect(
       obstacle.x * gridSize + 2,
@@ -1232,31 +1388,31 @@ function drawObstacles() {
 
 // Atualizar jogo
 function update() {
-  if (gameOver) return;
+  if (gameOver || isPaused) return;
   
   let head = {
     x: snake[0].x + velocityX,
     y: snake[0].y + velocityY
   };
   
-  // NÍVEL 1: Atravessa paredes (teleporte)
-  if (selectedDifficulty === 1) {
+  // NÍVEL 1 e 3: Atravessa paredes (teleporte)
+  if (selectedDifficulty === 1 || selectedDifficulty === 3) {
     if (head.x < 0) head.x = tileCount - 1;
     if (head.x >= tileCount) head.x = 0;
     if (head.y < 0) head.y = tileCount - 1;
     if (head.y >= tileCount) head.y = 0;
   }
   
-  // NÍVEL 2 e 3: Verificar colisão com paredes
-  if (selectedDifficulty >= 2) {
+  // NÍVEL 2 e 4: Verificar colisão com paredes
+  if (selectedDifficulty === 2 || selectedDifficulty === 4) {
     if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
       endGame();
       return;
     }
   }
   
-  // NÍVEL 3: Verificar colisão com obstáculos
-  if (selectedDifficulty === 3) {
+  // NÍVEL 3 e 4: Verificar colisão com obstáculos
+  if (selectedDifficulty === 3 || selectedDifficulty === 4) {
     for (let obstacle of obstacles) {
       if (head.x === obstacle.x && head.y === obstacle.y) {
         endGame();
@@ -1300,11 +1456,32 @@ function render() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
   drawGrid();
-  if (selectedDifficulty === 3) {
+  drawDangerZone(); // Zona de perigo nas bordas (níveis 2 e 4)
+  if (selectedDifficulty === 3 || selectedDifficulty === 4) {
     drawObstacles();
   }
   drawFood();
   drawSnake();
+  
+  // Desenhar overlay de pausa
+  if (isPaused && gameStarted && !gameOver) {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.font = 'bold 48px Arial';
+    ctx.fillStyle = '#00ffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = '#00ffff';
+    ctx.fillText('⏸ PAUSADO', canvas.width / 2, canvas.height / 2 - 30);
+    
+    ctx.font = 'bold 18px Arial';
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowBlur = 10;
+    ctx.fillText('Clique 2x para continuar', canvas.width / 2, canvas.height / 2 + 30);
+    ctx.shadowBlur = 0;
+  }
 }
 
 // Loop principal
@@ -1322,7 +1499,7 @@ function startGame() {
   initSnake();
   generateFood();
   
-  if (selectedDifficulty === 3) {
+  if (selectedDifficulty === 3 || selectedDifficulty === 4) {
     generateObstacles();
   } else {
     obstacles = [];
@@ -1469,6 +1646,14 @@ document.addEventListener('keydown', (e) => {
       changeDirection(1, 0);
       break;
   }
+});
+
+// Função de pausa com duplo clique no canvas
+canvas.addEventListener('dblclick', (e) => {
+  e.preventDefault();
+  if (!gameStarted || gameOver) return;
+  
+  isPaused = !isPaused;
 });
 
 // Controles touch contínuos - mantém o dedo pressionado e arrasta
