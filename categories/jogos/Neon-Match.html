@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFY6RYBJZJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NFY6RYBJZJ');
+  </script>
+
+  <meta name="google-adsense-account" content="ca-pub-9409384061040545">
+
+  <meta charset="UTF-8">
+
+  <title>Neon Match-3 – Jogo de Combinar Gemas Neon Online Grátis</title>
+
+  <meta name="description" content="Jogue Neon Match-3, um jogo online grátis de combinar gemas neon. Estilo Candy Crush futurista, com desafios, efeitos neon e jogável no celular ou PC.">
+
+  <meta name="keywords" content="jogo match 3, jogo de combinar gemas, jogo neon, neon match 3, jogo tipo candy crush, jogo de puzzle online, jogo html5, jogo grátis">
+
+  <meta property="og:title" content="Neon Match-3 – Jogo de Combinar Gemas Neon">
+  <meta property="og:description" content="Combine gemas neon neste jogo Match-3 futurista. Grátis, viciante e otimizado para celular e PC.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://techsync.net.br/categories/jogos/Neon-Match.html">
+  <!--<meta property="og:image" content="https://techsync.net.br/imagens/neon-match-3-preview.jpg">-->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Neon Match-3 – Jogo Neon Estilo Match 3">
+  <meta name="twitter:description" content="Um jogo de combinar gemas neon com visual futurista. Jogue grátis agora!">
+  <!--<meta name="twitter:image" content="https://techsync.net.br/imagens/neon-match-3-preview.jpg">-->
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a2535 0%, #2a3f5a 50%, #1f2f42 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    #gameWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      max-width: 600px;
+    }
+
+    /* ===== WELCOME SCREEN ===== */
+    #welcomeScreen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 30px;
+      background: linear-gradient(180deg, #1a2332 0%, #2a3f5f 30%, #1e2f45 60%, #1a2332 100%);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 20px;
+      box-shadow:
+        0 0 30px rgba(0, 191, 255, 0.5),
+        0 0 60px rgba(0, 191, 255, 0.3),
+        0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    #welcomeScreen.hide { display: none; }
+
+    #welcomeScreen h1 {
+      color: #00ffff;
+      font-size: 52px;
+      margin-bottom: 10px;
+      text-shadow:
+        0 0 20px rgba(0, 255, 255, 0.8),
+        0 0 40px rgba(0, 191, 255, 0.6);
+      letter-spacing: 3px;
+      text-align: center;
+    }
+
+    #welcomeScreen .subtitle {
+      color: rgba(255,255,255,0.6);
+      font-size: 16px;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    /* ===== CUSTOM DROPDOWN ===== */
+    .dropdown-container {
+      width: 100%;
+      max-width: 400px;
+      margin: 20px 0;
+    }
+
+    .dropdown-label {
+      display: block;
+      color: #00ffff;
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+      text-align: left;
+      letter-spacing: 1px;
+    }
+
+    .custom-dropdown { position: relative; width: 100%; }
+
+    .dropdown-selected {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, rgba(0, 191, 255, 0.15), rgba(0, 128, 255, 0.15));
+      border: 2px solid rgba(0, 255, 255, 0.4);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      z-index: 10;
+    }
+
+    .dropdown-selected:hover {
+      background: linear-gradient(135deg, rgba(0, 191, 255, 0.25), rgba(0, 128, 255, 0.25));
+      border-color: #00ffff;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+
+    .dropdown-selected.active {
+      border-color: #00ffff;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    }
+
+    .selected-content { display: flex; align-items: center; gap: 12px; flex: 1; }
+    .selected-icon { font-size: 24px; filter: drop-shadow(0 0 5px currentColor); }
+    .selected-text { color: #ffffff; font-size: 15px; font-weight: 600; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+
+    .dropdown-arrow { font-size: 12px; color: #00ffff; transition: transform 0.3s; filter: drop-shadow(0 0 5px #00ffff); }
+    .dropdown-selected.active .dropdown-arrow { transform: rotate(180deg); }
+
+    .dropdown-options {
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      background: rgba(26, 35, 50, 0.98);
+      border: 2px solid #00ffff;
+      border-top: none;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .dropdown-options.show { max-height: 300px; overflow-y: auto; }
+
+    .dropdown-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    .dropdown-option:last-child { border-bottom: none; }
+    .dropdown-option:hover { background: rgba(0, 191, 255, 0.2); padding-left: 23px; }
+    .dropdown-option.selected { background: rgba(0, 191, 255, 0.15); }
+
+    .option-icon { font-size: 24px; flex-shrink: 0; }
+    .option-details { flex: 1; }
+    .option-title { color: #ffffff; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .option-desc { color: rgba(255,255,255,0.55); font-size: 11px; line-height: 1.3; }
+
+    #startBtn {
+      margin-top: 20px;
+      padding: 16px 40px;
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #00bfff, #0080ff);
+      border: 2px solid #00ffff;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0,191,255,0.6), 0 4px 15px rgba(0,191,255,0.4);
+      transition: all 0.3s;
+      text-shadow: 0 0 10px rgba(0,255,255,0.8);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    #startBtn:hover {
+      background: linear-gradient(135deg, #00d4ff, #0099ff);
+      box-shadow: 0 0 30px rgba(0,255,255,0.8), 0 4px 20px rgba(0,191,255,0.6);
+      transform: translateY(-2px);
+    }
+
+    /* ===== GAME AREA ===== */
+    #gameArea {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    #gameArea.show { display: flex; }
+
+    /* ===== HUD ===== */
+    #hud {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hud-item {
+      background: rgba(0,0,0,0.5);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 12px;
+      padding: 12px 20px;
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .hud-label {
+      color: rgba(255,255,255,0.6);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .hud-value {
+      color: #00ffff;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    }
+
+    /* ===== BOARD ===== */
+    #boardContainer {
+      position: relative;
+    }
+
+    #gameCanvas {
+      border: 3px solid rgba(0, 255, 255, 0.4);
+      border-radius: 12px;
+      box-shadow:
+        0 0 30px rgba(0, 191, 255, 0.4),
+        0 0 60px rgba(0, 191, 255, 0.2),
+        inset 0 0 50px rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* ===== BUTTONS ===== */
+    #menuBtn {
+      padding: 12px 30px;
+      font-size: 14px;
+      font-weight: 600;
+      background: rgba(138, 43, 226, 0.4);
+      border: 2px solid rgba(138, 43, 226, 0.6);
+      border-radius: 25px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #menuBtn:hover {
+      background: rgba(138, 43, 226, 0.6);
+      box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* ===== GAME OVER ===== */
+    #gameOverScreen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #gameOverScreen.show { display: flex; }
+
+    #gameOverContent {
+      background: linear-gradient(180deg, #1a2332 0%, #2a3f5f 30%, #1e2f45 60%, #1a2332 100%);
+      border: 3px solid rgba(255, 0, 255, 0.5);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      box-shadow:
+        0 0 40px rgba(255, 0, 255, 0.6),
+        0 0 80px rgba(255, 0, 255, 0.4);
+    }
+
+    #gameOverContent h2 {
+      color: #ff00ff;
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow:
+        0 0 20px rgba(255, 0, 255, 0.8),
+        0 0 40px rgba(255, 0, 255, 0.6);
+    }
+
+    #finalScore {
+      color: #00ffff;
+      font-size: 36px;
+      margin: 20px 0;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    }
+
+    #restartBtn {
+      margin-top: 20px;
+      padding: 14px 35px;
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #ff00ff, #cc00cc);
+      border: 2px solid #ff00ff;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255,0,255,0.6);
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #restartBtn:hover {
+      background: linear-gradient(135deg, #ff33ff, #dd00dd);
+      box-shadow: 0 0 30px rgba(255,0,255,0.8);
+      transform: translateY(-2px);
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    #timerContainer {
+      width: 100%;
+      max-width: 480px;
+      height: 25px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #timerBar {
+      height: 100%;
+      background: linear-gradient(90deg, #00ff88, #00ffff, #00ff88);
+      width: 100%;
+      transition: width 0.05s linear;
+      box-shadow: 0 0 20px rgba(0, 255, 200, 0.6);
+    }
+
+    #timerBar.warning {
+      background: linear-gradient(90deg, #ff8800, #ffaa00, #ff8800);
+      box-shadow: 0 0 20px rgba(255, 136, 0, 0.6);
+    }
+
+    #timerBar.danger {
+      background: linear-gradient(90deg, #ff0000, #ff3333, #ff0000);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+      animation: pulse 0.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    @media (max-width: 600px) {
+      #welcomeScreen h1 { font-size: 40px; }
+      .hud-value { font-size: 20px; }
+      #gameOverContent h2 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="seo-content" style="display:none;">
+  <h1>Neon Match-3 Jogo Online</h1>
+
+  <h2>Jogo de combinar gemas neon</h2>
+  <p>
+    Neon Match-3 é um jogo online gratuito do gênero Match 3,
+    onde o objetivo é combinar gemas neon para marcar pontos,
+    desbloquear efeitos especiais e enfrentar desafios progressivos.
+  </p>
+
+  <h2>Como jogar Neon Match-3</h2>
+  <p>
+    Troque as gemas adjacentes para formar combinações de três ou mais.
+    Quanto maior a combinação, maior a pontuação e os efeitos especiais.
+    O jogo funciona perfeitamente em celulares, tablets e computadores.
+  </p>
+
+  <h2>Jogo estilo Candy Crush futurista</h2>
+  <p>
+    Inspirado em jogos clássicos de combinar peças, Neon Match-3 traz
+    uma estética futurista com efeitos neon, animações suaves e
+    jogabilidade rápida em HTML5.
+  </p>
+</section>
+
+
+<div id="gameWrapper">
+  <!-- WELCOME SCREEN -->
+  <div id="welcomeScreen">
+    <h1>💎 NEON MATCH-3</h1>
+    <p class="subtitle">Combine as gemas neon!</p>
+    
+    <div class="dropdown-container">
+      <label class="dropdown-label">Dificuldade</label>
+      <div class="custom-dropdown">
+        <div class="dropdown-selected" id="difficultySelected">
+          <div class="selected-content">
+            <span class="selected-icon">😊</span>
+            <span class="selected-text">Fácil</span>
+          </div>
+          <span class="dropdown-arrow">▼</span>
+        </div>
+        <div class="dropdown-options" id="difficultyOptions">
+          <div class="dropdown-option" data-value="easy">
+            <span class="option-icon">😊</span>
+            <div class="option-details">
+              <div class="option-title">Fácil</div>
+              <div class="option-desc">30 movimentos, jogue com calma</div>
+            </div>
+          </div>
+          <div class="dropdown-option" data-value="hard">
+            <span class="option-icon">🔥</span>
+            <div class="option-details">
+              <div class="option-title">Difícil</div>
+              <div class="option-desc">Temporizador de 60s, +10s por acerto</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <button id="startBtn">Iniciar Jogo</button>
+  </div>
+
+  <!-- GAME AREA -->
+  <div id="gameArea">
+    <div id="hud">
+      <div class="hud-item">
+        <div class="hud-label">Pontuação</div>
+        <div class="hud-value" id="scoreValue">0</div>
+      </div>
+      <div class="hud-item">
+        <div class="hud-label">Dificuldade</div>
+        <div class="hud-value" id="difficultyValue">Fácil</div>
+      </div>
+      <div class="hud-item">
+        <div class="hud-label">Movimentos</div>
+        <div class="hud-value" id="movesValue">30</div>
+      </div>
+    </div>
+
+    <div id="timerContainer" style="display: none;">
+      <div id="timerBar"></div>
+    </div>
+
+    <div id="boardContainer">
+      <canvas id="gameCanvas" width="480" height="480"></canvas>
+    </div>
+
+    <button id="menuBtn">🏠 Menu</button>
+  </div>
+
+  <!-- GAME OVER SCREEN -->
+  <div id="gameOverScreen">
+    <div id="gameOverContent">
+      <h2>GAME OVER!</h2>
+      <div id="finalScore">Pontuação: 0</div>
+      <button id="restartBtn">Jogar Novamente</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== ELEMENTS ==========
+const welcomeScreen = document.getElementById('welcomeScreen');
+const gameArea = document.getElementById('gameArea');
+const gameOverScreen = document.getElementById('gameOverScreen');
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const startBtn = document.getElementById('startBtn');
+const menuBtn = document.getElementById('menuBtn');
+const restartBtn = document.getElementById('restartBtn');
+const scoreValue = document.getElementById('scoreValue');
+const difficultyValue = document.getElementById('difficultyValue');
+const movesValue = document.getElementById('movesValue');
+const finalScore = document.getElementById('finalScore');
+const timerContainer = document.getElementById('timerContainer');
+const timerBar = document.getElementById('timerBar');
+
+// Dropdown elements
+const difficultySelected = document.getElementById('difficultySelected');
+const difficultyOptions = document.getElementById('difficultyOptions');
+
+// ========== GAME CONFIG ==========
+const GRID_SIZE = 8;
+const CELL_SIZE = 60;
+const GEM_TYPES = 5;
+const SPECIAL_GEM_TYPE = 5; // Bomb gem
+const INITIAL_MOVES = 30;
+const INITIAL_TIMER = 60; // seconds for hard mode
+
+// Neon colors for gems
+const GEM_COLORS = [
+  { main: '#00ffff', glow: 'rgba(0, 255, 255, 0.8)' },   // Cyan
+  { main: '#ff00ff', glow: 'rgba(255, 0, 255, 0.8)' },   // Magenta
+  { main: '#00ff88', glow: 'rgba(0, 255, 136, 0.8)' },   // Green
+  { main: '#ffff00', glow: 'rgba(255, 255, 0, 0.8)' },   // Yellow
+  { main: '#ff0088', glow: 'rgba(255, 0, 136, 0.8)' },   // Pink
+  { main: '#ffffff', glow: 'rgba(255, 255, 255, 0.8)' }  // White (special bomb)
+];
+
+// ========== GAME STATE ==========
+let board = [];
+let score = 0;
+let difficulty = 'easy'; // 'easy' or 'hard'
+let moves = INITIAL_MOVES;
+let timeLeft = INITIAL_TIMER;
+let timerInterval = null;
+let selectedGem = null;
+let animating = false;
+let particles = [];
+
+// Drag and drop state
+let isDragging = false;
+let dragStartGem = null;
+let dragCurrentPos = { x: 0, y: 0 };
+let dragOffset = { x: 0, y: 0 };
+
+// ========== BOARD FUNCTIONS ==========
+function createBoard() {
+  const newBoard = [];
+  for (let row = 0; row < GRID_SIZE; row++) {
+    newBoard[row] = [];
+    for (let col = 0; col < GRID_SIZE; col++) {
+      newBoard[row][col] = {
+        type: Math.floor(Math.random() * GEM_TYPES), // Only regular gems (0-4)
+        y: row * CELL_SIZE,
+        x: col * CELL_SIZE,
+        targetY: row * CELL_SIZE,
+        falling: false,
+        matched: false,
+        alpha: 1,
+        isSpecial: false // Never create bombs randomly
+      };
+    }
+  }
+  // Ensure no initial matches
+  removeInitialMatches(newBoard);
+  return newBoard;
+}
+
+function removeInitialMatches(b) {
+  let hasMatches = true;
+  let iterations = 0;
+  while (hasMatches && iterations < 100) {
+    hasMatches = false;
+    for (let row = 0; row < GRID_SIZE; row++) {
+      for (let col = 0; col < GRID_SIZE; col++) {
+        const type = b[row][col].type;
+        // Check horizontal
+        if (col < GRID_SIZE - 2) {
+          if (b[row][col + 1].type === type && b[row][col + 2].type === type) {
+            b[row][col].type = (type + 1) % GEM_TYPES;
+            hasMatches = true;
+          }
+        }
+        // Check vertical
+        if (row < GRID_SIZE - 2) {
+          if (b[row + 1][col].type === type && b[row + 2][col].type === type) {
+            b[row][col].type = (type + 1) % GEM_TYPES;
+            hasMatches = true;
+          }
+        }
+      }
+    }
+    iterations++;
+  }
+}
+
+// ========== MATCH DETECTION ==========
+function findMatches() {
+  const matches = [];
+  const checked = new Set();
+
+  // Horizontal matches
+  for (let row = 0; row < GRID_SIZE; row++) {
+    for (let col = 0; col < GRID_SIZE - 2; col++) {
+      const gem = board[row][col];
+      if (!gem) continue;
+      
+      // If it's a bomb, check if it's adjacent to any gems
+      if (gem.isSpecial) {
+        // Check adjacent positions for any 2 matching gems
+        for (let offset = -1; offset <= 1; offset++) {
+          if (col + offset < 0 || col + offset >= GRID_SIZE - 1) continue;
+          const pos1 = col + offset;
+          const pos2 = col + offset + 1;
+          if (pos1 === col || pos2 === col) continue; // Skip if bomb is in these positions
+          
+          const gem1 = board[row][pos1];
+          const gem2 = board[row][pos2];
+          
+          if (gem1 && gem2 && !gem1.isSpecial && !gem2.isSpecial && gem1.type === gem2.type) {
+            // Found a match that includes the bomb
+            const key = `${row},${col}`;
+            if (!checked.has(key)) {
+              matches.push([row, col]);
+              checked.add(key);
+            }
+          }
+        }
+        continue;
+      }
+      
+      const type = gem.type;
+      let count = 1;
+      let matchGems = [[row, col]];
+      let hasBomb = false;
+      
+      for (let i = col + 1; i < GRID_SIZE; i++) {
+        const nextGem = board[row][i];
+        if (!nextGem) break;
+        
+        if (nextGem.isSpecial) {
+          // Include bomb in the match to trigger it
+          matchGems.push([row, i]);
+          hasBomb = true;
+          count++;
+        } else if (nextGem.type === type) {
+          count++;
+          matchGems.push([row, i]);
+        } else {
+          break;
+        }
+      }
+      
+      if (count >= 3 || (count >= 2 && hasBomb)) {
+        matchGems.forEach(([r, c]) => {
+          const key = `${r},${c}`;
+          if (!checked.has(key)) {
+            matches.push([r, c]);
+            checked.add(key);
+          }
+        });
+      }
+    }
+  }
+
+  // Vertical matches
+  for (let col = 0; col < GRID_SIZE; col++) {
+    for (let row = 0; row < GRID_SIZE - 2; row++) {
+      const gem = board[row][col];
+      if (!gem) continue;
+      
+      // If it's a bomb, check if it's adjacent to any gems
+      if (gem.isSpecial) {
+        // Check adjacent positions for any 2 matching gems
+        for (let offset = -1; offset <= 1; offset++) {
+          if (row + offset < 0 || row + offset >= GRID_SIZE - 1) continue;
+          const pos1 = row + offset;
+          const pos2 = row + offset + 1;
+          if (pos1 === row || pos2 === row) continue; // Skip if bomb is in these positions
+          
+          const gem1 = board[pos1][col];
+          const gem2 = board[pos2][col];
+          
+          if (gem1 && gem2 && !gem1.isSpecial && !gem2.isSpecial && gem1.type === gem2.type) {
+            // Found a match that includes the bomb
+            const key = `${row},${col}`;
+            if (!checked.has(key)) {
+              matches.push([row, col]);
+              checked.add(key);
+            }
+          }
+        }
+        continue;
+      }
+      
+      const type = gem.type;
+      let count = 1;
+      let matchGems = [[row, col]];
+      let hasBomb = false;
+      
+      for (let i = row + 1; i < GRID_SIZE; i++) {
+        const nextGem = board[i][col];
+        if (!nextGem) break;
+        
+        if (nextGem.isSpecial) {
+          // Include bomb in the match to trigger it
+          matchGems.push([i, col]);
+          hasBomb = true;
+          count++;
+        } else if (nextGem.type === type) {
+          count++;
+          matchGems.push([i, col]);
+        } else {
+          break;
+        }
+      }
+      
+      if (count >= 3 || (count >= 2 && hasBomb)) {
+        matchGems.forEach(([r, c]) => {
+          const key = `${r},${c}`;
+          if (!checked.has(key)) {
+            matches.push([r, c]);
+            checked.add(key);
+          }
+        });
+      }
+    }
+  }
+
+  return matches;
+}
+
+// ========== GEM SWAPPING ==========
+function canSwap(row1, col1, row2, col2) {
+  // Check if adjacent
+  const rowDiff = Math.abs(row1 - row2);
+  const colDiff = Math.abs(col1 - col2);
+  return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
+}
+
+function swapGems(row1, col1, row2, col2) {
+  const temp = board[row1][col1];
+  board[row1][col1] = board[row2][col2];
+  board[row2][col2] = temp;
+  
+  // Update positions
+  board[row1][col1].x = col1 * CELL_SIZE;
+  board[row1][col1].y = row1 * CELL_SIZE;
+  board[row1][col1].targetY = row1 * CELL_SIZE;
+  
+  board[row2][col2].x = col2 * CELL_SIZE;
+  board[row2][col2].y = row2 * CELL_SIZE;
+  board[row2][col2].targetY = row2 * CELL_SIZE;
+}
+
+async function trySwap(row1, col1, row2, col2) {
+  if (animating) return;
+  if (difficulty === 'easy' && moves <= 0) return;
+  if (difficulty === 'hard' && timeLeft <= 0) return;
+  
+  swapGems(row1, col1, row2, col2);
+  await sleep(200);
+  
+  const matches = findMatches();
+  
+  if (matches.length > 0) {
+    if (difficulty === 'easy') {
+      moves--;
+    }
+    updateHUD();
+    await processMatches();
+  } else {
+    // Swap back
+    swapGems(row1, col1, row2, col2);
+  }
+}
+
+// ========== MATCH PROCESSING ==========
+async function processMatches() {
+  animating = true;
+  let hasMatches = true;
+  
+  while (hasMatches) {
+    const matches = findMatches();
+    
+    if (matches.length === 0) {
+      hasMatches = false;
+      break;
+    }
+    
+    // Check if any special bombs were triggered
+    const hasBomb = matches.some(([row, col]) => board[row][col] && board[row][col].isSpecial);
+    
+    if (hasBomb) {
+      // Find all bomb positions and trigger explosions
+      const bombPositions = matches.filter(([row, col]) => board[row][col] && board[row][col].isSpecial);
+      
+      for (const [bombRow, bombCol] of bombPositions) {
+        // Trigger 3x3 explosion
+        await triggerBombExplosion(bombRow, bombCol);
+      }
+      
+      // Drop and fill after explosion
+      await dropGems();
+      fillBoard();
+      await sleep(300);
+      
+    } else if (matches.length >= 4) {
+      // Create bomb at the first match position
+      const [bombRow, bombCol] = matches[0];
+      
+      // Mark all other matched gems for destruction
+      matches.forEach(([row, col], index) => {
+        if (index !== 0) { // Skip the first one (bomb position)
+          board[row][col].matched = true;
+          createParticles(col * CELL_SIZE + CELL_SIZE / 2, row * CELL_SIZE + CELL_SIZE / 2, board[row][col].type);
+        }
+      });
+      
+      // Update score - 1 point per gem destroyed (minus the bomb)
+      const points = matches.length - 1;
+      score += points;
+      
+      // Add time in hard mode
+      if (difficulty === 'hard') {
+        timeLeft += 10;
+        if (timeLeft > INITIAL_TIMER) timeLeft = INITIAL_TIMER;
+      }
+      
+      updateHUD();
+      
+      // Fade out animation
+      for (let i = 0; i < 10; i++) {
+        matches.forEach(([row, col], index) => {
+          if (index !== 0 && board[row][col]) {
+            board[row][col].alpha = 1 - (i / 10);
+          }
+        });
+        draw();
+        await sleep(30);
+      }
+      
+      // Remove matched gems except bomb position
+      matches.forEach(([row, col], index) => {
+        if (index !== 0) {
+          board[row][col] = null;
+        }
+      });
+      
+      // Transform the remaining gem into a bomb
+      board[bombRow][bombCol].isSpecial = true;
+      board[bombRow][bombCol].type = SPECIAL_GEM_TYPE;
+      board[bombRow][bombCol].matched = false;
+      board[bombRow][bombCol].alpha = 1;
+      
+      // Drop gems and fill
+      await dropGems();
+      fillBoard();
+      await sleep(300);
+      
+    } else {
+      // Normal match (3 gems)
+      // Mark matched gems and create particles
+      matches.forEach(([row, col]) => {
+        if (board[row][col]) {
+          board[row][col].matched = true;
+          createParticles(col * CELL_SIZE + CELL_SIZE / 2, row * CELL_SIZE + CELL_SIZE / 2, board[row][col].type);
+        }
+      });
+      
+      // Update score - 1 point per gem destroyed
+      const points = matches.length;
+      score += points;
+      
+      // Add time in hard mode
+      if (difficulty === 'hard') {
+        timeLeft += 10;
+        if (timeLeft > INITIAL_TIMER) timeLeft = INITIAL_TIMER;
+      }
+      
+      updateHUD();
+      
+      // Fade out animation
+      for (let i = 0; i < 10; i++) {
+        matches.forEach(([row, col]) => {
+          if (board[row][col]) board[row][col].alpha = 1 - (i / 10);
+        });
+        draw();
+        await sleep(30);
+      }
+      
+      // Remove matched gems
+      matches.forEach(([row, col]) => {
+        board[row][col] = null;
+      });
+      
+      // Drop gems and fill
+      await dropGems();
+      fillBoard();
+      await sleep(300);
+    }
+  }
+  
+  animating = false;
+  checkGameState();
+}
+
+// ========== BOMB EXPLOSION ==========
+async function triggerBombExplosion(bombRow, bombCol) {
+  const gemsToDestroy = [];
+  
+  // Get all gems in 3x3 area
+  for (let row = bombRow - 1; row <= bombRow + 1; row++) {
+    for (let col = bombCol - 1; col <= bombCol + 1; col++) {
+      if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
+        if (board[row][col] && !board[row][col].matched) {
+          gemsToDestroy.push([row, col]);
+        }
+      }
+    }
+  }
+  
+  // Create explosion particles
+  gemsToDestroy.forEach(([row, col]) => {
+    if (board[row][col]) {
+      createParticles(col * CELL_SIZE + CELL_SIZE / 2, row * CELL_SIZE + CELL_SIZE / 2, board[row][col].type);
+      board[row][col].matched = true;
+    }
+  });
+  
+  // Update score
+  score += gemsToDestroy.length;
+  
+  // Add time in hard mode
+  if (difficulty === 'hard') {
+    timeLeft += 10;
+    if (timeLeft > INITIAL_TIMER) timeLeft = INITIAL_TIMER;
+  }
+  
+  updateHUD();
+  
+  // Fade out animation with extra explosion effect
+  for (let i = 0; i < 15; i++) {
+    gemsToDestroy.forEach(([row, col]) => {
+      if (board[row][col]) board[row][col].alpha = 1 - (i / 15);
+    });
+    draw();
+    await sleep(25);
+  }
+  
+  // Remove all gems in explosion
+  gemsToDestroy.forEach(([row, col]) => {
+    board[row][col] = null;
+  });
+}
+
+// ========== DROP AND FILL ==========
+async function dropGems() {
+  let dropped = false;
+  
+  for (let col = 0; col < GRID_SIZE; col++) {
+    let emptyRow = GRID_SIZE - 1;
+    
+    for (let row = GRID_SIZE - 1; row >= 0; row--) {
+      if (board[row][col] !== null) {
+        if (row !== emptyRow) {
+          board[emptyRow][col] = board[row][col];
+          board[emptyRow][col].targetY = emptyRow * CELL_SIZE;
+          board[emptyRow][col].falling = true;
+          board[row][col] = null;
+          dropped = true;
+        }
+        emptyRow--;
+      }
+    }
+  }
+  
+  if (dropped) {
+    // Animate falling
+    for (let i = 0; i < 15; i++) {
+      for (let row = 0; row < GRID_SIZE; row++) {
+        for (let col = 0; col < GRID_SIZE; col++) {
+          const gem = board[row][col];
+          if (gem && gem.falling) {
+            const diff = gem.targetY - gem.y;
+            gem.y += diff * 0.3;
+            if (Math.abs(diff) < 1) {
+              gem.y = gem.targetY;
+              gem.falling = false;
+            }
+          }
+        }
+      }
+      draw();
+      await sleep(30);
+    }
+  }
+}
+
+function fillBoard() {
+  for (let row = 0; row < GRID_SIZE; row++) {
+    for (let col = 0; col < GRID_SIZE; col++) {
+      if (board[row][col] === null) {
+        board[row][col] = {
+          type: Math.floor(Math.random() * GEM_TYPES), // Only regular gems (0-4)
+          y: row * CELL_SIZE,
+          x: col * CELL_SIZE,
+          targetY: row * CELL_SIZE,
+          falling: false,
+          matched: false,
+          alpha: 1,
+          isSpecial: false // Never create bombs randomly
+        };
+      }
+    }
+  }
+}
+
+// ========== PARTICLES ==========
+function createParticles(x, y, type) {
+  for (let i = 0; i < 15; i++) {
+    particles.push({
+      x: x,
+      y: y,
+      vx: (Math.random() - 0.5) * 6,
+      vy: (Math.random() - 0.5) * 6,
+      life: 1,
+      size: Math.random() * 4 + 2,
+      color: GEM_COLORS[type].main
+    });
+  }
+}
+
+function updateParticles() {
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.2;
+    p.life -= 0.02;
+    
+    if (p.life <= 0) {
+      particles.splice(i, 1);
+    }
+  }
+}
+
+// ========== DRAWING ==========
+function draw() {
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  // Draw grid lines
+  ctx.strokeStyle = 'rgba(0, 255, 255, 0.1)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= GRID_SIZE; i++) {
+    ctx.beginPath();
+    ctx.moveTo(i * CELL_SIZE, 0);
+    ctx.lineTo(i * CELL_SIZE, canvas.height);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(0, i * CELL_SIZE);
+    ctx.lineTo(canvas.width, i * CELL_SIZE);
+    ctx.stroke();
+  }
+  
+  // Draw gems
+  for (let row = 0; row < GRID_SIZE; row++) {
+    for (let col = 0; col < GRID_SIZE; col++) {
+      const gem = board[row][col];
+      if (gem && !gem.matched) {
+        // Skip drawing the gem being dragged in its original position
+        if (isDragging && dragStartGem && dragStartGem[0] === row && dragStartGem[1] === col) {
+          // Draw a faded placeholder
+          drawGem(gem.x, gem.y, gem.type, 0.3);
+        } else {
+          drawGem(gem.x, gem.y, gem.type, gem.alpha);
+        }
+      }
+    }
+  }
+  
+  // Draw selection
+  if (selectedGem && !isDragging) {
+    const [row, col] = selectedGem;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(col * CELL_SIZE + 2, row * CELL_SIZE + 2, CELL_SIZE - 4, CELL_SIZE - 4);
+  }
+  
+  // Draw dragging gem on top
+  if (isDragging && dragStartGem) {
+    const [row, col] = dragStartGem;
+    const gem = board[row][col];
+    if (gem) {
+      // Draw with slight scale and extra glow
+      const savedAlpha = ctx.globalAlpha;
+      ctx.globalAlpha = 0.9;
+      drawGem(dragCurrentPos.x - CELL_SIZE / 2, dragCurrentPos.y - CELL_SIZE / 2, gem.type, 1);
+      ctx.globalAlpha = savedAlpha;
+    }
+  }
+  
+  // Draw particles
+  particles.forEach(p => {
+    ctx.globalAlpha = p.life;
+    ctx.fillStyle = p.color;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 1;
+  });
+}
+
+function drawGem(x, y, type, alpha = 1) {
+  const centerX = x + CELL_SIZE / 2;
+  const centerY = y + CELL_SIZE / 2;
+  const radius = CELL_SIZE * 0.35;
+  
+  ctx.globalAlpha = alpha;
+  
+  // Special bomb - draw only emoji without background
+  if (type === SPECIAL_GEM_TYPE) {
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = '#ffffff';
+    ctx.font = 'bold 36px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('💎', centerX, centerY);
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 1;
+    return;
+  }
+  
+  // Regular gems
+  // Glow
+  ctx.shadowBlur = 20;
+  ctx.shadowColor = GEM_COLORS[type].glow;
+  
+  // Outer circle
+  const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+  gradient.addColorStop(0, GEM_COLORS[type].main);
+  gradient.addColorStop(0.7, GEM_COLORS[type].main);
+  gradient.addColorStop(1, 'rgba(0, 0, 0, 0.5)');
+  
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+  ctx.fill();
+  
+  // Inner highlight
+  ctx.shadowBlur = 0;
+  const highlightGrad = ctx.createRadialGradient(centerX - 8, centerY - 8, 0, centerX, centerY, radius * 0.6);
+  highlightGrad.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+  highlightGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  
+  ctx.fillStyle = highlightGrad;
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius * 0.8, 0, Math.PI * 2);
+  ctx.fill();
+  
+  ctx.globalAlpha = 1;
+}
+
+// ========== GAME LOOP ==========
+function gameLoop() {
+  updateParticles();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+// ========== INPUT - MOUSE EVENTS ==========
+canvas.addEventListener('mousedown', (e) => {
+  if (animating) return;
+  if (difficulty === 'easy' && moves <= 0) return;
+  if (difficulty === 'hard' && timeLeft <= 0) return;
+  
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  
+  const col = Math.floor(x / CELL_SIZE);
+  const row = Math.floor(y / CELL_SIZE);
+  
+  if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
+    isDragging = true;
+    dragStartGem = [row, col];
+    dragCurrentPos = { x, y };
+    dragOffset = {
+      x: x - (col * CELL_SIZE + CELL_SIZE / 2),
+      y: y - (row * CELL_SIZE + CELL_SIZE / 2)
+    };
+    canvas.style.cursor = 'grabbing';
+  }
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  if (!isDragging) {
+    canvas.style.cursor = 'pointer';
+    return;
+  }
+  
+  const rect = canvas.getBoundingClientRect();
+  dragCurrentPos = {
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top
+  };
+});
+
+canvas.addEventListener('mouseup', (e) => {
+  if (!isDragging || !dragStartGem) return;
+  
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  
+  const [startRow, startCol] = dragStartGem;
+  const startX = startCol * CELL_SIZE + CELL_SIZE / 2;
+  const startY = startRow * CELL_SIZE + CELL_SIZE / 2;
+  
+  const dx = x - startX;
+  const dy = y - startY;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  
+  // Determine target cell based on drag direction
+  if (dist > CELL_SIZE * 0.3) {
+    let targetRow = startRow;
+    let targetCol = startCol;
+    
+    if (Math.abs(dx) > Math.abs(dy)) {
+      targetCol = dx > 0 ? startCol + 1 : startCol - 1;
+    } else {
+      targetRow = dy > 0 ? startRow + 1 : startRow - 1;
+    }
+    
+    // Validate and swap
+    if (targetRow >= 0 && targetRow < GRID_SIZE && targetCol >= 0 && targetCol < GRID_SIZE) {
+      if (canSwap(startRow, startCol, targetRow, targetCol)) {
+        trySwap(startRow, startCol, targetRow, targetCol);
+      }
+    }
+  }
+  
+  isDragging = false;
+  dragStartGem = null;
+  canvas.style.cursor = 'pointer';
+});
+
+canvas.addEventListener('mouseleave', () => {
+  if (isDragging) {
+    isDragging = false;
+    dragStartGem = null;
+    canvas.style.cursor = 'pointer';
+  }
+});
+
+// ========== INPUT - TOUCH EVENTS ==========
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  if (animating) return;
+  if (difficulty === 'easy' && moves <= 0) return;
+  if (difficulty === 'hard' && timeLeft <= 0) return;
+  
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  const x = touch.clientX - rect.left;
+  const y = touch.clientY - rect.top;
+  
+  const col = Math.floor(x / CELL_SIZE);
+  const row = Math.floor(y / CELL_SIZE);
+  
+  if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
+    isDragging = true;
+    dragStartGem = [row, col];
+    dragCurrentPos = { x, y };
+    dragOffset = {
+      x: x - (col * CELL_SIZE + CELL_SIZE / 2),
+      y: y - (row * CELL_SIZE + CELL_SIZE / 2)
+    };
+  }
+}, { passive: false });
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  if (!isDragging) return;
+  
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  dragCurrentPos = {
+    x: touch.clientX - rect.left,
+    y: touch.clientY - rect.top
+  };
+}, { passive: false });
+
+canvas.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  if (!isDragging || !dragStartGem) return;
+  
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.changedTouches[0];
+  const x = touch.clientX - rect.left;
+  const y = touch.clientY - rect.top;
+  
+  const [startRow, startCol] = dragStartGem;
+  const startX = startCol * CELL_SIZE + CELL_SIZE / 2;
+  const startY = startRow * CELL_SIZE + CELL_SIZE / 2;
+  
+  const dx = x - startX;
+  const dy = y - startY;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  
+  // Determine target cell based on drag direction
+  if (dist > CELL_SIZE * 0.3) {
+    let targetRow = startRow;
+    let targetCol = startCol;
+    
+    if (Math.abs(dx) > Math.abs(dy)) {
+      targetCol = dx > 0 ? startCol + 1 : startCol - 1;
+    } else {
+      targetRow = dy > 0 ? startRow + 1 : startRow - 1;
+    }
+    
+    // Validate and swap
+    if (targetRow >= 0 && targetRow < GRID_SIZE && targetCol >= 0 && targetCol < GRID_SIZE) {
+      if (canSwap(startRow, startCol, targetRow, targetCol)) {
+        trySwap(startRow, startCol, targetRow, targetCol);
+      }
+    }
+  }
+  
+  isDragging = false;
+  dragStartGem = null;
+}, { passive: false });
+
+canvas.addEventListener('touchcancel', (e) => {
+  e.preventDefault();
+  isDragging = false;
+  dragStartGem = null;
+}, { passive: false });
+
+// ========== TIMER FUNCTIONS ==========
+function startTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  
+  const updateFrequency = 50; // Update every 50ms (20 times per second)
+  const decrementAmount = updateFrequency / 1000; // Decrease proportionally
+  
+  timerInterval = setInterval(() => {
+    if (animating) return; // Don't count down during animations
+    
+    timeLeft -= decrementAmount;
+    
+    if (timeLeft <= 0) {
+      timeLeft = 0;
+      updateTimer();
+      clearInterval(timerInterval);
+      endGame();
+      return;
+    }
+    
+    updateTimer();
+  }, updateFrequency);
+}
+
+function updateTimer() {
+  const percentage = (timeLeft / INITIAL_TIMER) * 100;
+  timerBar.style.width = percentage + '%';
+  
+  // Update bar color based on time
+  timerBar.classList.remove('warning', 'danger');
+  if (timeLeft <= 10) {
+    timerBar.classList.add('danger');
+  } else if (timeLeft <= 20) {
+    timerBar.classList.add('warning');
+  }
+}
+
+function stopTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+// ========== GAME CONTROL ==========
+function startGame() {
+  board = createBoard();
+  score = 0;
+  moves = INITIAL_MOVES;
+  timeLeft = INITIAL_TIMER;
+  selectedGem = null;
+  particles = [];
+  isDragging = false;
+  dragStartGem = null;
+  
+  stopTimer();
+  
+  // Show/hide elements based on difficulty
+  if (difficulty === 'easy') {
+    timerContainer.style.display = 'none';
+    movesValue.parentElement.style.display = 'block';
+  } else {
+    timerContainer.style.display = 'block';
+    movesValue.parentElement.style.display = 'none';
+    updateTimer();
+    startTimer();
+  }
+  
+  updateHUD();
+  welcomeScreen.classList.add('hide');
+  gameArea.classList.add('show');
+  gameOverScreen.classList.remove('show');
+  
+  gameLoop();
+}
+
+function updateHUD() {
+  scoreValue.textContent = score;
+  difficultyValue.textContent = difficulty === 'easy' ? 'Fácil' : 'Difícil';
+  movesValue.textContent = moves;
+}
+
+function checkGameState() {
+  if (difficulty === 'easy' && moves <= 0) {
+    endGame();
+  }
+  // For hard mode, timer handles game over
+}
+
+function endGame() {
+  stopTimer();
+  finalScore.textContent = `Pontuação: ${score}`;
+  gameOverScreen.classList.add('show');
+}
+
+function backToMenu() {
+  stopTimer();
+  welcomeScreen.classList.remove('hide');
+  gameArea.classList.remove('show');
+  gameOverScreen.classList.remove('show');
+}
+
+// ========== UTILITY ==========
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// ========== EVENT LISTENERS ==========
+// Dropdown functionality
+difficultySelected.addEventListener('click', () => {
+  difficultySelected.classList.toggle('active');
+  difficultyOptions.classList.toggle('show');
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.custom-dropdown')) {
+    difficultySelected.classList.remove('active');
+    difficultyOptions.classList.remove('show');
+  }
+});
+
+// Difficulty selection
+document.querySelectorAll('.dropdown-option').forEach(option => {
+  option.addEventListener('click', () => {
+    const value = option.dataset.value;
+    const icon = option.querySelector('.option-icon').textContent;
+    const title = option.querySelector('.option-title').textContent;
+    
+    difficulty = value;
+    
+    // Update selected display
+    difficultySelected.querySelector('.selected-icon').textContent = icon;
+    difficultySelected.querySelector('.selected-text').textContent = title;
+    
+    // Update selected state
+    document.querySelectorAll('.dropdown-option').forEach(opt => {
+      opt.classList.remove('selected');
+    });
+    option.classList.add('selected');
+    
+    // Close dropdown
+    difficultySelected.classList.remove('active');
+    difficultyOptions.classList.remove('show');
+  });
+});
+
+// Set initial selection
+document.querySelector('.dropdown-option[data-value="easy"]').classList.add('selected');
+
+startBtn.addEventListener('click', startGame);
+restartBtn.addEventListener('click', () => {
+  gameOverScreen.classList.remove('show');
+  startGame();
+});
+menuBtn.addEventListener('click', backToMenu);
+
+console.log('💎 Neon Match-3 inicializado!');
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Game",
+  "name": "Neon Match-3",
+  "description": "Jogo online de combinar gemas neon no estilo Match 3, gratuito e jogável no navegador.",
+  "genre": "Puzzle",
+  "applicationCategory": "Game",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BRL"
+  }
+}
+</script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9409384061040545" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
