@@ -685,6 +685,27 @@
       #welcomeScreen h1 { font-size: 30px; margin-bottom: 6px; }
       .game-over-content { padding: 32px 28px; }
     }
+
+    .back-btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: linear-gradient(135deg, #ff4444, #cc0000);
+  border-color: #ff4444;
+  box-shadow: 
+    0 0 20px rgba(255, 68, 68, 0.4), 
+    0 4px 15px rgba(255, 68, 68, 0.3);
+        width: 100%;
+    max-width: 280px;
+    margin-top: 10px;
+  }
+
+.back-btn:hover {
+  box-shadow: 
+    0 0 35px rgba(255, 68, 68, 0.6), 
+    0 8px 25px rgba(255, 68, 68, 0.4);
+}
+
   </style>
 </head>
 <body>
@@ -756,6 +777,7 @@
       </div>
 
       <button id="startBtn">🎮 Iniciar Jogo</button>
+      <a href="/categories/jogos.html" class="btn-game back-btn">SAIR</a>
     </div>
 
     <!-- GAME PLAY AREA -->

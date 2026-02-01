@@ -441,6 +441,24 @@
       border-radius: 4px;
       transition: width 0.1s linear;
     }
+
+    .back-btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: linear-gradient(135deg, #ff4444, #cc0000);
+  border-color: #ff4444;
+  box-shadow: 
+    0 0 20px rgba(255, 68, 68, 0.4), 
+    0 4px 15px rgba(255, 68, 68, 0.3);
+}
+
+.back-btn:hover {
+  box-shadow: 
+    0 0 35px rgba(255, 68, 68, 0.6), 
+    0 8px 25px rgba(255, 68, 68, 0.4);
+}
+
   </style>
 </head>
 <body>
@@ -452,6 +470,8 @@
   <div id="instructions">
     <h2>RUNNER TECH</h2>
     <button id="startBtn">COMEÇAR</button>
+
+    <a href="/categories/jogos.html" class="btn-game back-btn">SAIR</a>
   </div>
 
   <div id="gameOverOverlay">

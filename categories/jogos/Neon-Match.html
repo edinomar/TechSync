@@ -399,6 +399,36 @@
       .hud-value { font-size: 20px; }
       #gameOverContent h2 { font-size: 36px; }
     }
+
+    .back-btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: linear-gradient(135deg, #ff4444, #cc0000);
+  border-color: #ff4444;
+  box-shadow: 
+    0 0 20px rgba(255, 68, 68, 0.4), 
+    0 4px 15px rgba(255, 68, 68, 0.3);
+    margin-top: 10px;
+    border: 2px solid #e02727;
+    padding: 16px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    width: 225px;
+}
+
+.back-btn:hover {
+  box-shadow: 
+    0 0 35px rgba(255, 68, 68, 0.6), 
+    0 8px 25px rgba(255, 68, 68, 0.4);
+}
+
   </style>
 </head>
 <body>
@@ -465,6 +495,8 @@
     </div>
     
     <button id="startBtn">Iniciar Jogo</button>
+
+    <a href="/categories/jogos.html" class="btn-game back-btn">SAIR</a>
   </div>
 
   <!-- GAME AREA -->
