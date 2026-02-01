@@ -531,48 +531,47 @@
       width: 100%;
       max-width: 500px;
       flex-shrink: 0;
-      padding: 0 4px;
+      padding: 0 8px;
     }
 
     #touchControls.show {
       display: flex;
-      flex-direction: row;          /* D-pad LEFT, actions RIGHT */
+      flex-direction: column;       /* action-row on top, D-pad below */
       align-items: center;
-      justify-content: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    /* ---- D-pad (3×3 grid, 4 cells used) ---- */
+    /* ---- Top row: Hold ←————→ Drop (full width, space-between) ---- */
+    .action-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .action-btn {
+      width: calc(50% - 6px);
+      height: 62px;
+    }
+
+    /* ---- D-pad cross (3×3 grid, 4 cells) ---- */
     .dpad {
       display: grid;
-      grid-template-columns: repeat(3, 64px);
-      grid-template-rows: repeat(3, 64px);
+      grid-template-columns: repeat(3, 72px);
+      grid-template-rows: repeat(3, 72px);
       gap: 5px;
     }
 
-    .dpad .touch-btn { width: 64px; height: 64px; }
+    .dpad .touch-btn { width: 72px; height: 72px; }
     .dpad .btn-up    { grid-column: 2; grid-row: 1; }
     .dpad .btn-left  { grid-column: 1; grid-row: 2; }
     .dpad .btn-down  { grid-column: 2; grid-row: 2; }
     .dpad .btn-right { grid-column: 3; grid-row: 2; }
 
-    /* ---- Action column (Hold on top, Drop below) ---- */
-    .action-col {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .action-btn {
-      width: 88px;
-      height: 64px;
-    }
-
     /* ---- Shared button styles ---- */
     .touch-btn {
       background: rgba(0, 191, 255, 0.14);
       border: 2px solid rgba(0, 255, 255, 0.3);
-      border-radius: 14px;
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -583,11 +582,11 @@
       transition: background 0.08s, transform 0.08s, box-shadow 0.08s;
       color: #00ffff;
       filter: drop-shadow(0 0 6px rgba(0,255,255,0.35));
-      gap: 2px;
+      gap: 3px;
     }
 
-    .touch-btn .btn-icon  { font-size: 26px; line-height: 1; }
-    .touch-btn .btn-label { font-size: 9px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
+    .touch-btn .btn-icon  { font-size: 28px; line-height: 1; }
+    .touch-btn .btn-label { font-size: 10px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
 
     .touch-btn:active, .touch-btn.pressed {
       background: rgba(0, 191, 255, 0.32);
@@ -627,12 +626,12 @@
       .hud-value { font-size: 16px; }
       .hud-label { font-size: 7px; }
 
-      /* Controls scale down slightly but stay big */
-      .dpad { grid-template-columns: repeat(3, 58px); grid-template-rows: repeat(3, 58px); gap: 4px; }
-      .dpad .touch-btn { width: 58px; height: 58px; }
-      .action-btn { width: 80px; height: 58px; }
-      .touch-btn .btn-icon { font-size: 24px; }
-      .touch-btn .btn-label { font-size: 8px; }
+      /* Controls: action row stays full-width, dpad stays big */
+      .dpad { grid-template-columns: repeat(3, 66px); grid-template-rows: repeat(3, 66px); gap: 4px; }
+      .dpad .touch-btn { width: 66px; height: 66px; }
+      .action-btn { height: 58px; }
+      .touch-btn .btn-icon { font-size: 26px; }
+      .touch-btn .btn-label { font-size: 9px; }
 
       #welcomeScreen h1 { font-size: 36px; }
       .dropdown-container { max-width: 90%; }
@@ -645,11 +644,11 @@
       .side-box { padding: 4px 2px; }
 
       /* Controls stay touchable */
-      .dpad { grid-template-columns: repeat(3, 54px); grid-template-rows: repeat(3, 54px); gap: 3px; }
-      .dpad .touch-btn { width: 54px; height: 54px; }
-      .action-btn { width: 74px; height: 54px; }
-      .touch-btn .btn-icon { font-size: 22px; }
-      .touch-btn .btn-label { font-size: 7px; }
+      .dpad { grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(3, 60px); gap: 3px; }
+      .dpad .touch-btn { width: 60px; height: 60px; }
+      .action-btn { height: 54px; }
+      .touch-btn .btn-icon { font-size: 24px; }
+      .touch-btn .btn-label { font-size: 8px; }
 
       #welcomeScreen { padding: 30px 18px; }
       #welcomeScreen h1 { font-size: 30px; margin-bottom: 6px; }
@@ -748,17 +747,17 @@
         <div class="hud-item"><span class="hud-label">Lines</span><span class="hud-value" id="linesVal">0</span></div>
       </div>
 
-      <!-- Touch controls: D-pad LEFT | Actions RIGHT -->
+      <!-- Touch controls: Hold/Drop full-width on top | D-pad cross below -->
       <div id="touchControls">
+        <div class="action-row">
+          <button class="touch-btn action-btn" data-action="hold"><span class="btn-icon">⬛</span><span class="btn-label">Hold</span></button>
+          <button class="touch-btn action-btn" data-action="drop"><span class="btn-icon">⬇</span><span class="btn-label">Drop</span></button>
+        </div>
         <div class="dpad">
           <button class="touch-btn btn-up"    data-action="up"><span class="btn-icon">↺</span><span class="btn-label">Rotate</span></button>
           <button class="touch-btn btn-left"  data-action="left"><span class="btn-icon">←</span></button>
           <button class="touch-btn btn-down"  data-action="down"><span class="btn-icon">↓</span></button>
           <button class="touch-btn btn-right" data-action="right"><span class="btn-icon">→</span></button>
-        </div>
-        <div class="action-col">
-          <button class="touch-btn action-btn" data-action="hold"><span class="btn-icon">⬛</span><span class="btn-label">Hold</span></button>
-          <button class="touch-btn action-btn" data-action="drop"><span class="btn-icon">⬇</span><span class="btn-label">Drop</span></button>
         </div>
       </div>
     </div>
