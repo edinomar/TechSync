@@ -555,7 +555,7 @@ let powerUpTimer = 0;
 let nextPowerUpScore = Math.floor(Math.random() * 11) + 10; // Entre 10 e 20 pontos
 let activePowerUp = null; // 'magnet' ou 'shield'
 let powerUpDuration = 0;
-const POWER_UP_TIME = 5000; // 5 segundos em ms
+const POWER_UP_TIME = 20000; // 20 segundos em ms
 let powerUpStartTime = 0;
 
 let bestScore = parseInt(localStorage.getItem('runnerBestScore')) || 0;
@@ -812,7 +812,7 @@ function updateObjects() {
         const dx = player.x - obj.x;
         const dy = player.y - obj.height/2 - obj.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const magnetRange = 150;
+        const magnetRange = 500; // raio de atração (cobre toda a tela)
         
         if (distance < magnetRange) {
           const attractionStrength = 0.15;
