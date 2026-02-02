@@ -58,6 +58,28 @@
       gap: 20px;
       padding: 20px;
       max-width: 600px;
+      width: 100%;
+    }
+
+    /* ===== MEDIA QUERIES FOR MOBILE ===== */
+    @media (max-width: 768px) {
+      body {
+        overflow-y: auto;
+        align-items: flex-start;
+        padding: 10px 0;
+      }
+
+      #gameWrapper {
+        padding: 10px;
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #gameWrapper {
+        padding: 5px;
+        gap: 8px;
+      }
     }
 
     /* ===== WELCOME SCREEN ===== */
@@ -74,6 +96,15 @@
         0 0 30px rgba(0, 191, 255, 0.5),
         0 0 60px rgba(0, 191, 255, 0.3),
         0 20px 60px rgba(0, 0, 0, 0.6);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    @media (max-width: 480px) {
+      #welcomeScreen {
+        padding: 25px 15px;
+        border-radius: 15px;
+      }
     }
 
     #welcomeScreen.hide { display: none; }
@@ -89,12 +120,34 @@
       text-align: center;
     }
 
+    @media (max-width: 480px) {
+      #welcomeScreen h1 {
+        font-size: 36px;
+        letter-spacing: 2px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      #welcomeScreen h1 {
+        font-size: 30px;
+        letter-spacing: 1px;
+      }
+    }
+
     #welcomeScreen .subtitle {
       color: rgba(255,255,255,0.6);
       font-size: 16px;
       margin-bottom: 30px;
       letter-spacing: 2px;
       text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      #welcomeScreen .subtitle {
+        font-size: 14px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+      }
     }
 
     /* ===== CUSTOM DROPDOWN ===== */
@@ -205,6 +258,14 @@
       text-transform: uppercase;
     }
 
+    @media (max-width: 480px) {
+      #startBtn {
+        padding: 14px 35px;
+        font-size: 16px;
+        margin-top: 15px;
+      }
+    }
+
     #startBtn:hover {
       background: linear-gradient(135deg, #00d4ff, #0099ff);
       box-shadow: 0 0 30px rgba(0,255,255,0.8), 0 4px 20px rgba(0,191,255,0.6);
@@ -217,9 +278,16 @@
       flex-direction: column;
       align-items: center;
       gap: 20px;
+      width: 100%;
     }
 
     #gameArea.show { display: flex; }
+
+    @media (max-width: 480px) {
+      #gameArea {
+        gap: 12px;
+      }
+    }
 
     /* ===== HUD ===== */
     #hud {
@@ -227,6 +295,13 @@
       gap: 20px;
       justify-content: center;
       flex-wrap: wrap;
+      width: 100%;
+    }
+
+    @media (max-width: 480px) {
+      #hud {
+        gap: 8px;
+      }
     }
 
     .hud-item {
@@ -236,6 +311,23 @@
       padding: 12px 20px;
       text-align: center;
       min-width: 120px;
+      flex: 1;
+    }
+
+    @media (max-width: 480px) {
+      .hud-item {
+        padding: 8px 12px;
+        min-width: 90px;
+        border-radius: 8px;
+        border-width: 1.5px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hud-item {
+        padding: 6px 10px;
+        min-width: 80px;
+      }
     }
 
     .hud-label {
@@ -246,11 +338,31 @@
       margin-bottom: 5px;
     }
 
+    @media (max-width: 480px) {
+      .hud-label {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+        margin-bottom: 3px;
+      }
+    }
+
     .hud-value {
       color: #00ffff;
       font-size: 24px;
       font-weight: bold;
       text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    }
+
+    @media (max-width: 480px) {
+      .hud-value {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hud-value {
+        font-size: 16px;
+      }
     }
 
     /* ===== BOARD ===== */
@@ -272,6 +384,13 @@
       -webkit-user-select: none;
     }
 
+    @media (max-width: 480px) {
+      #gameCanvas {
+        border-width: 2px;
+        border-radius: 8px;
+      }
+    }
+
     /* ===== BUTTONS ===== */
     #menuBtn {
       padding: 12px 30px;
@@ -285,6 +404,14 @@
       transition: all 0.3s;
       text-transform: uppercase;
       letter-spacing: 1px;
+    }
+
+    @media (max-width: 480px) {
+      #menuBtn {
+        padding: 10px 25px;
+        font-size: 12px;
+        border-radius: 20px;
+      }
     }
 
     #menuBtn:hover {
@@ -318,6 +445,16 @@
       box-shadow:
         0 0 40px rgba(255, 0, 255, 0.6),
         0 0 80px rgba(255, 0, 255, 0.4);
+      max-width: 90%;
+      width: 400px;
+    }
+
+    @media (max-width: 480px) {
+      #gameOverContent {
+        padding: 30px 20px;
+        border-radius: 15px;
+        width: 90%;
+      }
     }
 
     #gameOverContent h2 {
@@ -329,11 +466,37 @@
         0 0 40px rgba(255, 0, 255, 0.6);
     }
 
+    @media (max-width: 480px) {
+      #gameOverContent h2 {
+        font-size: 36px;
+        margin-bottom: 15px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      #gameOverContent h2 {
+        font-size: 30px;
+      }
+    }
+
     #finalScore {
       color: #00ffff;
       font-size: 36px;
       margin: 20px 0;
       text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    }
+
+    @media (max-width: 480px) {
+      #finalScore {
+        font-size: 28px;
+        margin: 15px 0;
+      }
+    }
+
+    @media (max-width: 360px) {
+      #finalScore {
+        font-size: 24px;
+      }
     }
 
     #restartBtn {
@@ -352,6 +515,14 @@
       letter-spacing: 1px;
     }
 
+    @media (max-width: 480px) {
+      #restartBtn {
+        padding: 12px 30px;
+        font-size: 14px;
+        margin-top: 15px;
+      }
+    }
+
     #restartBtn:hover {
       background: linear-gradient(135deg, #ff33ff, #dd00dd);
       box-shadow: 0 0 30px rgba(255,0,255,0.8);
@@ -368,6 +539,13 @@
       border-radius: 15px;
       overflow: hidden;
       position: relative;
+    }
+
+    @media (max-width: 480px) {
+      #timerContainer {
+        height: 20px;
+        border-radius: 12px;
+      }
     }
 
     #timerBar {
@@ -421,6 +599,23 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     width: 225px;
+    max-width: 90%;
+}
+
+@media (max-width: 480px) {
+  .back-btn {
+    padding: 14px 35px;
+    font-size: 16px;
+    width: 200px;
+  }
+}
+
+@media (max-width: 360px) {
+  .back-btn {
+    padding: 12px 30px;
+    font-size: 14px;
+    width: 180px;
+  }
 }
 
 .back-btn:hover {
@@ -521,7 +716,7 @@
     </div>
 
     <div id="boardContainer">
-      <canvas id="gameCanvas" width="480" height="480"></canvas>
+      <canvas id="gameCanvas"></canvas>
     </div>
 
     <button id="menuBtn">🏠 Menu</button>
@@ -560,7 +755,30 @@ const difficultyOptions = document.getElementById('difficultyOptions');
 
 // ========== GAME CONFIG ==========
 const GRID_SIZE = 8;
-const CELL_SIZE = 60;
+
+// Responsive cell size based on screen width
+function calculateCellSize() {
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  
+  // Calculate available space considering padding and UI elements
+  const horizontalPadding = screenWidth < 480 ? 20 : 40;
+  const verticalSpace = screenHeight < 700 ? screenHeight * 0.55 : screenHeight * 0.65;
+  
+  const maxCanvasWidth = Math.min(screenWidth - horizontalPadding, 600);
+  const maxCanvasHeight = verticalSpace;
+  
+  // Calculate cell size based on the smaller constraint
+  const cellSizeByWidth = Math.floor(maxCanvasWidth / GRID_SIZE);
+  const cellSizeByHeight = Math.floor(maxCanvasHeight / GRID_SIZE);
+  const cellSize = Math.min(cellSizeByWidth, cellSizeByHeight);
+  
+  // Clamp between 35 and 60 pixels
+  return Math.max(35, Math.min(60, cellSize));
+}
+
+let CELL_SIZE = calculateCellSize();
+
 const GEM_TYPES = 5;
 const SPECIAL_GEM_TYPE = 5; // Bomb gem
 const INITIAL_MOVES = 30;
@@ -592,6 +810,29 @@ let isDragging = false;
 let dragStartGem = null;
 let dragCurrentPos = { x: 0, y: 0 };
 let dragOffset = { x: 0, y: 0 };
+
+// ========== CANVAS SETUP ==========
+function initializeCanvas() {
+  CELL_SIZE = calculateCellSize();
+  const canvasSize = GRID_SIZE * CELL_SIZE;
+  canvas.width = canvasSize;
+  canvas.height = canvasSize;
+}
+
+// Initialize canvas size on load
+initializeCanvas();
+
+// Reinitialize on window resize (debounced)
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    if (!animating && board.length > 0) {
+      initializeCanvas();
+      draw();
+    }
+  }, 250);
+});
 
 // ========== BOARD FUNCTIONS ==========
 function createBoard() {
