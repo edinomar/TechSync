@@ -6,7 +6,7 @@ const componentesData = [
         excerpt: "Entenda PCIe 4.0 e 5.0, capacidade ideal, DRAM, aquecimento e um checklist rápido para acertar na compra.",
         category: "guias",
         icon: "💾",
-        img: "/images/SSD-vs-HD.png",
+        img: "/images/guia-ssd-nvme-2026.jpg",
         date: "2026-02-10",
         readTime: "12 min",
         link: "/categories/posts/guias/guia-ssd-nvme-2026.html"
