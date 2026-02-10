@@ -35,12 +35,12 @@ const newsData = [
     },
     {
         id: 4,
-        title: "Blockchain e Criptomoedas: Tendências e Desenvolvimentos em 2025",
+        title: "Blockchain e Criptomoedas: Tendências e Desenvolvimentos em 2026",
         excerpt: "Descubra as principais tendências do mercado de criptomoedas e os avanços da tecnologia blockchain que estão moldando o futuro das finanças digitais.",
         category: "tendencias",
         icon: "💰",
         img:"/images/blockchain-e-criptomoedas.jpg",
-        date: "2025-10-07",
+        date: "2026-01-07",
         readTime: "10 min",
         link:"/categories/posts/noticias/blockchain-e-criptomoedas.html"
     },
@@ -79,12 +79,12 @@ const newsData = [
     },
     {
         id: 8,
-        title: "CES 2025: Realidade Virtual atinge novo patamar",
+        title: "CES 2026: Realidade Virtual atinge novo patamar",
         excerpt: "Feira de tecnologia de Las Vegas showcases dispositivos VR/AR com resolução 8K e haptic feedback avançado.",
         category: "eventos",
         icon: "🥽",
         img:"/images/realidade-virtual.png",
-        date: "2025-09-11",
+        date: "2026-01-10",
         readTime: "11 min",
         link:"/categories/posts/noticias/realidade-virtual.html"
     },
