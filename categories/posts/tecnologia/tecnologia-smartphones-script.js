@@ -150,12 +150,12 @@ const smartphoneData = [
     },
     {
         id: 21,
-        title: "Como escolher o smartphone ideal para você em 2025",
+        title: "Como escolher o smartphone ideal para você em 2026",
         excerpt: "Guia completo para escolher o celular perfeito considerando uso, orçamento e necessidades específicas.",
         category: "tutoriais",
         icon: "🎯",
         img: "/images/como-escolher-seu-celular.png" ,
-        date: "2025-09-09",
+        date: "2026-01-09",
         readTime: "13 min",
         link: "/categories/posts/guias/guia_escolher_smartphone_2025.html"
     },

@@ -90,7 +90,7 @@ const notebookPcData = [
     },
     {
         id: 28,
-        title: "Como limpar e otimizar seu PC para máxima performance",
+        title: "Como limpar e otimizar seu PC para máxima performance [Guia 2026]",
         excerpt: "Tutorial passo a passo para deixar seu computador mais rápido com limpeza física e otimizações de software.",
         category: "tutoriais",
         icon: "🧹",
@@ -134,7 +134,7 @@ const notebookPcData = [
     },
     {
         id: 32,
-        title: "Como escolher a placa de vídeo ideal para seu orçamento",
+        title: "Como escolher a placa de vídeo ideal para seu orçamento [Guia 2026]",
         excerpt: "Guia completo das GPUs disponíveis no mercado brasileiro, desde entrada até high-end, com análise custo-benefício.",
         category: "guias",
         icon: "🎯",
