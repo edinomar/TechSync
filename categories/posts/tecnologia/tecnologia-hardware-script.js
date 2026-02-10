@@ -1,7 +1,18 @@
 
 const componentesData = [
     {
-        id: 3,
+        id: 1,
+        title: "Guia completo: como escolher SSD NVMe em 2026",
+        excerpt: "Entenda PCIe 4.0 e 5.0, capacidade ideal, DRAM, aquecimento e um checklist rápido para acertar na compra.",
+        category: "guias",
+        icon: "💾",
+        img: "/images/SSD-vs-HD.png",
+        date: "2026-02-10",
+        readTime: "12 min",
+        link: "/categories/posts/guias/guia-ssd-nvme-2026.html"
+    },
+    {
+        id: 2,
         title: "DDR5 vs DDR4: Diferença real em jogos e multitarefas",
         excerpt: "Testamos benchmarks em games e aplicações profissionais para medir o salto de performance da nova geração.",
         category: "comparativos",
@@ -12,7 +23,7 @@ const componentesData = [
         link: "/categories/posts/comparativos/ddr_5_vs_ddr_4_comparativo.html"
     },
     {
-        id: 6,
+        id: 3,
         title: "Placas-mãe Z890 vs B860: Qual chipset escolher?",
         excerpt: "Analisamos diferenças entre chipsets topo de linha e intermediários para montar um PC equilibrado.",
         category: "comparativos",
