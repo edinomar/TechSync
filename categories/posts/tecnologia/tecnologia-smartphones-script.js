@@ -1,6 +1,16 @@
 // Dados simulados de smartphones
 const smartphoneData = [
     {
+        id: 23,
+        title: "Android 16 ou celular novo? 7 sinais para decidir sem erro em 2026",
+        excerpt: "Descubra os 7 sinais práticos que mostram se vale esperar atualização ou trocar de smartphone agora sem gastar à toa.",
+        category: "tutoriais",
+        img: "/images/android-16-atualizacao-ou-troca-2026.jpg",
+        date: "2026-02-11",
+        readTime: "12 min",
+        link: "/categories/posts/guias/android-16-atualizacao-ou-troca-2026.html"
+    },
+    {
         id: 1,
         title: "Celular com a melhor bateria em 2026: quais realmente duram o dia todo?",
         excerpt: "Guia completo com análise real de autonomia, comparação de modelos e critérios técnicos para escolher um smartphone que realmente dura",

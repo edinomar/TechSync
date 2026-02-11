@@ -1,6 +1,17 @@
 // Dados simulados de notícias
 const newsData = [
     {
+        id: 12,
+        title: "Android 16 ou celular novo? 7 sinais para decidir sem erro em 2026",
+        excerpt: "Guia direto com sinais objetivos para saber quando atualizar e quando trocar de smartphone sem cair em hype.",
+        category: "guias",
+        icon: "📲",
+        img: "/images/android-16-atualizacao-ou-troca-2026.jpg",
+        date: "2026-02-11",
+        readTime: "12 min",
+        link: "/categories/posts/guias/android-16-atualizacao-ou-troca-2026.html"
+    },
+    {
         id: 1,
         title: "Como escolher o smartphone ideal para você em 2026",
         excerpt: "Guia completo para escolher o celular perfeito considerando uso, orçamento e necessidades específicas.",
