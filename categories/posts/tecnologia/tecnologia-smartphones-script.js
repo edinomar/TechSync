@@ -5,10 +5,20 @@ const smartphoneData = [
         title: "Celular para estudar em 2026: guia pratico para escolher o modelo ideal",
         excerpt: "Guia completo para escolher celular para estudar com foco em bateria, desempenho, suporte de atualizacoes e custo-beneficio real.",
         category: "guias",
-        img: "/images/celular-para-estudar-2026.png",
+        img: "/images/celular-para-estudar-2026.jpg",
         date: "2026-02-13",
         readTime: "10 min",
         link: "/categories/posts/guias/celular-para-estudar-2026.html"
+    },
+        {
+        id: 25,
+        title: "Melhores smartwatches custo-beneficio em 2026: comparativo e qual vale a pena",
+        excerpt: "Guia comercial para comprar melhor, pagar menos e escolher o modelo certo para seu perfil.",
+        category: "guias",
+        img: "/images/melhores-smartwatches-custo-beneficio-2026.png",
+        date: "2026-02-13",
+        readTime: "13 min",
+        link: "/categories/posts/guias/melhores-smartwatches-custo-beneficio-2026.html"
     },
     {
         id: 23,
