@@ -1,12 +1,22 @@
-// Dados simulados de smartphones
+﻿// Dados simulados de smartphones
 const smartphoneData = [
+    {
+        id: 24,
+        title: "Celular para estudar em 2026: guia pratico para escolher o modelo ideal",
+        excerpt: "Guia completo para escolher celular para estudar com foco em bateria, desempenho, suporte de atualizacoes e custo-beneficio real.",
+        category: "guias",
+        img: "/images/celular-para-estudar-2026.png",
+        date: "2026-02-13",
+        readTime: "10 min",
+        link: "/categories/posts/guias/celular-para-estudar-2026.html"
+    },
     {
         id: 23,
         title: "Android 16 ou celular novo? 7 sinais para decidir sem erro em 2026",
         excerpt: "Descubra os 7 sinais práticos que mostram se vale esperar atualização ou trocar de smartphone agora sem gastar à toa.",
         category: "tutoriais",
         img: "/images/android-16-atualizacao-ou-troca-2026.jpg",
-        date: "2026-02-11",
+        date: "2026-02-12",
         readTime: "12 min",
         link: "/categories/posts/guias/android-16-atualizacao-ou-troca-2026.html"
     },
